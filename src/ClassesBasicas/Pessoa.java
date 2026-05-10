@@ -1,14 +1,15 @@
 package ClassesBasicas;
 
+import Dados.InterfaceIdentificavel;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Pessoa {
-    private String nome;
-    private String cpf;
-    private LocalDate dataNascimento;
-    private String telefone;
-    private String email;
+public abstract class Pessoa implements InterfaceIdentificavel {
+    protected String nome;
+    protected String cpf;
+    protected LocalDate dataNascimento;
+    protected String telefone;
+    protected String email;
 
     public Pessoa(String nome, String cpf, LocalDate dataNascimento, String telefone, String email) {
         this.nome = nome;
@@ -60,5 +61,9 @@ public class Pessoa {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getChave() {
+        return cpf; // O CPF é a chave de identificação única para a classe Pessoa
     }
 }

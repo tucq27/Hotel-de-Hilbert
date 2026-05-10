@@ -1,13 +1,16 @@
 package GUI;
 
 import ClassesBasicas.*;
-import java.time.LocalDate;
+import Dados.*;
+
+/*import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.ArrayList;*/
 
 public class Main {
     public static void main(String[] args) {
 
+        /* 
         // inicializando frigobar do quarto
         Item agua = new Item("Água mineral", LocalDate.of(2030, 01, 01), 8.99); //9 real numa água é osso // preço de hotel
 
@@ -45,5 +48,12 @@ public class Main {
 
         h1.checkIn();
         h1.checkOut();
+        */
+
+        Quarto quarto01= new QuartoPadrao("01", 2, 5);
+        RepositorioQuartos hotel= new RepositorioQuartos();
+        hotel.adicionar(quarto01);
+
+        System.out.println("Capacidade do quarto encontrado: " + hotel.buscar("01").getCapacidade());
     }
 }

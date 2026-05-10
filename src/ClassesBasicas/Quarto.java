@@ -1,6 +1,7 @@
 package ClassesBasicas;
+import Dados.InterfaceIdentificavel;
 
-public abstract class Quarto {
+public abstract class Quarto implements InterfaceIdentificavel {
 
     protected String id;
     protected int andar;
@@ -69,5 +70,8 @@ public abstract class Quarto {
         this.frigobar = frigobar;
     }
     
+    public String getChave() {
+        return id; // O id é a chave de identificação única para a classe Quarto
+    }
 
 }   

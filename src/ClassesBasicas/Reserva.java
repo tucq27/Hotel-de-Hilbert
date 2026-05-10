@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Reserva extends Hospedagem {
-
     private LocalDateTime horarioDaReserva;
 
     public Reserva(LocalDateTime horarioDaReserva,

@@ -1,51 +1,47 @@
 package Dados;
 import ClassesBasicas.Quarto;
-import java.util.ArrayList;
 
-public class RepositorioQuartos implements InterfaceRepositorio<Quarto> {
+public class RepositorioQuartos extends RepositorioPadrao<Quarto> {
+    /* 
+    O array list de objetos (generico) instanciado no repositorioPadrao é do tipo Quarto,
+    então não precisamos criar um array list especifico para a classe Quarto
+    */  
 
-    private ArrayList<Quarto> quartos; 
-    
     // construtor
     public RepositorioQuartos() {
-        this.quartos = new ArrayList<Quarto>(10);
-    }
-
-    @Override
-    public Quarto buscar(String id) {
-        for (Quarto quarto : quartos) {
-            if (quarto.getId().equals(id)) {
-                return quarto;
-            }
-        }
-        return null; // Retorna null se o quarto não for encontrado
-    }
-
-    @Override
-    public void adicionar(Quarto quarto) {
-        quartos.add(quarto);
-    }
-       
-    @Override
-    public void remover(Quarto quarto) {
-        quartos.remove(quarto);
+        super();
     }
 
     // metodos de atualizar
-    public void atualizarAndar(Quarto quarto, int novoAndar) {
-        quarto.setAndar(novoAndar);
+    public void atualizarAndar(String id, int novoAndar) {
+        Quarto quarto = buscar(id);
+        if (quarto != null) {
+            quarto.setAndar(novoAndar);
+        }
     }
-    public void atualizarLimpeza(Quarto quarto, boolean limpo) {
-        quarto.setLimpo(limpo);
+    public void atualizarLimpeza(String id, boolean limpo) {
+        Quarto quarto = buscar(id);
+        if (quarto != null) {
+            quarto.setLimpo(limpo);
+        }
     }
-    public void atualizarDisponibilidade(Quarto quarto, boolean livre) {
-        quarto.setLivre(livre);
+    public void atualizarDisponibilidade(String id, boolean livre) {
+        Quarto quarto = buscar(id);
+        if (quarto != null) {
+            quarto.setLivre(livre);
+        }
     }
-    public void atualizarMultTaxa(Quarto quarto, double multTaxa) {
-        quarto.setMultTaxa(multTaxa);
+    public void atualizarMultTaxa(String id, double multTaxa) {
+        Quarto quarto = buscar(id);
+        if (quarto != null) {
+            quarto.setMultTaxa(multTaxa);
+        }
     }
-    public void atualizarCapacidade(Quarto quarto, int capacidade) {
-        quarto.setCapacidade(capacidade);
+    public void atualizarCapacidade(String id, int capacidade) {
+        Quarto quarto = buscar(id);
+        if (quarto != null) {
+            quarto.setCapacidade(capacidade);
+        }
     }
     // id é fixo, não atualizavel
     // frigobar é atualizado por meio de um repositorio proprio
