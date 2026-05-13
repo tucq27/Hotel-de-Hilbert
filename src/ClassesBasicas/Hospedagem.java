@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Hospedagem {
 
     private String id;
-    private static int definirId = 0; 
+    private static int definirId = 0;
 
     private LocalDateTime horarioChegada;
     private LocalDateTime horarioSaida;
@@ -45,7 +45,6 @@ public class Hospedagem {
 
     public void checkIn() {
         if (horarioChegada != null) {
-            System.out.println("Check-in já realizado!");
             return;
         }
 
@@ -54,18 +53,14 @@ public class Hospedagem {
         if (quarto != null) {
             quarto.setLivre(false);
         }
-
-        System.out.println("Check-in realizado!");
     }
 
     public void checkOut() {
         if (horarioChegada == null) {
-            System.out.println("Check-in ainda não foi realizado!");
             return;
         }
 
         if (horarioSaida != null) {
-            System.out.println("Check-out já realizado!");
             return;
         }
 
@@ -76,9 +71,6 @@ public class Hospedagem {
         if (quarto != null) {
             quarto.setLivre(true);
         }
-
-        System.out.println("Check-out realizado!");
-        System.out.println("Duração da estadia: " + periodoDeEstadia.toHours() + " horas");
     }
 
     // Getters e Setters
