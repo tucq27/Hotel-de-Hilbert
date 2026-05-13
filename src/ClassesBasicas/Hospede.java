@@ -29,10 +29,5 @@ public class Hospede extends Pessoa {
     }
 
     public void exibirDados() {
-        System.out.println("Nome: " + getNome());
-        System.out.println("CPF: " + getCpf());
-        System.out.println("Idade: " + calcularIdade());
-        System.out.println("Preferências: " + preferencias);
-        System.out.println("Histórico: " + historico);
     }
 }
