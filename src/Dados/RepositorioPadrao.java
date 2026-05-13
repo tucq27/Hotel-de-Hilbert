@@ -42,4 +42,13 @@ public abstract class RepositorioPadrao<Tipo extends InterfaceIdentificavel> imp
         objetos.remove(objeto);
     }
 
+    @Override
+    public void atualizar(String id, Tipo objeto) {
+        Tipo objetoExistente = buscar(id);
+        if (objetoExistente != null) {
+            int index = objetos.indexOf(objetoExistente);
+            objetos.set(index, objeto);
+        }
+    }
+
 }
