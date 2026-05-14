@@ -16,6 +16,7 @@ import java.util.ArrayList;
 */ 
 public abstract class RepositorioPadrao<Tipo extends InterfaceIdentificavel> implements InterfaceRepositorio<Tipo> {
     protected ArrayList<Tipo> objetos; // lista padrao
+    // uma nova lista é criada para cada repositorio, com seu tipo especifico (Pessoa, Quarto, etc)
 
     // construtor
     public RepositorioPadrao() {
@@ -39,15 +40,23 @@ public abstract class RepositorioPadrao<Tipo extends InterfaceIdentificavel> imp
        
     @Override
     public void remover(Tipo objeto) {
-        objetos.remove(objeto);
+        Tipo objetoExistente = buscar(objeto.getChave());
+        if (objetoExistente != null) {
+            objetos.remove(objetoExistente);
+        } else {
+            // exceção: objeto não encontrado
+        }
+        
     }
 
     @Override
     public void atualizar(String id, Tipo objeto) {
         Tipo objetoExistente = buscar(id);
         if (objetoExistente != null) {
-            int index = objetos.indexOf(objetoExistente);
-            objetos.set(index, objeto);
+            int indice = objetos.indexOf(objetoExistente);
+            objetos.set(indice, objeto);
+        } else {
+            // exceção: objeto não encontrado
         }
     }
 

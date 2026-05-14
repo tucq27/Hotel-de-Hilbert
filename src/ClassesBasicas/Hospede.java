@@ -28,6 +28,4 @@ public class Hospede extends Pessoa {
         this.historico = historico;
     }
 
-    public void exibirDados() {
-    }
 }
