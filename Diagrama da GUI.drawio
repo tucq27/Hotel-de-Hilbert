@@ -1,0 +1,178 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.5.2 Safari/537.36" version="29.6.1">
+  <diagram name="Page-1" id="Bthulr4LLmLkKMWOBkk3">
+    <mxGraphModel dx="2276" dy="840" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-1" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela principal de login" vertex="1">
+          <mxGeometry height="60" width="120" x="380" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-2" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela do usuário" vertex="1">
+          <mxGeometry height="60" width="120" x="100" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-3" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de Administrador" vertex="1">
+          <mxGeometry height="60" width="120" x="650" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-4" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de administrar quartos" vertex="1">
+          <mxGeometry height="60" width="120" x="1050" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-5" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de adicionar quartos" vertex="1">
+          <mxGeometry height="60" width="120" x="1000" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-6" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de cadastrar pessoa" vertex="1">
+          <mxGeometry height="60" width="120" x="650" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-7" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de quartos disponíveis" vertex="1">
+          <mxGeometry height="60" width="120" x="-30" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-8" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de cadastrar usuário" vertex="1">
+          <mxGeometry height="60" width="120" x="550" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-9" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de realizar hospedagem" vertex="1">
+          <mxGeometry height="60" width="120" x="400" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-10" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de realizar reserva" vertex="1">
+          <mxGeometry height="60" width="120" x="-30" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-11" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de administrar hospedagens" vertex="1">
+          <mxGeometry height="60" width="120" x="470" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-12" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de atualizar hospedagem" vertex="1">
+          <mxGeometry height="60" width="120" x="560" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-13" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de atualizar hospedagens" vertex="1">
+          <mxGeometry height="60" width="120" x="210" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-16" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-8" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-1" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="100" y="380" as="sourcePoint" />
+            <mxPoint x="150" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-19" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-1" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-3" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="220" y="300" as="sourcePoint" />
+            <mxPoint x="270" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-20" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-2" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-13" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="320" y="280" as="sourcePoint" />
+            <mxPoint x="370" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-21" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-2" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-7" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="300" y="120" as="sourcePoint" />
+            <mxPoint x="350" y="70" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-22" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-7" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-10" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="610" y="240" as="sourcePoint" />
+            <mxPoint x="660" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-23" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-3" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-4" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-25" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-3" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-6" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="290" y="460" as="sourcePoint" />
+            <mxPoint x="340" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-26" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-11" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-3" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="240" y="510" as="sourcePoint" />
+            <mxPoint x="290" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-28" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-4" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-5" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="790" y="320" as="sourcePoint" />
+            <mxPoint x="840" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-29" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de atualizar frigobar" vertex="1">
+          <mxGeometry height="60" width="120" x="1170" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-30" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-4" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-29" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="840" y="580" as="sourcePoint" />
+            <mxPoint x="890" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-31" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-11" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-12" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="460" y="700" as="sourcePoint" />
+            <mxPoint x="510" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-32" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-11" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-9" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="530" y="540" as="sourcePoint" />
+            <mxPoint x="580" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-33" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de pedir serviço de quarto" vertex="1">
+          <mxGeometry height="60" width="120" x="120" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-34" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de comprar item do frigobar" vertex="1">
+          <mxGeometry height="60" width="120" x="280" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-35" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-13" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-33" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-200" y="400" as="sourcePoint" />
+            <mxPoint x="-150" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-36" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-13" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-34" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="550" y="300" as="sourcePoint" />
+            <mxPoint x="600" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-37" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-2" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-1" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="260" y="130" as="sourcePoint" />
+            <mxPoint x="310" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gG7WjYKt3nHagz-B7U8L-38" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-5" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-29" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1040" y="540" as="sourcePoint" />
+            <mxPoint x="1090" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3vdIV4iKRIQwEFF6b2Tf-1" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de cadastrar funcionário" vertex="1">
+          <mxGeometry height="60" width="120" x="740" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="3vdIV4iKRIQwEFF6b2Tf-2" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Tela de administrar funcionários" vertex="1">
+          <mxGeometry height="60" width="120" x="820" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="3vdIV4iKRIQwEFF6b2Tf-3" edge="1" parent="1" source="3vdIV4iKRIQwEFF6b2Tf-1" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="gG7WjYKt3nHagz-B7U8L-6" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="910" y="490" as="sourcePoint" />
+            <mxPoint x="960" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3vdIV4iKRIQwEFF6b2Tf-4" edge="1" parent="1" source="3vdIV4iKRIQwEFF6b2Tf-1" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="3vdIV4iKRIQwEFF6b2Tf-2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="890" y="460" as="sourcePoint" />
+            <mxPoint x="940" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3vdIV4iKRIQwEFF6b2Tf-5" edge="1" parent="1" source="gG7WjYKt3nHagz-B7U8L-3" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" target="3vdIV4iKRIQwEFF6b2Tf-2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="750" y="240" as="sourcePoint" />
+            <mxPoint x="820" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
