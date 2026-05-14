@@ -1,6 +1,8 @@
 package ClassesBasicas;
+import Dados.InterfaceIdentificavel;
 
-public class Servico{
+public class Servico implements InterfaceIdentificavel {
+    private String id;
     private String descricao;
     private Funcionario funcionario;
 
@@ -28,6 +30,9 @@ public class Servico{
     public Funcionario getFuncionario() {
         return funcionario;
     }
+    public String getId() {
+        return id;
+    }
 
     // Setters
     public void setDescricao(String descricao) {
@@ -35,5 +40,12 @@ public class Servico{
     }
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getChave() {
+        return id;
     }
 }

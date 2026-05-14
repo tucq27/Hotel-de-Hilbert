@@ -51,7 +51,7 @@ public class Main {
         */
 
         Quarto quarto01= new QuartoPadrao("01", 2, 5);
-        RepositorioQuartos hotel= new RepositorioQuartos();
+        RepositorioQuartos hotel= new RepositorioQuartoPadrao();
         hotel.adicionar(quarto01);
 
         System.out.println("Capacidade do quarto encontrado: " + hotel.buscar("01").getCapacidade());

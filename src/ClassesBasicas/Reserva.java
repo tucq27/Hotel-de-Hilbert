@@ -60,4 +60,8 @@ public class Reserva extends Hospedagem {
     public void setHorarioDaReserva(LocalDateTime horarioDaReserva) {
         this.horarioDaReserva = horarioDaReserva;
     }
+
+    public String getChave() {
+        return this.getId();
+    }
 }

@@ -1,10 +1,11 @@
 package ClassesBasicas;
 
+import Dados.InterfaceIdentificavel;
 import java.time.LocalDateTime;
 import java.time.Duration;
 import java.util.ArrayList;
 
-public class Hospedagem {
+public class Hospedagem implements InterfaceIdentificavel{
 
     private String id;
     private static int definirId = 0;
@@ -138,5 +139,9 @@ public class Hospedagem {
 
     protected void setHorarioChegada(LocalDateTime horarioChegada) {
         this.horarioChegada = horarioChegada;
+    }
+
+    public String getChave() {
+        return id;
     }
 }
