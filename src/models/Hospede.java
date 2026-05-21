@@ -1,4 +1,4 @@
-package ClassesBasicas;
+package models;
 
 // Classe Hospede herda atributos e métodos da classe Pessoa
 public class Hospede extends Pessoa {

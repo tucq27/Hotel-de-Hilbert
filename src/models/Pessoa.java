@@ -1,8 +1,9 @@
-package ClassesBasicas;
+package models;
 
-import Dados.InterfaceIdentificavel;
 import java.time.LocalDate;
 import java.time.Period;
+
+import dados.InterfaceIdentificavel;
 
 public abstract class Pessoa implements InterfaceIdentificavel {
     protected String nome;

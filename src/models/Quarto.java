@@ -1,5 +1,5 @@
-package ClassesBasicas;
-import Dados.InterfaceIdentificavel;
+package models;
+import dados.InterfaceIdentificavel;
 
 public abstract class Quarto implements InterfaceIdentificavel {
 

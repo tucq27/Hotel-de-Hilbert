@@ -1,6 +1,6 @@
-package Dados;
+package dados;
 
-import ClassesBasicas.QuartoPresidencial;
+import models.QuartoPresidencial;
 
 public class RepositorioQuartoPresidencial extends RepositorioPadrao<QuartoPresidencial> {
 

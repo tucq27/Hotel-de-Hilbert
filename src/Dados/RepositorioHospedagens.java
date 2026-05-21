@@ -1,5 +1,5 @@
-package Dados;
-import ClassesBasicas.Hospedagem;
+package dados;
+import models.Hospedagem;
 
 public class RepositorioHospedagens extends RepositorioPadrao<Hospedagem> {
 

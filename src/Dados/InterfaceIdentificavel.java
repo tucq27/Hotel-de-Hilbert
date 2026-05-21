@@ -1,4 +1,4 @@
-package Dados;
+package dados;
 
 public interface InterfaceIdentificavel {
     String getChave(); // método para obter a chave de identificação do objeto

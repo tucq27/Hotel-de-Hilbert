@@ -1,5 +1,5 @@
-package ClassesBasicas;
-import Dados.RepositorioItensFrigobar;
+package models;
+import dados.RepositorioItensFrigobar;
 
 //Temos que lembrar de criar uma função pra reconhecer quando um item foi comprado
 public class Frigobar {

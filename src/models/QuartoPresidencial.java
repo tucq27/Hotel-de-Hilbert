@@ -1,4 +1,4 @@
-package ClassesBasicas;
+package models;
 
 public class QuartoPresidencial extends Quarto {
 

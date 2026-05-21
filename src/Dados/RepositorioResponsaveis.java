@@ -1,5 +1,5 @@
-package Dados;
-import ClassesBasicas.Responsavel;
+package dados;
+import models.Responsavel;
 
 public class RepositorioResponsaveis extends RepositorioPadrao<Responsavel> {
 

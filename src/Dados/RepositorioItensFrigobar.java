@@ -1,7 +1,8 @@
-package Dados;
+package dados;
 
-import ClassesBasicas.ItemFrigobar;
 import java.util.ArrayList;
+
+import models.ItemFrigobar;
 
 /*
     Repositorio que registra todos os itens de um frigobar especifico

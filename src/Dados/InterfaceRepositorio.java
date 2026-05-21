@@ -1,4 +1,4 @@
-package Dados;
+package dados;
 
 public interface InterfaceRepositorio<Tipo> {
     Tipo buscar(String id); // busca um objeto no repositorio (array list) a partir de um id (string)

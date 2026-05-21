@@ -1,5 +1,5 @@
-package ClassesBasicas;
-import Dados.InterfaceIdentificavel;
+package models;
+import dados.InterfaceIdentificavel;
 
 public class Servico implements InterfaceIdentificavel {
     private String id;

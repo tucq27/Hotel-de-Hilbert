@@ -1,5 +1,5 @@
-package Dados;
-import ClassesBasicas.Item;
+package dados;
+import models.Item;
 
 public class RepositorioItens extends RepositorioPadrao<Item> {
 

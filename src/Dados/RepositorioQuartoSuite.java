@@ -1,6 +1,6 @@
-package Dados;
+package dados;
 
-import ClassesBasicas.QuartoSuite;
+import models.QuartoSuite;
 
 public class RepositorioQuartoSuite extends RepositorioPadrao<QuartoSuite> {
 

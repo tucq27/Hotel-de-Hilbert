@@ -1,10 +1,11 @@
-package ClassesBasicas;
+package models;
 
-import Dados.InterfaceIdentificavel;
 import java.time.LocalDateTime;
 //import java.time.LocalDate;
 import java.time.Duration;
 import java.util.ArrayList;
+
+import dados.InterfaceIdentificavel;
 
 // Classe responsável por representar uma hospedagem no hotel
 public class Hospedagem implements InterfaceIdentificavel {

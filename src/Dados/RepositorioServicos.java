@@ -1,6 +1,6 @@
-package Dados;
+package dados;
 
-import ClassesBasicas.Servico;
+import models.Servico;
 
 public class RepositorioServicos extends RepositorioPadrao<Servico> {
 

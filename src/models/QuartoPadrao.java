@@ -1,4 +1,4 @@
-package ClassesBasicas;
+package models;
 
 public class QuartoPadrao extends Quarto {
 

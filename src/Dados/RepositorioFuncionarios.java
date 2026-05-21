@@ -1,5 +1,5 @@
-package Dados;
-import ClassesBasicas.Funcionario;
+package dados;
+import models.Funcionario;
 
 public class RepositorioFuncionarios extends RepositorioPadrao<Funcionario> {
 
