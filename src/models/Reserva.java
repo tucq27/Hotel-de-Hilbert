@@ -23,7 +23,7 @@ public class Reserva extends Hospedagem {
         this.horarioDaReserva = horarioDaReserva;
 
         // Verifica se o quarto existe e está disponível
-        if (quarto == null || !quarto.isLivre()) {
+        if (quarto == null || !(quarto.getStatus()== StatusQuarto.DISPONIVEL)) {
             throw new IllegalStateException("Quarto indisponível para reserva!");
         }
 
@@ -65,7 +65,7 @@ public class Reserva extends Hospedagem {
         }
 
         // Verifica se o quarto ainda está livre
-        if (!getQuarto().isLivre()) {
+        if (!(getQuarto().getStatus() == StatusQuarto.DISPONIVEL)) {
             throw new IllegalStateException("Quarto ocupado!");
         }
 
@@ -73,7 +73,7 @@ public class Reserva extends Hospedagem {
         setHorarioChegada(LocalDateTime.now());
 
         // Marca o quarto como ocupado
-        getQuarto().setLivre(false);
+        getQuarto().setStatus(StatusQuarto.OCUPADO);
 
         // Mensagem de confirmação
         System.out.println("Reserva confirmada e check-in realizado!");

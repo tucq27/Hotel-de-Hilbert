@@ -52,7 +52,7 @@ public class Hospedagem implements IIdentificavel {
 
         // Ocupa o quarto ao iniciar hospedagem
         if (quarto != null) {
-            quarto.setLivre(false);
+            quarto.setStatus(StatusQuarto.OCUPADO);
         }
     }
 
@@ -69,7 +69,7 @@ public class Hospedagem implements IIdentificavel {
 
         // Marca o quarto como ocupado
         if (quarto != null) {
-            quarto.setLivre(false);
+            quarto.setStatus(StatusQuarto.OCUPADO);
         }
     }
 
@@ -93,9 +93,9 @@ public class Hospedagem implements IIdentificavel {
         periodoDeEstadia =
             Duration.between(horarioChegada, horarioSaida);
 
-        // Libera o quarto
+        // Libera o quarto, mas ele fica sujo
         if (quarto != null) {
-            quarto.setLivre(true);
+            quarto.setStatus(StatusQuarto.SUJO);
         }
     }
 

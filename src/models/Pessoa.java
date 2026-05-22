@@ -20,6 +20,12 @@ public abstract class Pessoa implements IIdentificavel {
         this.email = email;
     }
 
+    public Pessoa(String nome, String cpf, LocalDate dataNascimento) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
+    }
+
     public int calcularIdade() {
         return Period.between(dataNascimento, LocalDate.now()).getYears();
     }

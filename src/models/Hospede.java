@@ -1,25 +1,22 @@
 package models;
 
-// Classe Hospede herda atributos e métodos da classe Pessoa
 public class Hospede extends Pessoa {
 
     private String preferencias; // Preferências do hóspede ( Ex: quarto com varanda, cama de casal, etc)
     private String historico; // Pode guardar informações sobre hospedagens anteriores
+    private RestricaoHospede restricao= RestricaoHospede.DISPONIVEL; //caso o Hospede tenha historico ruim ele será PROIBIDO
 
-    // Construtor da classe Hospede
-    public Hospede(String nome, String cpf, java.time.LocalDate dataNascimento,
-                   String telefone, String email,
-                   String preferencias, String historico) {
-
-        // Chama o construtor da classe Pessoa
-        // para inicializar os dados básicos
+    // Construtor
+     public Hospede(String nome, String cpf, java.time.LocalDate dataNascimento) {
+        super(nome, cpf, dataNascimento);
+    }
+    public Hospede(String nome, String cpf, java.time.LocalDate dataNascimento, String telefone, String email, String preferencias, String historico) {
         super(nome, cpf, dataNascimento, telefone, email);
-
-        // Inicializa os atributos específicos de Hospede
         this.preferencias = preferencias;
         this.historico = historico;
     }
 
+    // Geters e Setters
     public String getPreferencias() {
         return preferencias;
     }
@@ -33,5 +30,10 @@ public class Hospede extends Pessoa {
     public void setHistorico(String historico) {
         this.historico = historico;
     }
-
+    public RestricaoHospede getRestricao() {
+        return restricao;
+    }
+    public void setRestricao(RestricaoHospede restricao) {
+        this.restricao = restricao;
+    }
 }

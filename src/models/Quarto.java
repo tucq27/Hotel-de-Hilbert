@@ -5,8 +5,7 @@ public abstract class Quarto implements IIdentificavel {
 
     protected String id;
     protected int andar;
-    protected boolean limpo = true;
-    protected boolean livre = true;
+    protected StatusQuarto status= StatusQuarto.DISPONIVEL;
     protected double multTaxa; //Multiplicador de taxa de acordo com o tipo de quarto
     protected static double multTemporada;
     protected int capacidade;
@@ -28,18 +27,12 @@ public abstract class Quarto implements IIdentificavel {
         this.frigobar = frigobar;
     }
 
-    // Getters
+    // Getters e Setters
     public String getId() {
         return id;
     }
     public int getAndar() {
         return andar;
-    }
-    public boolean isLimpo() {
-        return limpo;
-    }
-    public boolean isLivre() {
-        return livre;
     }
     public double getMultTaxa() {
         return multTaxa;
@@ -53,16 +46,13 @@ public abstract class Quarto implements IIdentificavel {
     public Frigobar getFrigobar() {
         return frigobar;
     }
+    public StatusQuarto getStatus() {
+        return status;
+    }
 
-    // Setters
+
     public void setAndar(int andar) {
         this.andar = andar;
-    }
-    public void setLimpo(boolean limpo) {
-        this.limpo = limpo;
-    }
-    public void setLivre(boolean livre) {
-        this.livre = livre;
     }
     public void setMultTaxa(double multTaxa) {
         this.multTaxa = multTaxa;
@@ -76,7 +66,10 @@ public abstract class Quarto implements IIdentificavel {
     public void setFrigobar(Frigobar frigobar) {
         this.frigobar = frigobar;
     }
-    
+    public void setStatus(StatusQuarto status) {
+        this.status = status;
+    }
+
     public String getChave() {
         return id; // O id é a chave de identificação única para a classe Quarto
     }

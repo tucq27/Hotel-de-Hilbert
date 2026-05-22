@@ -7,8 +7,11 @@ public class Funcionario extends Pessoa {
     private boolean ocupado = false; // por padrão, funcionario está disponivel
 
     // Construtor
-    public Funcionario(String nome, String cpf, LocalDate dataNascimento,
-                       String telefone, String email, String cargo) {
+    public Funcionario(String nome, String cpf, LocalDate dataNascimento, String cargo) {
+        super(nome, cpf, dataNascimento);
+        this.cargo = cargo;
+    }
+    public Funcionario(String nome, String cpf, LocalDate dataNascimento, String telefone, String email, String cargo) {
         super(nome, cpf, dataNascimento, telefone, email);
         this.cargo = cargo;
     }
