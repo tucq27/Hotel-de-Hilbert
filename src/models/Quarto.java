@@ -1,7 +1,7 @@
 package models;
-import dados.InterfaceIdentificavel;
+import dados.IIdentificavel;
 
-public abstract class Quarto implements InterfaceIdentificavel {
+public abstract class Quarto implements IIdentificavel {
 
     protected String id;
     protected int andar;

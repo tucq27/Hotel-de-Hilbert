@@ -14,12 +14,12 @@ import java.util.ArrayList;
     Por fim, o trecho implements InterfaceRepositorio<Tipo> indica que a classe reositorioPadrao
     implementa a interface InterfaceRepositorio, que tem os metodos buscar, adicionar e remover.
 */ 
-public abstract class RepositorioPadrao<Tipo extends InterfaceIdentificavel> implements InterfaceRepositorio<Tipo> {
+public abstract class Repositorio<Tipo extends IIdentificavel> implements IRepositorio<Tipo> {
     protected ArrayList<Tipo> objetos; // lista padrao
     // uma nova lista é criada para cada repositorio, com seu tipo especifico (Pessoa, Quarto, etc)
 
     // construtor
-    public RepositorioPadrao() {
+    public Repositorio() {
         this.objetos = new ArrayList<Tipo>(10);
     }
 

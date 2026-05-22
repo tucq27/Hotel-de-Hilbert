@@ -3,9 +3,9 @@ package models;
 import java.time.LocalDate;
 import java.time.Period;
 
-import dados.InterfaceIdentificavel;
+import dados.IIdentificavel;
 
-public abstract class Pessoa implements InterfaceIdentificavel {
+public abstract class Pessoa implements IIdentificavel {
     protected String nome;
     protected String cpf;
     protected LocalDate dataNascimento;

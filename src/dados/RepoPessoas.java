@@ -2,10 +2,10 @@ package dados;
 import models.Pessoa;
 
 // avaliar depois se um repositorio de pessoas (todas as pessoas do hotel) é necessario
-public class RepositorioPessoas extends RepositorioPadrao<Pessoa> {
+public class RepoPessoas extends Repositorio<Pessoa> {
 
     // construtor
-    public RepositorioPessoas() {
+    public RepoPessoas() {
         super();
     }
     

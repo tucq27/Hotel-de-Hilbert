@@ -2,10 +2,10 @@ package dados;
 
 import models.QuartoPadrao;
 
-public class RepositorioQuartoPadrao extends RepositorioPadrao<QuartoPadrao> {
+public class RepoQuartoPadrao extends Repositorio<QuartoPadrao> {
 
     // construtor
-    public RepositorioQuartoPadrao() {
+    public RepoQuartoPadrao() {
         super();
     }
 

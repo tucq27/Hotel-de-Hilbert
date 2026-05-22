@@ -1,6 +1,6 @@
 package dados;
 
-public interface InterfaceRepositorio<Tipo> {
+public interface IRepositorio<Tipo> {
     Tipo buscar(String id); // busca um objeto no repositorio (array list) a partir de um id (string)
     void adicionar(Tipo objeto); // adiciona um objeto ao repositorio (array list)
     void remover(Tipo objeto); // remove um objeto do repositorio (array list)

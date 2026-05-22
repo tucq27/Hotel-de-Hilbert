@@ -2,9 +2,9 @@ package models;
 
 import java.time.LocalDate;
 
-import dados.InterfaceIdentificavel;
+import dados.IIdentificavel;
 
-public class Item implements InterfaceIdentificavel {
+public class Item implements IIdentificavel {
 
     protected String id;
     protected String nome;

@@ -1,6 +1,6 @@
 package dados;
 
-public interface InterfaceIdentificavel {
+public interface IIdentificavel {
     String getChave(); // método para obter a chave de identificação do objeto
 
     /*  

@@ -1,7 +1,7 @@
 package models;
-import dados.InterfaceIdentificavel;
+import dados.IIdentificavel;
 
-public class Servico implements InterfaceIdentificavel {
+public class Servico implements IIdentificavel {
     private String id;
     private String descricao;
     private Funcionario funcionario;

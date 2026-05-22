@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 import java.time.Duration;
 import java.util.ArrayList;
 
-import dados.InterfaceIdentificavel;
+import dados.IIdentificavel;
 
 // Classe responsável por representar uma hospedagem no hotel
-public class Hospedagem implements InterfaceIdentificavel {
+public class Hospedagem implements IIdentificavel {
 
     // MIGRAR HOSPEDAGEM PARA RESERVA
 
