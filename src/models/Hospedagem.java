@@ -19,21 +19,12 @@ public class Hospedagem implements IIdentificavel {
     //private LocalDate inicio;
     //private LocalDate fim;
 
-    // Identificador único da hospedagem
     private String id;
-
-    // Contador usado para gerar IDs automaticamente
-    private static int definirId = 0;
-
-    // Horários de entrada e saída
-    private LocalDateTime horarioChegada;
+    private static int definirId = 0; // Contador usado para gerar IDs automaticamente
+    private LocalDateTime horarioChegada; // Horários de entrada e saída
     private LocalDateTime horarioSaida;
-
-    // Tempo total da hospedagem
-    private Duration periodoDeEstadia;
-
-    // Dados relacionados à hospedagem
-    private Responsavel responsavel;
+    private Duration periodoDeEstadia; // Tempo total da hospedagem
+    private Responsavel responsavel; 
     private ArrayList<Hospede> hospedes;
     private Quarto quarto;
 
