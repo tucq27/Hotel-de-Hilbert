@@ -3,11 +3,13 @@ package models;
 import java.util.ArrayList;
 
 public class ContaHospedagem {
+    private String id;
     private Responsavel responsavel;
     private double dividaTotal;
     private ArrayList<Recibo> recibos;
 
-    public ContaHospedagem(Responsavel responsavel){
+    public ContaHospedagem(String id, Responsavel responsavel){
+        this.id= id;
         this.responsavel= responsavel;
         this.dividaTotal= 0;
         this.recibos= new ArrayList<Recibo>(10);
@@ -36,6 +38,14 @@ public class ContaHospedagem {
 
     public void setRecibos(ArrayList<Recibo> recibos) {
         this.recibos = recibos;
+    }
+    
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     // metodos adicionais
