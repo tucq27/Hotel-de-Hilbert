@@ -1,66 +1,72 @@
 package models;
 
+import Dados.InterfaceIdentificavel;
 import java.time.LocalDateTime;
-//import java.time.LocalDate;
+import java.time.LocalDate;
 import java.time.Duration;
 import java.util.ArrayList;
 
-import dados.IIdentificavel;
-
 // Classe responsável por representar uma hospedagem no hotel
-public class Hospedagem implements IIdentificavel {
+public class Hospedagem implements InterfaceIdentificavel {
 
     // MIGRAR HOSPEDAGEM PARA RESERVA
-    /* 
-    
-    // Armazena o horário em que a reserva foi feita
-    private LocalDateTime horarioDaReserva;
 
-    // Horários de entrada e saída
-    private LocalDate inicio;
-    private LocalDate fim;
+        // Armazena o horário em que a reserva foi feita
+    //private LocalDateTime horarioDaReserva;
 
-    // void confirmarReserva() != checkIn()
-    //  ( quarto != null && status == StatusQuarto.DISPONIVEL)
+    private LocalDate horarioEntrada;
+    private LocalDate horarioSaida;
 
-    boolean verificarHospede (String nome, String cpf, LocalDate dataNascimento) {}
-    */
+    private LocalDateTime horarioCheckIn;
+    private LocalDateTime horarioCheckOut;
     private String id;
-    private LocalDateTime horarioChegada; // Horários de entrada e saída
-    private LocalDateTime horarioSaida;
-    private Duration periodoDeEstadia; // Tempo total da hospedagem
-    private Responsavel responsavel; 
+
+    // Contador usado para gerar IDs automaticamente
+    private static int definirId = 0;
+
+    private Duration periodoDeEstadia;
+
+    private Responsavel responsavel;
     private ArrayList<Hospede> hospedes;
     private Quarto quarto;
 
-    // Construtor vazio usado por subclasses, como Reserva
-    protected Hospedagem() {
-        
+    // método privado para apenas gerar ID único
+    private gerarId() {
+        definirId++;
+        this.id = String.valueOf(definirId);
     }
 
-    // Construtor principal da hospedagem
-    public Hospedagem(LocalDateTime horarioChegada,
-                      Responsavel responsavel,
+    //Talvez seja importante jogar mais erros!
+    public Hospedagem(Responsavel responsavel,
                       ArrayList<Hospede> hospedes,
-                      Quarto quarto) {
+                      Quarto quarto,
+                      LocalDate horarioEntrada,
+                      LocalDate horarioSaida) {
 
-        // Inicializa os dados da hospedagem
-        this.horarioChegada = horarioChegada;
+
+        if (quarto == null || !quarto.isLivre() || !quarto.isLimpo()) {
+            throw new IllegalStateException("Quarto indisponível para reserva!");
+        }
+
+        if (hospedes.size() > quarto.capacidade()) {
+            throw new IllegalStateException("Limite de hóspedes excedido para o quarto!");
+        }
+
+        gerarId();
         this.responsavel = responsavel;
         this.hospedes = hospedes;
         this.quarto = quarto;
+        this.horarioEntrada = horarioEntrada;
+        this.horarioSaida = horarioSaida;
 
-        // Ocupa o quarto ao iniciar hospedagem
-        if (quarto != null) {
-            quarto.setStatus(StatusQuarto.OCUPADO);
-        }
+        quarto.setLivre(false);
+
     }
 
-    // Realiza o check-in
     public void checkIn() {
 
         // Impede check-in duplicado
-        if (horarioChegada != null) {
+        if (horarioCheckIn != null) {
             return;
         }
 
@@ -69,11 +75,10 @@ public class Hospedagem implements IIdentificavel {
 
         // Marca o quarto como ocupado
         if (quarto != null) {
-            quarto.setStatus(StatusQuarto.OCUPADO);
+            quarto.setLivre(false);
         }
     }
 
-    // Realiza o check-out
     public void checkOut() {
 
         // Só permite check-out se houver check-in
@@ -82,34 +87,31 @@ public class Hospedagem implements IIdentificavel {
         }
 
         // Impede múltiplos check-outs
-        if (horarioSaida != null) {
+        if (horarioCheckOut != null) {
             return;
         }
 
         // Registra horário de saída
-        horarioSaida = LocalDateTime.now();
+        horarioCheckOut = LocalDateTime.now();
 
         // Calcula duração da hospedagem
         periodoDeEstadia =
-            Duration.between(horarioChegada, horarioSaida);
+            Duration.between(horarioChegada, horarioCheckOut);
 
-        // Libera o quarto, mas ele fica sujo
+        // Libera o quarto
         if (quarto != null) {
-            quarto.setStatus(StatusQuarto.SUJO);
+            quarto.setLivre(true);
         }
     }
 
-    // Verifica se o check-in foi realizado
     public boolean verCheckIn() {
         return horarioChegada != null;
     }
 
-    // Verifica se o check-out foi realizado
     public boolean verCheckOut() {
-        return horarioSaida != null;
+        return horarioCheckOut != null;
     }
 
-    // Aumenta o tempo da estadia
     public void aumentarEstadia(long horas) {
 
         // Cria ou adiciona horas ao período
@@ -120,7 +122,6 @@ public class Hospedagem implements IIdentificavel {
         }
     }
 
-    // Diminui o tempo da estadia
     public void diminuirEstadia(long horas) {
 
         // Remove horas do período
@@ -129,56 +130,49 @@ public class Hospedagem implements IIdentificavel {
         }
     }
 
-    // Retorna o ID da hospedagem
     public String getId() {
         return id;
     }
 
-    // Retorna horário de chegada
     public LocalDateTime getHorarioChegada() {
         return horarioChegada;
     }
 
-    // Retorna horário de saída
-    public LocalDateTime getHorarioSaida() {
-        return horarioSaida;
+    public LocalDateTime getHorarioCheckOut() {
+        return horarioCheckOut;
     }
 
-    // Retorna duração da hospedagem
     public Duration getPeriodoDeEstadia() {
         return periodoDeEstadia;
     }
 
-    // Retorna responsável pela hospedagem
     public Responsavel getResponsavel() {
         return responsavel;
     }
 
-    // Retorna lista de hóspedes
     public ArrayList<Hospede> getHospedes() {
         return hospedes;
     }
 
-    // Retorna quarto associado
     public Quarto getQuarto() {
         return quarto;
     }
 
     // Métodos protegidos para alteração interna dos dados
-    protected void setResponsavel(Responsavel responsavel) {
+    private void setResponsavel(Responsavel responsavel) {
         this.responsavel = responsavel;
     }
 
-    protected void setHospedes(ArrayList<Hospede> hospedes) {
+    private void setHospedes(ArrayList<Hospede> hospedes) {
         this.hospedes = hospedes;
     }
 
-    protected void setQuarto(Quarto quarto) {
+    private void setQuarto(Quarto quarto) {
         this.quarto = quarto;
     }
 
-    protected void setHorarioChegada(LocalDateTime horarioChegada) {
-        this.horarioChegada = horarioChegada;
+    private void setHorarioCheckIn(LocalDateTime horarioCheckIn) {
+        this.horarioCheckIn = horarioCheckIn;
     }
 
     // Método exigido pela interface
