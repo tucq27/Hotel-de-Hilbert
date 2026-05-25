@@ -11,16 +11,21 @@ import dados.IIdentificavel;
 public class Hospedagem implements IIdentificavel {
 
     // MIGRAR HOSPEDAGEM PARA RESERVA
+    /* 
+    
+    // Armazena o horário em que a reserva foi feita
+    private LocalDateTime horarioDaReserva;
 
-        // Armazena o horário em que a reserva foi feita
-    //private LocalDateTime horarioDaReserva;
+    // Horários de entrada e saída
+    private LocalDate inicio;
+    private LocalDate fim;
 
-        // Horários de entrada e saída
-    //private LocalDate inicio;
-    //private LocalDate fim;
+    // void confirmarReserva() != checkIn()
+    //  ( quarto != null && status == StatusQuarto.DISPONIVEL)
 
+    boolean verificarHospede (String nome, String cpf, LocalDate dataNascimento) {}
+    */
     private String id;
-    private static int definirId = 0; // Contador usado para gerar IDs automaticamente
     private LocalDateTime horarioChegada; // Horários de entrada e saída
     private LocalDateTime horarioSaida;
     private Duration periodoDeEstadia; // Tempo total da hospedagem
@@ -30,8 +35,7 @@ public class Hospedagem implements IIdentificavel {
 
     // Construtor vazio usado por subclasses, como Reserva
     protected Hospedagem() {
-        definirId++;
-        this.id = String.valueOf(definirId);
+        
     }
 
     // Construtor principal da hospedagem
@@ -39,10 +43,6 @@ public class Hospedagem implements IIdentificavel {
                       Responsavel responsavel,
                       ArrayList<Hospede> hospedes,
                       Quarto quarto) {
-
-        // Gera ID automaticamente
-        definirId++;
-        this.id = String.valueOf(definirId);
 
         // Inicializa os dados da hospedagem
         this.horarioChegada = horarioChegada;
