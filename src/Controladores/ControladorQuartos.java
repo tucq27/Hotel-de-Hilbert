@@ -1,11 +1,12 @@
 package Controladores;
-import Dados.InterfaceRepositorio;
-import Dados.RepositorioPadrao;
-import ClassesBasicas.Quarto;
+import dados.IRepositorio;
+import dados.RepoQuartos;
+import dados.Repositorio;
+import models.Quarto;
 
 public class ControladorQuartos {
 
-    static private InterfaceRepositorio<Quarto> repositorioQuartos;
+    static private RepoQuartos repositorioQuartos;
 
     public ControladorQuartos() {
 

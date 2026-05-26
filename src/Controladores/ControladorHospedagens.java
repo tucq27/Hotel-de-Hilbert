@@ -1,12 +1,12 @@
 package Controladores;
-import Dados.InterfaceRepositorio;
-import Dados.RepositorioPadrao;
-import ClassesBasicas.hospedagem;
-import ClassesBasicas.quarto;
+import dados.IRepositorio;
+import dados.Repositorio;
+import models.Hospedagem;
+import models.Quarto;
 
 public class ControladorHospedagens {
 
-    static private InterfaceRepositorio<Hospedagem> repositorioHospedagens;
+    static private IRepositorio<Hospedagem> repositorioHospedagens;
     private ControladorQuartos controladorQuartos;
     private ControladorPessoas controladorPessoas;
     static private taxaTemporada;
@@ -14,7 +14,7 @@ public class ControladorHospedagens {
     public ControladorHospedagens(ControladorQuartos controladorQuartos) {
 
         if (repositorio == null) {
-            repositorio = new RepositorioPadrao<Hospedagem>();
+            repositorio = new RepoPadrao<Hospedagem>();
         }
     }
 
