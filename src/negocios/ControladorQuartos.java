@@ -1,4 +1,4 @@
-package Controladores;
+package negocios;
 import dados.IRepositorio;
 import dados.RepoQuartos;
 import dados.Repositorio;
