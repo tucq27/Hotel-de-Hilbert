@@ -1,7 +1,6 @@
 package models;
 
 import java.time.LocalDateTime;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,94 +10,138 @@ import dados.IIdentificavel;
 public class Hospedagem implements IIdentificavel {
 
     private String id;
-    private LocalDateTime horarioChegada; // Horários de entrada e saída do hospede no hotel
-    private LocalDateTime horarioSaida;
-    private LocalDateTime horarioReserva; // horario que a reserva foi feita
-    private LocalDate inicio; // data prevista pra inicio e fim da hospedagem (para Reservas)
-    private LocalDateTime fim;
-    private Duration periodoDeEstadia; // vale a pena manter?
-    private Responsavel responsavel; 
+    private static int definirId = 1; 
+    private LocalDateTime horarioCheckIn; // Horários de entrada e saída do hospede no hotel
+    private LocalDateTime horarioCheckOut;
+    private LocalDateTime horarioReserva; // horario que a reserva foi feita (se for NULL, a hospedagem não tem rserva previa)
+    private LocalDate horarioEntrada; // data prevista pra Entrada (reserva)
+    private LocalDateTime horarioSaida; // hora prevista pra Saída (reserva)
+    private ContaHospedagem conta; // associação com a conta de hospedagem
     private ArrayList<Hospede> hospedes;
     private Quarto quarto;
 
     // Construtor: caso a hospedagem seja criada sem reserva previa
-    public Hospedagem(Quarto quarto, LocalDateTime horarioChegada, LocalDateTime fim, Responsavel responsavel, ArrayList<Hospede> hospedes) {
-        this.quarto = quarto;
-        this.horarioChegada = horarioChegada;
-        this.fim = fim;
-        this.responsavel = responsavel;
-        this.hospedes = hospedes;
-
-        // Ocupa o quarto ao iniciar hospedagem
-        if (quarto != null) {
-            quarto.setStatus(StatusQuarto.OCUPADO);
+    public Hospedagem(Quarto quarto, LocalDateTime horarioCheckIn, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) {
+        
+        if (!quartoEstaDisponivel(quarto)) {
+            //throw new IllegalStateException("Quarto indisponível para reserva!");
+            //// EXEÇÃO: quarto indisponível
         }
+        if (!quartoTemEspaco(quarto, hospedes)) {
+            //// EXEÇÃO: limite de hóspedes excedido
+        }
+        for (Hospede hospede : hospedes) {
+            if (hospedeTemRestricao(hospede)) {
+                //// EXEÇÃO: hóspede com restrição proibida (retorna o hospede também)
+            }
+        }
+        this.quarto = quarto;
+        this.horarioCheckIn = horarioCheckIn;
+        this.horarioEntrada = LocalDate.now(); // não há reserva prévia, então a entrada é a data atual
+        this.horarioSaida = horarioSaida;
+        this.conta = conta;
+        this.hospedes = hospedes;
+        checkIn(); // faz o check-in imediatamente, pois não há reserva prévia
+        gerarId(); 
     }
 
     // Construtor: caso a hospedagem seja criada a partir de uma reserva previa
-    public Hospedagem(Quarto quarto, LocalDate inicio, LocalDateTime fim, Responsavel responsavel, ArrayList<Hospede> hospedes) {
+    public Hospedagem(Quarto quarto, LocalDate horarioEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) {
+        
+        if (!quartoEstaDisponivel(quarto)) {
+            //// EXEÇÃO: quarto indisponível
+        }
+        if (!quartoTemEspaco(quarto, hospedes)) {
+            //// EXEÇÃO: limite de hóspedes excedido
+        }
+        for (Hospede hospede : hospedes) {
+            if (hospedeTemRestricao(hospede)) {
+                //// EXEÇÃO: hóspede com restrição proibida (retorna o hospede também)
+            }
+        }
         this.quarto = quarto;
         this.horarioReserva = LocalDateTime.now();
-        this.inicio = inicio;
-        this.fim = fim;
-        this.responsavel = responsavel;
+        this.horarioEntrada = horarioEntrada;
+        this.horarioSaida = horarioSaida;
+        this.conta = conta;
         this.hospedes = hospedes;
+        gerarId();
+    }
+
+    ////// o metodo final deverá ser mais complexo (baixa prioridade)
+    private void gerarId() {
+        definirId++;
+        this.id = String.valueOf(definirId);
+    }
+
+    // métodos auxiliares para validação de regras de negócio
+    private boolean quartoEstaDisponivel(Quarto quarto) {
+        return ((quarto != null) && (quarto.getStatus() == StatusQuarto.DISPONIVEL));
+    }
+
+    private boolean quartoTemEspaco(Quarto quarto, ArrayList<Hospede> hospedes) {
+        return (hospedes.size() < quarto.getCapacidade());
+    }
+
+    private boolean hospedeTemRestricao(Hospede hospede) {
+        return (hospede.getRestricao() == RestricaoHospede.PROIBIDO);
+    }
+
+    // só pode cancelar a reserva previa até meio dia do dia anterior à data prevista para entrada
+    private boolean podeCancelarReserva() {
+        if (horarioReserva == null) {
+            return false; // Não há reserva prévia para cancelar
+        }
+        if (horarioCheckIn != null) {
+            return false; // Check-in já realizado, não pode cancelar
+        }
+
+        LocalDateTime agora = LocalDateTime.now();
+        if (horarioEntrada != null) {
+            if (agora.isBefore(horarioEntrada.atTime(12, 0).minusHours(24))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Realiza o check-in após reserva previa
     public void checkIn() {
 
         // caso o checkin já tenha sido realizado, não permite novo check-in
-        if (horarioChegada == null) {
+        if (horarioCheckIn == null) {
             //// EXEÇÃO: check-IN já realizado
         }
-
         // caso o quarto seja nulo ou não esteja disponível, não permite check-in
-        if (quarto == null || quarto.getStatus() != StatusQuarto.DISPONIVEL) {
+        if (!quartoEstaDisponivel(quarto)) {
             //// EXEÇÃO: quarto indisponível
         }
-
-        // caso a reserva não tenha sido realizada, não permite check-in
-        if (horarioReserva == null) {
-            //// EXEÇÃO: reserva não realizada
+        // Verifica se o check-in está sendo feito no dia previsto
+        LocalDate hoje = LocalDate.now();
+        if (!hoje.isEqual(horarioEntrada)) {
+            //// EXEÇÃO: check-IN fora do dia previsto
         }
-        else{
-            LocalDate hoje = LocalDate.now();
-
-            // Verifica se o check-in está sendo feito no dia previsto
-            if (!hoje.isEqual(inicio)) {
-                //// EXEÇÃO: check-IN fora do dia previsto
-            }
-        }
-
-
-        // Registra horário atual de entrada
-        horarioChegada = LocalDateTime.now();
-
-        // Marca o quarto como ocupado
-        if (quarto != null) {
-            quarto.setStatus(StatusQuarto.OCUPADO);
-        }
+        
+        horarioCheckIn = LocalDateTime.now();  
+        quarto.setStatus(StatusQuarto.OCUPADO);
+        
     }
 
     // Realiza o check-out
     public void checkOut() {
 
         // Só permite check-out se houver check-in
-        if (horarioChegada == null) {
+        if (horarioCheckIn == null) {
             //// EXEÇÃO: check-IN não realizado
         }
 
         // Impede múltiplos check-outs
-        if (horarioSaida != null) {
+        if (horarioCheckOut != null) {
             //// EXEÇÃO: check-OUT já realizado
         }
 
         // Registra horário de saída
-        horarioSaida = LocalDateTime.now();
-
-        // Calcula duração da hospedagem
-        periodoDeEstadia = Duration.between(horarioChegada, horarioSaida);
+        horarioCheckOut = LocalDateTime.now();
 
         // Libera o quarto, mas ele fica sujo
         if (quarto != null) {
@@ -108,26 +151,94 @@ public class Hospedagem implements IIdentificavel {
 
     // Verifica se o check-in foi realizado
     public boolean verCheckIn() {
-        return (horarioChegada != null);
+        return (horarioCheckIn != null);
     }
 
     // Verifica se o check-out foi realizado
     public boolean verCheckOut() {
-        return (horarioSaida != null);
+        return (horarioCheckOut != null);
+    }
+
+    // cancela a reserva
+    public void cancelarReserva() {
+        if (!podeCancelarReserva()) {
+            ///// Cobrar a multa de cancelamento
+        }
+        // Libera o quarto, mas ele fica sujo
+        if (quarto != null) {
+            quarto.setStatus(StatusQuarto.SUJO);
+        }
+        // Limpa os dados da reserva
+        horarioReserva = null;
+        horarioEntrada = null;
+        horarioSaida = null;
     }
 
     // Aumenta o tempo da estadia
     public void aumentarEstadia(int horas) {
-        if (fim != null) {
-            fim = fim.plusHours(horas);
+        if (horarioSaida != null) {
+            horarioSaida = horarioSaida.plusHours(horas);
         }
     }
 
     // Diminui o tempo da estadia
     public void diminuirEstadia(int horas) {
-        if (fim != null) {
-            fim = fim.minusHours(horas);
+        if (horarioSaida != null) {
+            horarioSaida = horarioSaida.minusHours(horas);
         }
+    }
+
+    public void adicionarHospede(Hospede hospede) {
+        if (hospede == null) {
+            //// EXEÇÃO: hospede nulo
+        }
+        if (!quartoTemEspaco(quarto, hospedes)) {
+            //throw new IllegalStateException("Limite de hóspedes excedido para o quarto!");
+            //// EXEÇÃO: limite de hóspedes excedido
+        }
+        hospedes.add(hospede);
+    }
+
+    public void removerHospede(Hospede hospede) {
+        if (hospede == null) {
+            //// EXEÇÃO: hospede nulo
+        }
+        if (!hospedes.contains(hospede)) {
+            //// EXEÇÃO: hóspede não encontrado na hospedagem
+        }
+        hospedes.remove(hospede);
+    }
+
+    public void trocarQuarto(Quarto novoQuarto) {
+        if (novoQuarto == null) {
+            //// EXEÇÃO: quarto nulo
+        }
+        if (!quartoEstaDisponivel(novoQuarto)) {
+            //// EXEÇÃO: quarto indisponível
+        }
+        if (!quartoTemEspaco(novoQuarto, hospedes)) {
+            //// EXEÇÃO: limite de hóspedes excedido
+        }
+        // Libera o quarto antigo, mas ele fica sujo
+        if (quarto != null) {
+            quarto.setStatus(StatusQuarto.SUJO);
+        }
+        novoQuarto.setStatus(StatusQuarto.OCUPADO);
+        this.quarto = novoQuarto;
+    }
+
+    public void trocarConta(ContaHospedagem novaConta) {
+        if (novaConta == null) {
+            //// EXEÇÃO: conta nula
+        }
+        // passando divida e recibos da conta antiga para a nova conta
+        novaConta.setDividaTotal(conta.getDividaTotal());
+        novaConta.setRecibos(conta.getRecibos());
+        // deletando as dividas da conta antiga
+        conta.setDividaTotal(0);
+        conta.setRecibos(null);
+
+        this.conta = novaConta;
     }
 
     // verifica se hospede qualquer está nessa hospedagem
@@ -140,67 +251,34 @@ public class Hospedagem implements IIdentificavel {
         return false;
     }
 
-    // Getters e Setters
+    
+    // Getters
     public String getId() {
         return id;
     }
-    public LocalDateTime getHorarioChegada() {
-        return horarioChegada;
+    public LocalDateTime getHorarioCheckIn() {
+        return horarioCheckIn;
     }
-    public LocalDateTime getHorarioSaida() {
-        return horarioSaida;
+    public LocalDateTime getHorarioCheckOut() {
+        return horarioCheckOut;
     }
     public LocalDateTime getHorarioReserva() {
         return horarioReserva;
     }
-    public LocalDate getInicio() {
-        return inicio;
+    public LocalDate getHorarioEntrada() {
+        return horarioEntrada;
     }
-    public LocalDateTime getFim() {
-        return fim;
+    public LocalDateTime getHorarioSaida() {
+        return horarioSaida;
     }
-    public Duration getPeriodoDeEstadia() {
-        return periodoDeEstadia;
-    }
-    public Responsavel getResponsavel() {
-        return responsavel;
+    public ContaHospedagem getConta() {
+        return conta;
     }
     public ArrayList<Hospede> getHospedes() {
         return hospedes;
     }
     public Quarto getQuarto() {
         return quarto;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-    public void setHorarioChegada(LocalDateTime horarioChegada) {
-        this.horarioChegada = horarioChegada;
-    }
-    public void setHorarioSaida(LocalDateTime horarioSaida) {
-        this.horarioSaida = horarioSaida;
-    }
-    public void setHorarioReserva(LocalDateTime horarioReserva) {
-        this.horarioReserva = horarioReserva;
-    }
-    public void setInicio(LocalDate inicio) {
-        this.inicio = inicio;
-    }
-    public void setFim(LocalDateTime fim) {
-        this.fim = fim;
-    }
-    public void setPeriodoDeEstadia(Duration periodoDeEstadia) {
-        this.periodoDeEstadia = periodoDeEstadia;
-    }
-    public void setResponsavel(Responsavel responsavel) {
-        this.responsavel = responsavel;
-    }
-    public void setHospedes(ArrayList<Hospede> hospedes) {
-        this.hospedes = hospedes;
-    }
-    public void setQuarto(Quarto quarto) {
-        this.quarto = quarto;
     }
 
     // Método exigido pela interface

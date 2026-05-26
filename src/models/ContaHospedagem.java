@@ -55,10 +55,12 @@ public class ContaHospedagem {
 
     public void adicionarRecibo(Recibo recibo){
         recibos.add(recibo);
+        dividaTotal += recibo.getValor();
     }
     public void removerRecibo(Recibo recibo){
         if (recibo != null){
             recibos.remove(recibo);
+            dividaTotal -= recibo.getValor();
         } else{
             // exceção objeto não encontrado
         }
