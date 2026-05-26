@@ -1,4 +1,4 @@
-package Controladores;
+package negocios;
 import dados.IRepositorio;
 import dados.Repositorio;
 import models.Hospedagem;
