@@ -13,6 +13,7 @@ public class ControladorQuartos {
         if (repositorioQuartos == null) {
             repositorioQuartos = new RepositorioPadrao<Quarto>();
     }
+}
 
     public addQuarto(Quarto quarto) {
 
