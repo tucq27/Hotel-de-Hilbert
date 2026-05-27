@@ -10,8 +10,8 @@ public class ControladorQuartos {
 
     public ControladorQuartos() {
 
-        if (repositorio == null) {
-            repositorio = new RepositorioPadrao<Quarto>();
+        if (repositorioQuartos == null) {
+            repositorioQuartos = new RepositorioPadrao<Quarto>();
     }
 
     public addQuarto(Quarto quarto) {
