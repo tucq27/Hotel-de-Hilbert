@@ -3,6 +3,8 @@ import dados.IRepositorio;
 import dados.RepoQuartos;
 import dados.Repositorio;
 import models.Quarto;
+import dados.IRepositorio;
+import dados.RepoQuartos;
 
 import negocios.exceptions.*;
 
@@ -18,12 +20,14 @@ public class ControladorQuartos {
     }
 
     public void addQuarto(Quarto quarto) throws ERException {
-
         if (repositorioQuartos.buscar(quarto.getId()) != null) {
             throw new ERException(quarto);
         }
-
         repositorioQuartos.adicionar(quarto);
+    }
+
+    public Quarto buscarQuarto(String id) {
+        return repositorioQuartos.buscar(id);
     }
 
 }
