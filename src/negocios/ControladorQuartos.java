@@ -4,6 +4,7 @@ import dados.RepoQuartos;
 import dados.Repositorio;
 import models.Quarto;
 
+import negocios.exceptions.*;
 
 public class ControladorQuartos {
 
@@ -16,10 +17,10 @@ public class ControladorQuartos {
         }
     }
 
-    public void addQuarto(Quarto quarto) {
+    public void addQuarto(Quarto quarto) throws ERException {
 
         if (repositorioQuartos.buscar(quarto.getId()) != null) {
-            throw new ElementoRepetidoException(); //!IMPLEMENTAR
+            throw new ERException(quarto);
         }
 
         repositorioQuartos.adicionar(quarto);

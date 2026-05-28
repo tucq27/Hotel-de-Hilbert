@@ -60,4 +60,9 @@ public abstract class Repositorio<Tipo extends IIdentificavel> implements IRepos
         }
     }
 
+    @Override
+    public ArrayList<Tipo> getObjetos() {
+        return objetos;
+    }
+
 }
