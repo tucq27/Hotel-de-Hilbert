@@ -31,17 +31,30 @@ public class ControladorHospedagens {
         hospedagem.checkIn();
     }
 
+    public checkOut(Hospedagem hospedagem) {
+
+        try {
+            hospedagem.checkOut();
+            repositorioHospedagens.remover(hospedagem);
+            //Possivelmente adicionar a um histórico de hospedagens
+        } //catch alguma coisa se pá
+    }
+
     public void cancelarHospedagem(Hospedagem hospedagem) {
-        LocalDateTime agora = LocalDateTime.now();
-        long periodo = Duration.between(agora, hospedagem.horarioEntrada)getHours;
-        // ^Eu não faço ideia se essa linha funciona
-        if (periodo > 24.0) {
-            repositorioHospedagens.remover(Hospedagem);
-            //Cancelar a estadia de graça; Implementação na fatura
+        if (hospedagem.horarioEntrada != null) {
+
+            LocalDateTime agora = LocalDateTime.now();
+            long periodo = Duration.between(agora, hospedagem.horarioEntrada)getHours;
+            // ^Eu não faço ideia se essa linha funciona
+            if (periodo > 24.0) {
+                repositorioHospedagens.remover(hospedagem);
+                //Cancelar a estadia de graça; Implementação na fatura
+            }
         }
         else {
-            repositorioHospedagens.remover(Hospedagem);
+            repositorioHospedagens.remover(hospedagem);
             //Sinalizar para cobrar a hospedagem; Implementação na fatura
+            //Possivelmente uma mensagem ou erro na GUI
         }
     }
 
@@ -57,8 +70,8 @@ public class ControladorHospedagens {
             }
     }
 
-    public atualizar(Hospedagem hospedagem) {
+    //public atualizar(Hospedagem hospedagem) {
 
-        if (hospedagem.)
-    }
+    //    if (hospedagem.)
+    //}
 }
