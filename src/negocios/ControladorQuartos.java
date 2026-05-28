@@ -12,6 +12,7 @@ public class ControladorQuartos {
 
         if (repositorioQuartos == null) {
             repositorioQuartos = new RepoQuartos();
+        }
     }
 }
 
