@@ -11,6 +11,7 @@ public class Hospedagem implements IIdentificavel {
 
     private String id;
     private static int definirId = 1; 
+    private StatusHospedagem status; // status da hospedagem (reservada, ativa, encerrada, cancelada)
     private LocalDateTime horarioCheckIn; // Horários de entrada e saída do hospede no hotel
     private LocalDateTime horarioCheckOut;
     private LocalDateTime horarioReserva; // horario que a reserva foi feita (se for NULL, a hospedagem não tem rserva previa)
@@ -21,7 +22,7 @@ public class Hospedagem implements IIdentificavel {
     private Quarto quarto;
 
     // Construtor: caso a hospedagem seja criada sem reserva previa
-    public Hospedagem(Quarto quarto, LocalDateTime horarioCheckIn, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) {
+    public Hospedagem(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) {
         
         if (!quartoEstaDisponivel(quarto)) {
             //throw new IllegalStateException("Quarto indisponível para reserva!");
@@ -35,8 +36,8 @@ public class Hospedagem implements IIdentificavel {
                 //// EXEÇÃO: hóspede com restrição proibida (retorna o hospede também)
             }
         }
+        this.status = StatusHospedagem.ATIVA;
         this.quarto = quarto;
-        this.horarioCheckIn = horarioCheckIn;
         this.horarioEntrada = LocalDate.now(); // não há reserva prévia, então a entrada é a data atual
         this.horarioSaida = horarioSaida;
         this.conta = conta;
@@ -59,6 +60,7 @@ public class Hospedagem implements IIdentificavel {
                 //// EXEÇÃO: hóspede com restrição proibida (retorna o hospede também)
             }
         }
+        this.status = StatusHospedagem.RESERVADA;
         this.quarto = quarto;
         this.horarioReserva = LocalDateTime.now();
         this.horarioEntrada = horarioEntrada;
@@ -142,6 +144,7 @@ public class Hospedagem implements IIdentificavel {
 
         // Registra horário de saída
         horarioCheckOut = LocalDateTime.now();
+        this.status = StatusHospedagem.ENCERRADA;
 
         // Libera o quarto, mas ele fica sujo
         if (quarto != null) {
@@ -168,6 +171,8 @@ public class Hospedagem implements IIdentificavel {
         if (quarto != null) {
             quarto.setStatus(StatusQuarto.SUJO);
         }
+
+        this.status = StatusHospedagem.CANCELADA;
         // Limpa os dados da reserva
         horarioReserva = null;
         horarioEntrada = null;
@@ -279,6 +284,50 @@ public class Hospedagem implements IIdentificavel {
     }
     public Quarto getQuarto() {
         return quarto;
+    }
+    public StatusHospedagem getStatus() {
+        return status;
+    }
+
+    // Setters
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setStatus(StatusHospedagem status) {
+        this.status = status;
+    }
+
+    public void setHorarioCheckIn(LocalDateTime horarioCheckIn) {
+        this.horarioCheckIn = horarioCheckIn;
+    }
+
+    public void setHorarioCheckOut(LocalDateTime horarioCheckOut) {
+        this.horarioCheckOut = horarioCheckOut;
+    }
+
+    public void setHorarioReserva(LocalDateTime horarioReserva) {
+        this.horarioReserva = horarioReserva;
+    }
+
+    public void setHorarioEntrada(LocalDate horarioEntrada) {
+        this.horarioEntrada = horarioEntrada;
+    }
+
+    public void setHorarioSaida(LocalDateTime horarioSaida) {
+        this.horarioSaida = horarioSaida;
+    }
+
+    public void setConta(ContaHospedagem conta) {
+        this.conta = conta;
+    }
+
+    public void setHospedes(ArrayList<Hospede> hospedes) {
+        this.hospedes = hospedes;
+    }
+
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
     }
 
     // Método exigido pela interface
