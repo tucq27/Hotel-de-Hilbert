@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import models.exceptions.*;
 import dados.IIdentificavel;
 
 // Classe responsável por representar uma hospedagem no hotel
@@ -22,18 +23,17 @@ public class Hospedagem implements IIdentificavel {
     private Quarto quarto;
 
     // Construtor: caso a hospedagem seja criada sem reserva previa
-    public Hospedagem(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) {
+    public Hospedagem(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) throws QIException, PHException, LIMHException, CIFException, CIJRException {
         
         if (!quartoEstaDisponivel(quarto)) {
-            //throw new IllegalStateException("Quarto indisponível para reserva!");
-            //// EXEÇÃO: quarto indisponível
+            throw new QIException(quarto);
         }
         if (!quartoTemEspaco(quarto, hospedes)) {
-            //// EXEÇÃO: limite de hóspedes excedido
+            throw new LIMHException(quarto);
         }
         for (Hospede hospede : hospedes) {
             if (hospedeTemRestricao(hospede)) {
-                //// EXEÇÃO: hóspede com restrição proibida (retorna o hospede também)
+                throw new PHException(hospede);
             }
         }
         this.status = StatusHospedagem.ATIVA;
@@ -47,17 +47,17 @@ public class Hospedagem implements IIdentificavel {
     }
 
     // Construtor: caso a hospedagem seja criada a partir de uma reserva previa
-    public Hospedagem(Quarto quarto, LocalDate horarioEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) {
+    public Hospedagem(Quarto quarto, LocalDate horarioEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) throws QIException, PHException, LIMHException{
         
         if (!quartoEstaDisponivel(quarto)) {
-            //// EXEÇÃO: quarto indisponível
+            throw new QIException(quarto);
         }
         if (!quartoTemEspaco(quarto, hospedes)) {
-            //// EXEÇÃO: limite de hóspedes excedido
+            throw new LIMHException(quarto);
         }
         for (Hospede hospede : hospedes) {
             if (hospedeTemRestricao(hospede)) {
-                //// EXEÇÃO: hóspede com restrição proibida (retorna o hospede também)
+                throw new PHException(hospede);
             }
         }
         this.status = StatusHospedagem.RESERVADA;
@@ -91,7 +91,7 @@ public class Hospedagem implements IIdentificavel {
 
     // só pode cancelar a reserva previa até meio dia do dia anterior à data prevista para entrada
     private boolean podeCancelarReserva() {
-        if (horarioReserva == null) {
+        if (status != StatusHospedagem.RESERVADA) {
             return false; // Não há reserva prévia para cancelar
         }
         if (horarioCheckIn != null) {
@@ -108,20 +108,20 @@ public class Hospedagem implements IIdentificavel {
     }
 
     // Realiza o check-in após reserva previa
-    public void checkIn() {
+    public void checkIn() throws QIException, CIFException, CIJRException {
 
         // caso o checkin já tenha sido realizado, não permite novo check-in
         if (horarioCheckIn == null) {
-            //// EXEÇÃO: check-IN já realizado
+            throw new CIJRException();
         }
         // caso o quarto seja nulo ou não esteja disponível, não permite check-in
         if (!quartoEstaDisponivel(quarto)) {
-            //// EXEÇÃO: quarto indisponível
+            throw new QIException(quarto);
         }
         // Verifica se o check-in está sendo feito no dia previsto
         LocalDate hoje = LocalDate.now();
         if (!hoje.isEqual(horarioEntrada)) {
-            //// EXEÇÃO: check-IN fora do dia previsto
+            throw new CIFException();
         }
         
         horarioCheckIn = LocalDateTime.now();  
@@ -130,16 +130,16 @@ public class Hospedagem implements IIdentificavel {
     }
 
     // Realiza o check-out
-    public void checkOut() {
+    public void checkOut() throws CINRException, COJRException {
 
         // Só permite check-out se houver check-in
         if (horarioCheckIn == null) {
-            //// EXEÇÃO: check-IN não realizado
+            throw new CINRException();
         }
 
         // Impede múltiplos check-outs
         if (horarioCheckOut != null) {
-            //// EXEÇÃO: check-OUT já realizado
+            throw new COJRException();
         }
 
         // Registra horário de saída
@@ -170,13 +170,14 @@ public class Hospedagem implements IIdentificavel {
         // Libera o quarto, mas ele fica sujo
         if (quarto != null) {
             quarto.setStatus(StatusQuarto.SUJO);
-        }
+            this.status = StatusHospedagem.CANCELADA;
 
-        this.status = StatusHospedagem.CANCELADA;
-        // Limpa os dados da reserva
-        horarioReserva = null;
-        horarioEntrada = null;
-        horarioSaida = null;
+            // Limpa os dados da reserva
+            horarioReserva = null;
+            horarioEntrada = null;
+            horarioSaida = null;
+        }
+        
     }
 
     // Aumenta o tempo da estadia
@@ -193,57 +194,53 @@ public class Hospedagem implements IIdentificavel {
         }
     }
 
-    public void adicionarHospede(Hospede hospede) {
-        if (hospede == null) {
-            //// EXEÇÃO: hospede nulo
+    public void adicionarHospede(Hospede hospede) throws LIMHException {
+        if (hospede != null) {
+            if (!quartoTemEspaco(quarto, hospedes)) {
+                throw new LIMHException(quarto);
+            }
+            hospedes.add(hospede);
         }
-        if (!quartoTemEspaco(quarto, hospedes)) {
-            //throw new IllegalStateException("Limite de hóspedes excedido para o quarto!");
-            //// EXEÇÃO: limite de hóspedes excedido
-        }
-        hospedes.add(hospede);
+       
     }
 
-    public void removerHospede(Hospede hospede) {
-        if (hospede == null) {
-            //// EXEÇÃO: hospede nulo
+    public void removerHospede(Hospede hospede) throws HNEException {
+        if (hospede != null) {
+            if (!hospedes.contains(hospede)) {
+                throw new HNEException();
+            }
+            hospedes.remove(hospede);
         }
-        if (!hospedes.contains(hospede)) {
-            //// EXEÇÃO: hóspede não encontrado na hospedagem
-        }
-        hospedes.remove(hospede);
     }
 
-    public void trocarQuarto(Quarto novoQuarto) {
-        if (novoQuarto == null) {
-            //// EXEÇÃO: quarto nulo
+    public void trocarQuarto(Quarto novoQuarto) throws QIException, LIMHException {
+        if (novoQuarto != null) {
+            if (!quartoEstaDisponivel(novoQuarto)) {
+                throw new QIException(novoQuarto);
+            }
+            if (!quartoTemEspaco(novoQuarto, hospedes)) {
+                throw new LIMHException(novoQuarto);
+            }
+            // Libera o quarto antigo, mas ele fica sujo
+            if (quarto != null) {
+                quarto.setStatus(StatusQuarto.SUJO);
+            }
+            novoQuarto.setStatus(StatusQuarto.OCUPADO);
+            this.quarto = novoQuarto;
         }
-        if (!quartoEstaDisponivel(novoQuarto)) {
-            //// EXEÇÃO: quarto indisponível
-        }
-        if (!quartoTemEspaco(novoQuarto, hospedes)) {
-            //// EXEÇÃO: limite de hóspedes excedido
-        }
-        // Libera o quarto antigo, mas ele fica sujo
-        if (quarto != null) {
-            quarto.setStatus(StatusQuarto.SUJO);
-        }
-        novoQuarto.setStatus(StatusQuarto.OCUPADO);
-        this.quarto = novoQuarto;
     }
 
     public void trocarConta(ContaHospedagem novaConta) {
-        if (novaConta == null) {
-            //// EXEÇÃO: conta nula
-        }
-        // passando divida e recibos da conta antiga para a nova conta
-        novaConta.setDividaTotal(conta.getDividaTotal());
-        novaConta.setRecibos(conta.getRecibos());
-        // deletando as dividas da conta antiga
-        conta.setDividaTotal(0);
-        conta.setRecibos(null);
+        if (novaConta != null) {
+            // passando divida e recibos da conta antiga para a nova conta
+            novaConta.setDividaTotal(conta.getDividaTotal());
+            novaConta.setRecibos(conta.getRecibos());
+            // deletando as dividas da conta antiga
+            conta.setDividaTotal(0);
+            conta.setRecibos(null);
 
-        this.conta = novaConta;
+            this.conta = novaConta;
+        }
     }
 
     // verifica se hospede qualquer está nessa hospedagem
