@@ -4,6 +4,7 @@ import dados.RepoQuartos;
 import dados.Repositorio;
 import models.Quarto;
 
+
 public class ControladorQuartos {
 
     static private RepoQuartos repositorioQuartos;
@@ -14,16 +15,14 @@ public class ControladorQuartos {
             repositorioQuartos = new RepoQuartos();
         }
     }
-}
 
     public void addQuarto(Quarto quarto) {
 
-        if (repositorioQuartos.buscar(quarto) != null) {
+        if (repositorioQuartos.buscar(quarto.getId()) != null) {
             throw new ElementoRepetidoException(); //!IMPLEMENTAR
         }
 
         repositorioQuartos.adicionar(quarto);
     }
 
-    public
 }
