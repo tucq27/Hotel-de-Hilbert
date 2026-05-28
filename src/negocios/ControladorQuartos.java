@@ -3,6 +3,8 @@ import dados.IRepositorio;
 import dados.RepoQuartos;
 import dados.Repositorio;
 import models.Quarto;
+import dados.IRepositorio;
+import dados.RepoQuartos;
 
 
 public class ControladorQuartos {

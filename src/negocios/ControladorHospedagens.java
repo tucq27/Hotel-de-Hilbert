@@ -4,6 +4,9 @@ import dados.RepoHospedagens;
 import models.Hospedagem;
 import models.Quarto;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Duration;
+
 
 public class ControladorHospedagens {
 
@@ -28,6 +31,20 @@ public class ControladorHospedagens {
         hospedagem.checkIn();
     }
 
+    public void cancelarHospedagem(Hospedagem hospedagem) {
+        LocalDateTime agora = LocalDateTime.now();
+        long periodo = Duration.between(agora, hospedagem.horarioEntrada)getHours;
+        // ^Eu não faço ideia se essa linha funciona
+        if (periodo > 24.0) {
+            repositorioHospedagens.remover(Hospedagem);
+            //Cancelar a estadia de graça; Implementação na fatura
+        }
+        else {
+            repositorioHospedagens.remover(Hospedagem);
+            //Sinalizar para cobrar a hospedagem; Implementação na fatura
+        }
+    }
+
 
     private setTaxaTemporada() {
         Month mesAtual = LocalDate.now().getMonth();
@@ -35,8 +52,8 @@ public class ControladorHospedagens {
             mesAtual == Month.DECEMBER ||
             mesAtual == Month.JULY ||
             mesAtual == Month.JUNE) {
-
-                ControladorHospedagens.taxaTempoarada = 2.0;
+                ControladorHospedagens.taxaTemporada = 2.0;
+                //Ainda temos que implementar realmente a taxa no pagamento
             }
     }
 
