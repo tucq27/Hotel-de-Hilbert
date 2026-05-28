@@ -11,11 +11,11 @@ public class ControladorQuartos {
     public ControladorQuartos() {
 
         if (repositorioQuartos == null) {
-            repositorioQuartos = new Repositorio<Quarto>();
+            repositorioQuartos = new RepoQuartos();
     }
 }
 
-    public addQuarto(Quarto quarto) {
+    public void addQuarto(Quarto quarto) {
 
         if (repositorioQuartos.buscar(quarto) != null) {
             throw new ElementoRepetidoException(); //!IMPLEMENTAR
