@@ -17,12 +17,14 @@ public class ControladorQuartos {
     }
 
     public void addQuarto(Quarto quarto) {
-
         if (repositorioQuartos.buscar(quarto.getId()) != null) {
             throw new ElementoRepetidoException(); //!IMPLEMENTAR
         }
-
         repositorioQuartos.adicionar(quarto);
+    }
+
+    public Quarto buscarQuarto(String id) {
+        return repositorioQuartos.buscar(id);
     }
 
 }
