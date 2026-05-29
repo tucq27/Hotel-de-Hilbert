@@ -25,19 +25,4 @@ public class Frigobar {
         this.inventarioFrigobar = inventarioFrigobar;
     }
     
-    // Métodos para adicionar e remover itens do frigobar
-    public void adicionarItem(ItemFrigobar item) {
-        if (inventarioFrigobar.size() < capacidadeMaxima ){
-            inventarioFrigobar.add(item);
-        } else {
-            // exceção de frigobar cheio
-        }
-        
-    }
-
-    public void removerItem(ItemFrigobar item) {
-        inventarioFrigobar.remove(item);
-        // caso o item seja removido, precisamos adicionar na divida de Responsavel
-    }
-
 }
