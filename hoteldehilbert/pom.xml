@@ -19,11 +19,19 @@
   </properties>
 
   <dependencies>
+
+  <!-- Dependência para os componentes do JavaFX -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>21</version>
+    </dependency>
+
+    <!-- Dependência para o FXML do JavaFX -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>21</version>
     </dependency>
   </dependencies>
 
@@ -71,5 +79,15 @@
         </plugin>
       </plugins>
     </pluginManagement>
+
+    <!-- plugin necessário para o javafx funcionar -->
+    <plugin>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-maven-plugin</artifactId>
+      <version>0.0.8</version>
+      <configuration>
+        <mainClass>com.smarthotel.gui.Main</mainClass>
+      </configuration>
+    </plugin>
   </build>
 </project>
