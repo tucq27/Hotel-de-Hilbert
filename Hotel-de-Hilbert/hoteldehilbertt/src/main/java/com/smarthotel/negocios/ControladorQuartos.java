@@ -1,5 +1,5 @@
 package com.smarthotel.negocios;
-import com.smarthotel.dados.IRepositorio;
+/*import com.smarthotel.dados.IRepositorio;
 import com.smarthotel.dados.Repositorio;
 import com.smarthotel.models.Item;
 import com.smarthotel.models.Quarto;
@@ -12,10 +12,10 @@ import main.java.com.smarthotel.negocios.exceptions.ENEException;
 
 import java.util.ArrayList;
 
-/* falta implementar: 
-    - recibo do frigobar (debitar da conta responsável pela hospedagem)
-    - buscarItemRegistrado (verificar se o item está no sistema, depende do ControladorItens)
-*/
+// falta implementar: 
+//  - recibo do frigobar (debitar da conta responsável pela hospedagem)
+// - buscarItemRegistrado (verificar se o item está no sistema, depende do ControladorItens)
+
 public class ControladorQuartos {
 
     static private RepoQuartos quartosHotel;
@@ -97,9 +97,9 @@ public class ControladorQuartos {
             Quarto quarto = quartosHotel.buscar(idQuarto);
             
             Item item = buscarItemFrigobar(idQuarto, idItem); // pode lançar ENEException se o item não for encontrado
-            /* 
-                gera um recibo frigobar e adiciona
-            */
+            
+            // gera um recibo frigobar e adiciona
+            
             ArrayList<Item> inventario = quarto.getFrigobar().getInventarioFrigobar();
             inventario.remove(item); // remove o item do inventário do frigobar
         }
@@ -121,3 +121,4 @@ public class ControladorQuartos {
     }
 
 }
+*/

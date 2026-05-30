@@ -1,8 +1,14 @@
-module com.smarthotel.hoteldehilbertt {
+module com.smarthotel {
     requires javafx.controls;
     requires javafx.fxml;
 
+    requires transitive javafx.graphics;
 
-    opens com.smarthotel.hoteldehilbertt to javafx.fxml;
-    exports com.smarthotel.hoteldehilbertt;
+    exports com.smarthotel.gui;
+    opens com.smarthotel.gui to javafx.fxml;
+    
+    exports com.smarthotel.models;
+    exports com.smarthotel.negocios;
+    exports com.smarthotel.dados;
+
 }

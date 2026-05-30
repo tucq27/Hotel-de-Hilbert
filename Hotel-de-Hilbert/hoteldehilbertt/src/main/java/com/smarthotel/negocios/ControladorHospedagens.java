@@ -1,5 +1,5 @@
 package com.smarthotel.negocios;
-import com.smarthotel.dados.IRepositorio;
+/*import com.smarthotel.dados.IRepositorio;
 import com.smarthotel.dados.RepoHospedagens;
 import com.smarthotel.models.Hospedagem;
 import com.smarthotel.models.Quarto;
@@ -75,3 +75,4 @@ public class ControladorHospedagens {
     //    if (hospedagem.)
     //}
 }
+    */
