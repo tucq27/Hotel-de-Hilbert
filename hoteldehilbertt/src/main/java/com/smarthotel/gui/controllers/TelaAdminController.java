@@ -1,4 +1,4 @@
-package com.smarthotel.gui;
+package com.smarthotel.gui.controllers;
 
 import javafx.fxml.FXML;
 

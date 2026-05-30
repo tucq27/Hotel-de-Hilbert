@@ -1,4 +1,4 @@
-package com.smarthotel.gui;
+package com.smarthotel.gui.telas;
 
 import javafx.application.Application;
 

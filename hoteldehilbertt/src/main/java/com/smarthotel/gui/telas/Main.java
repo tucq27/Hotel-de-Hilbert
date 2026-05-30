@@ -1,4 +1,4 @@
-package com.smarthotel.gui;
+package com.smarthotel.gui.telas;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(
                 FXMLLoader.load(
-                        getClass().getResource("/GUI/TelaAdmin.fxml")
+                        getClass().getResource("TelaAdmin.fxml")
                 )
         );
 
