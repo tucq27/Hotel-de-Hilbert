@@ -56,7 +56,7 @@ O sistema deve organizar os quartos por categorias, validar a disponibilidade pa
 - Classes básicas
 - Diagrama UML
 
-### Entrega 2 (_11/05_):
+### Entrega 2 (_14/05_):
 - Classes básicas e seus relacionamentos
 - Repositórios e CRUDs funcionais
 - Modelo navigacional que contem todas as telas do sistema e a transição entre elas
