@@ -1,5 +1,9 @@
 package com.smarthotel.dados;
+
 import java.util.ArrayList;
+
+import com.smarthotel.dados.exceptions.ORException;
+import com.smarthotel.dados.exceptions.ONEException;
 
 /* 
     A classe RepositorioPadrao é uma classe abstrata que será herdada por todos os repositorios,
@@ -34,29 +38,31 @@ public abstract class Repositorio<Tipo extends IIdentificavel> implements IRepos
     }
 
     @Override
-    public void adicionar(Tipo objeto) {
+    public void adicionar(Tipo objeto) throws ORException {
+        if (buscar(objeto.getChave()) != null) {
+            throw new ORException(objeto); // objeto repetido no repositório
+        }
         objetos.add(objeto);
     }
        
     @Override
-    public void remover(Tipo objeto) {
+    public void remover(Tipo objeto) throws ONEException {
         Tipo objetoExistente = buscar(objeto.getChave());
         if (objetoExistente != null) {
             objetos.remove(objetoExistente);
         } else {
-            // exceção: objeto não encontrado
+            throw new ONEException("Objeto não encontrado");
         }
-        
     }
 
     @Override
-    public void atualizar(String id, Tipo objeto) {
+    public void atualizar(String id, Tipo objeto) throws ONEException {
         Tipo objetoExistente = buscar(id);
         if (objetoExistente != null) {
             int indice = objetos.indexOf(objetoExistente);
             objetos.set(indice, objeto);
         } else {
-            // exceção: objeto não encontrado
+            throw new ONEException("Objeto não encontrado");
         }
     }
 

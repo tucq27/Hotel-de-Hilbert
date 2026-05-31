@@ -1,23 +1,19 @@
 package com.smarthotel.negocios;
 
-import com.smarthotel.dados.IRepositorio;
 import com.smarthotel.dados.RepoHospedagens;
-import com.smarthotel.models.Hospedagem;
-import com.smarthotel.models.Hospede;
-import com.smarthotel.models.Quarto;
+import com.smarthotel.models.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
-import com.smarthotel.models.StatusQuarto;
-import com.smarthotel.models.StatusHospedagem;
-import com.smarthotel.models.ContaHospedagem;
-import com.smarthotel.models.RestricaoHospede;
-import com.smarthotel.models.exceptions.*;
 import java.util.ArrayList;
+
+import com.smarthotel.negocios.exceptions.*;
+import com.smarthotel.dados.exceptions.ORException;
 
 public class ControladorHospedagens {
 
-    static private IRepositorio<Hospedagem> repositorioHospedagens;
+    static private RepoHospedagens repositorioHospedagens;
     static private double taxaTemporada = 1.0;
 
     public ControladorHospedagens() {
@@ -27,17 +23,17 @@ public class ControladorHospedagens {
         }
     }
 
-    public void criarHospedagem(Hospedagem hospedagem) throws QIException, CIFException, CIJRException, PHException, LIMHException{
+    public void criarHospedagem(Hospedagem hospedagem) throws QIException, CIFException, CIJRException, HPException, QLException, ORException {
 
         if (!quartoEstaDisponivel(hospedagem.getQuarto())) {
             throw new QIException(hospedagem.getQuarto());
             }
         if (!quartoTemEspaco(hospedagem.getQuarto(), hospedagem.getHospedes())) {
-            throw new LIMHException(hospedagem.getQuarto());
+            throw new QLException(hospedagem.getQuarto());
         }
         for (Hospede hospede : hospedagem.getHospedes()) {
             if (hospedeTemRestricao(hospede)) {
-                throw new PHException(hospede);
+                throw new HPException(hospede);
             }
         }
         if (hospedagem.getStatus() == StatusHospedagem.ATIVA) {
@@ -152,10 +148,10 @@ public class ControladorHospedagens {
         }
     }
 
-    public void adicionarHospede(Hospedagem hospedagem, Hospede hospede) throws LIMHException {
+    public void adicionarHospede(Hospedagem hospedagem, Hospede hospede) throws QLException {
         if (hospede != null) {
             if (!quartoTemEspaco(hospedagem.getQuarto(), hospedagem.getHospedes())) {
-                throw new LIMHException(hospedagem.getQuarto());
+                throw new QLException(hospedagem.getQuarto());
             }
             hospedagem.getHospedes().add(hospede);
         }
@@ -171,13 +167,13 @@ public class ControladorHospedagens {
         }
     }
 
-    public void trocarQuarto(Hospedagem hospedagem, Quarto novoQuarto) throws QIException, LIMHException {
+    public void trocarQuarto(Hospedagem hospedagem, Quarto novoQuarto) throws QIException, QLException {
         if (novoQuarto != null) {
             if (!quartoEstaDisponivel(novoQuarto)) {
                 throw new QIException(novoQuarto);
             }
             if (!quartoTemEspaco(novoQuarto, hospedagem.getHospedes())) {
-                throw new LIMHException(novoQuarto);
+                throw new QLException(novoQuarto);
             }
             // Libera o quarto antigo, mas ele fica sujo
             if (hospedagem.getQuarto() != null) {

@@ -1,4 +1,4 @@
-package com.smarthotel.models.exceptions;
+package com.smarthotel.negocios.exceptions;
 
 import com.smarthotel.models.Quarto;
 import com.smarthotel.models.StatusQuarto;

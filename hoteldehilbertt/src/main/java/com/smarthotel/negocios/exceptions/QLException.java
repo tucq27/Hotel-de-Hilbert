@@ -1,12 +1,12 @@
-package com.smarthotel.models.exceptions;
+package com.smarthotel.negocios.exceptions;
 
 import com.smarthotel.models.Quarto;
 
-public class LIMHException extends Exception {
+public class QLException extends Exception {
     private Quarto quarto;
     private int limite;
 
-    public LIMHException(Quarto quarto) {
+    public QLException(Quarto quarto) {
         super("Limite de hóspedes excedido para o quarto!");
         this.quarto = quarto;
         this.limite = quarto.getCapacidade();

@@ -1,11 +1,11 @@
-package com.smarthotel.models.exceptions;
+package com.smarthotel.negocios.exceptions;
 
 import com.smarthotel.models.Hospede;
 
-public class PHException extends Exception {
+public class HPException extends Exception {
     private Hospede hospede;
     
-    public PHException(Hospede hospede) {
+    public HPException(Hospede hospede) {
         super("Hóspede possui restrição para hospedagem!");
         this.hospede = hospede;
     }

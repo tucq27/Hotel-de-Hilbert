@@ -8,6 +8,8 @@ import com.smarthotel.models.RelatorioOcupacao;
 import com.smarthotel.models.Quarto;
 import com.smarthotel.models.StatusQuarto;
 
+import com.smarthotel.dados.exceptions.ORException;
+
 public class ControladorRelatorios {
     private RepoRelatorios relatorioOcupacao;
 
@@ -16,7 +18,7 @@ public class ControladorRelatorios {
     }
 
     // varre o repoQuartos e gera um relatório de ocupação, ou seja, quais quartos estão ocupados
-    public void gerarRelatorioOcupacao(RepoQuartos repositorioQuartos) {
+    public void gerarRelatorioOcupacao(RepoQuartos repositorioQuartos) throws ORException{
         ArrayList<Quarto> quartosOcupados = new ArrayList<>();
         
         for (Quarto quarto : repositorioQuartos.getObjetos()) {

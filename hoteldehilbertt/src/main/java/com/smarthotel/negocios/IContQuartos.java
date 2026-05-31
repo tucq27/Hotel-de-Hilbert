@@ -2,13 +2,15 @@ package com.smarthotel.negocios;
 
 import com.smarthotel.models.Quarto;
 import java.util.ArrayList;
-import com.smarthotel.negocios.exceptions.*;
+
+import com.smarthotel.dados.exceptions.ONEException;
+import com.smarthotel.dados.exceptions.ORException;
 
 public interface IContQuartos {
 
     // Gerenciamento do repositório de quartos
     Quarto buscarQuarto(String id) throws ONEException;
-    void adicionarQuarto(Quarto quarto) throws ERException;
+    void adicionarQuarto(Quarto quarto) throws ORException;
     void removerQuarto(String id) throws ONEException;
     void atualizarQuarto(String id, Quarto quarto) throws ONEException;
 
@@ -17,5 +19,5 @@ public interface IContQuartos {
 
     // Gerenciamento do frigobar
     void pegarItemFrigobar(String idQuarto, String idItem) throws ONEException;
-    // void adicionarItemFrigobar(String idQuarto, String idItem, int quantidade) throws ONEException;
+    // void adicionarItemFrigobar(String idQuarto, String idItem) throws ONEException;
 }

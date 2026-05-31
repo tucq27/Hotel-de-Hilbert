@@ -1,4 +1,4 @@
-package com.smarthotel.models.exceptions;
+package com.smarthotel.negocios.exceptions;
 
 public class ENException extends Exception {
     public ENException() {

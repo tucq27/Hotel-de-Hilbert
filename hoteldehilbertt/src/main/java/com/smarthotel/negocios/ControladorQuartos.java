@@ -6,10 +6,10 @@ import com.smarthotel.models.Quarto;
 import com.smarthotel.models.StatusQuarto;
 import com.smarthotel.dados.RepoQuartos;
 //import com.smarthotel.dados.RepoItens;
-
-import com.smarthotel.negocios.exceptions.*;
-
 import java.util.ArrayList;
+
+import com.smarthotel.dados.exceptions.ONEException;
+import com.smarthotel.dados.exceptions.ORException;
 
 // falta implementar: 
 //  - recibo do frigobar (debitar da conta responsável pela hospedagem)
@@ -35,9 +35,9 @@ public class ControladorQuartos implements IContQuartos {
         return quarto;
     }
 
-    public void adicionarQuarto(Quarto quarto) throws ERException {
+    public void adicionarQuarto(Quarto quarto) throws ORException {
         if (quartosHotel.buscar(quarto.getId()) != null) {
-            throw new ERException(quarto); // quarto repetido no repositório
+            throw new ORException(quarto); // quarto repetido no repositório
         }
         quartosHotel.adicionar(quarto);
     }
