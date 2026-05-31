@@ -1,4 +1,5 @@
 package com.smarthotel.negocios;
+
 import com.smarthotel.dados.IRepositorio;
 import com.smarthotel.dados.RepoHospedagens;
 import com.smarthotel.models.Hospedagem;
@@ -6,7 +7,6 @@ import com.smarthotel.models.Hospede;
 import com.smarthotel.models.Quarto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Duration;
 import java.time.Month;
 import com.smarthotel.models.StatusQuarto;
 import com.smarthotel.models.StatusHospedagem;
@@ -14,8 +14,6 @@ import com.smarthotel.models.ContaHospedagem;
 import com.smarthotel.models.RestricaoHospede;
 import com.smarthotel.models.exceptions.*;
 import java.util.ArrayList;
-
-
 
 public class ControladorHospedagens {
 

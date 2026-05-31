@@ -3,10 +3,7 @@ package com.smarthotel.models;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import com.smarthotel.models.StatusHospedagem;
-import com.smarthotel.models.StatusQuarto;
 
-import com.smarthotel.models.exceptions.*;
 import com.smarthotel.dados.IIdentificavel;
 
 // Classe responsável por representar uma hospedagem no hotel
@@ -25,39 +22,32 @@ public class Hospedagem implements IIdentificavel {
     private Quarto quarto;
 
     // Construtor: caso a hospedagem seja criada sem reserva previa
-    public Hospedagem(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) throws QIException, PHException, LIMHException, CIFException, CIJRException, ENException {
+    public Hospedagem(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) {
         
-        if (quarto == null) {throw new ENException();}
-        if (horarioSaida == null) {throw new ENException();}
-        if (conta == null) {throw new ENException();}
-        if (hospedes == null) {throw new ENException();}
-
-        this.status = StatusHospedagem.ATIVA;
-        this.quarto = quarto;
-        this.horarioEntrada = LocalDate.now(); // não há reserva prévia, então a entrada é a data atual
-        this.horarioSaida = horarioSaida;
-        this.conta = conta;
-        this.hospedes = hospedes;
-        gerarId(); 
+        if (quarto != null && horarioSaida != null && conta != null && hospedes != null) {
+            this.status = StatusHospedagem.ATIVA;
+            this.quarto = quarto;
+            this.horarioEntrada = LocalDate.now(); // não há reserva prévia, então a entrada é a data atual
+            this.horarioSaida = horarioSaida;
+            this.conta = conta;
+            this.hospedes = hospedes;
+            gerarId(); 
+        }
     }
 
     // Construtor: caso a hospedagem seja criada a partir de uma reserva previa
-    public Hospedagem(Quarto quarto, LocalDate horarioEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) throws QIException, PHException, LIMHException, ENException{
+    public Hospedagem(Quarto quarto, LocalDate horarioEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) {
         
-        if (quarto == null) {throw new ENException();}
-        if (horarioEntrada == null) {throw new ENException();}
-        if (horarioSaida == null) {throw new ENException();}
-        if (conta == null) {throw new ENException();}
-        if (hospedes == null) {throw new ENException();}
-
-        this.status = StatusHospedagem.RESERVADA;
-        this.quarto = quarto;
-        this.horarioReserva = LocalDateTime.now();
-        this.horarioEntrada = horarioEntrada;
-        this.horarioSaida = horarioSaida;
-        this.conta = conta;
-        this.hospedes = hospedes;
-        gerarId();
+        if (quarto != null && horarioEntrada != null && horarioSaida != null && conta != null && hospedes != null) {
+            this.status = StatusHospedagem.RESERVADA;
+            this.quarto = quarto;
+            this.horarioReserva = LocalDateTime.now();
+            this.horarioEntrada = horarioEntrada;
+            this.horarioSaida = horarioSaida;
+            this.conta = conta;
+            this.hospedes = hospedes;
+            gerarId();
+        }
     }
 
     ////// o metodo final deverá ser mais complexo (baixa prioridade)
