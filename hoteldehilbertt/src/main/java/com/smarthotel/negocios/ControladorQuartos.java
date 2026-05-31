@@ -15,7 +15,7 @@ import java.util.ArrayList;
 //  - recibo do frigobar (debitar da conta responsável pela hospedagem)
 // - buscarItemRegistrado (verificar se o item está no sistema, depende do ControladorItens)
 
-public class ControladorQuartos {
+public class ControladorQuartos implements IContQuartos {
 
     static private RepoQuartos quartosHotel;
 
