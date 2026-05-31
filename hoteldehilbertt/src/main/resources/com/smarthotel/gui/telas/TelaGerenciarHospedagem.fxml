@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="705.0" prefWidth="982.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.smarthotel.gui.controllers.TelaGerenciarHospedagemController">
+
+   <children>
+      <Label layoutX="394.0" layoutY="47.0" text="SMART HOTEL">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="423.0" layoutY="95.0" text="Gerenciar Hospedagem">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="55.0" layoutY="161.0" text="ID Hospedagem:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblIdHospedagem" layoutX="160.0" layoutY="161.0" text="-">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="55.0" layoutY="186.0" text="Status:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblStatus" layoutX="115.0" layoutY="186.0" text="-">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="55.0" layoutY="215.0" text="Quarto:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblQuarto" layoutX="115.0" layoutY="215.0" text="-">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="55.0" layoutY="267.0" text="CHECK-IN / CHECK-OUT">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <Button fx:id="btnCheckIn"
+              layoutX="55.0" layoutY="312.0"
+              mnemonicParsing="false"
+              onAction="#checkIn"
+              prefHeight="26.0" prefWidth="107.0"
+              text="Fazer Check-in">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+
+      <Button fx:id="btnCheckOut"
+              layoutX="184.0" layoutY="312.0"
+              mnemonicParsing="false"
+              onAction="#checkOut"
+              prefHeight="26.0" prefWidth="107.0"
+              text="Fazer Check-out">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+
+      <Label layoutX="52.0" layoutY="359.0" text="ESTADIA">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <Button fx:id="btnAumentarHospedagem"
+              layoutX="51.0" layoutY="387.0"
+              mnemonicParsing="false"
+              onAction="#aumentarHospedagem"
+              prefHeight="26.0" prefWidth="150.0"
+              text="Aumentar Hospedagem">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+
+      <Button fx:id="btnReduzirHospedagem"
+              layoutX="238.0" layoutY="387.0"
+              mnemonicParsing="false"
+              onAction="#reduzirHospedagem"
+              prefHeight="26.0" prefWidth="150.0"
+              text="Reduzir Hospedagem">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+
+      <Label layoutX="55.0" layoutY="432.0" text="FRIGOBAR">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="54.0" layoutY="458.0" text="ID Item:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <TextField fx:id="txtIdItem"
+                 layoutX="113.0" layoutY="453.0"
+                 prefHeight="26.0" prefWidth="71.0" />
+
+      <Button fx:id="btnPegarItem"
+              layoutX="52.0" layoutY="492.0"
+              mnemonicParsing="false"
+              onAction="#pegarItem"
+              text="Pegar Item">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+
+      <Button fx:id="btnAdicionarItem"
+              layoutX="156.0" layoutY="492.0"
+              mnemonicParsing="false"
+              onAction="#adicionarItem"
+              text="Adicionar Item">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+
+      <Label layoutX="52.0" layoutY="552.0" text="SERVIÇO DE QUARTO">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="53.0" layoutY="579.0" text="Tipo de Serviço:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <ComboBox fx:id="cbTipoServico"
+                layoutX="152.0" layoutY="575.0"
+                prefHeight="26.0" prefWidth="150.0" />
+
+      <Button fx:id="btnPedirServico"
+              layoutX="51.0" layoutY="618.0"
+              mnemonicParsing="false"
+              onAction="#pedirServico"
+              text="Pedir Serviço de Quarto">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+
+      <Button fx:id="btnVoltar"
+              layoutX="465.0" layoutY="666.0"
+              mnemonicParsing="false"
+              onAction="#voltar"
+              text="Voltar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
