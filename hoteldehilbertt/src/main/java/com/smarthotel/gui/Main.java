@@ -10,14 +10,14 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Scene scene = new Scene(
-                FXMLLoader.load(
-                        getClass().getResource("/GUI/TelaAdmin.fxml")
-                )
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/smarthotel/gui/TelaPrincipal.fxml")
         );
 
+        Scene scene = new Scene(loader.load());
+
+        stage.setTitle("Smart Hotel");
         stage.setScene(scene);
-        stage.setTitle("SmartHotel");
         stage.show();
     }
 

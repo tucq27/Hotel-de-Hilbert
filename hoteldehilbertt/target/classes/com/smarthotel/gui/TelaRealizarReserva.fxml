@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="700.0" prefWidth="1000.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.smarthotel.gui.TelaRealizarReservaController">
+
+   <children>
+
+      <Label layoutX="424.0" layoutY="14.0" text="SMART HOTEL">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="411.0" layoutY="67.0" text="Realizar Reserva de Hospedagem">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="31.0" layoutY="153.0" text="CPF do Responsável:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <TextField fx:id="txtCpfResponsavel"
+                 layoutX="28.0"
+                 layoutY="171.0" />
+
+      <Label layoutX="27.0" layoutY="218.0" text="CPF do Hóspede:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <TextField fx:id="txtCpfHospede"
+                 layoutX="28.0"
+                 layoutY="233.0" />
+
+      <Button fx:id="btnAdicionarHospede"
+              layoutX="194.0"
+              layoutY="233.0"
+              mnemonicParsing="false"
+              onAction="#adicionarHospede"
+              prefHeight="26.0"
+              prefWidth="124.0"
+              text="Adicionar Hóspede">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+
+      <Label layoutX="27.0" layoutY="273.0" text="Hóspedes:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <ListView fx:id="listHospedes"
+                layoutX="28.0"
+                layoutY="291.0"
+                prefHeight="70.0"
+                prefWidth="150.0" />
+
+      <Label layoutX="27.0" layoutY="371.0" text="ID do Quarto:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <TextField fx:id="txtIdQuarto"
+                 layoutX="26.0"
+                 layoutY="389.0" />
+
+      <Label layoutX="25.0" layoutY="434.0" text="Data de Entrada:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <DatePicker fx:id="dpDataEntrada"
+                  layoutX="27.0"
+                  layoutY="452.0"
+                  prefHeight="26.0"
+                  prefWidth="124.0" />
+
+      <Label layoutX="26.0" layoutY="502.0" text="Data de Saída:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <DatePicker fx:id="dpDataSaida"
+                  layoutX="27.0"
+                  layoutY="520.0"
+                  prefHeight="26.0"
+                  prefWidth="124.0" />
+
+      <Label layoutX="25.0" layoutY="569.0" text="Hora de Saída:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <TextField fx:id="txtHoraSaida"
+                 layoutX="27.0"
+                 layoutY="596.0"
+                 prefHeight="26.0"
+                 prefWidth="68.0" />
+
+      <Button fx:id="btnConfirmarReserva"
+              layoutX="31.0"
+              layoutY="653.0"
+              mnemonicParsing="false"
+              onAction="#confirmarReserva"
+              text="Confirmar Reserva">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+
+      <Button fx:id="btnVoltar"
+              layoutX="474.0"
+              layoutY="640.0"
+              mnemonicParsing="false"
+              onAction="#voltar"
+              text="Voltar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+
+   </children>
+</AnchorPane>
