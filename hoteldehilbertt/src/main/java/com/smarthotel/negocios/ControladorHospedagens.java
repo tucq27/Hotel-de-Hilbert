@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.time.Duration;
 import java.time.Month;
 import com.smarthotel.models.StatusQuarto;
+import com.smarthotel.models.Exceptions.*;
+
 
 
 public class ControladorHospedagens {
@@ -26,7 +28,19 @@ public class ControladorHospedagens {
     }
 
 
-    public void criarHospedagem(Hospedagem hospedagem) {
+    public void criarHospedagem(Hospedagem hospedagem) throws QIException, PHException, LIMHException{
+
+        if (!quartoEstaDisponivel(hospedagem.getQuarto())) {
+            throw new QIException(hospedagem.getQuarto());
+            }
+        if (!quartoTemEspaco(hospedagem.getQuarto, hospedagem.getHospedes())) {
+            throw new LIMHException(hospedagem.getQuarto());
+        }
+        for (Hospede hospede : hospedagem.getHospedes()) {
+            if (hospedeTemRestricao(hospede)) {
+                throw new PHException(hospede);
+            }
+        }
         if (hospedagem.getStatus == StatusHospedagem.ATIVA) {
             checkIn(hospedagem);
         }
