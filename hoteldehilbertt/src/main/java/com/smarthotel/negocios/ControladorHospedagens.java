@@ -9,7 +9,11 @@ import java.time.LocalDateTime;
 import java.time.Duration;
 import java.time.Month;
 import com.smarthotel.models.StatusQuarto;
-import com.smarthotel.models.Exceptions.*;
+import com.smarthotel.models.StatusHospedagem;
+import com.smarthotel.models.ContaHospedagem;
+import com.smarthotel.models.RestricaoHospede;
+import com.smarthotel.models.exceptions.*;
+import java.util.ArrayList;
 
 
 
@@ -17,7 +21,7 @@ public class ControladorHospedagens {
 
     static private IRepositorio<Hospedagem> repositorioHospedagens;
     private ControladorQuartos controladorQuartos;
-    private ControladorPessoas controladorPessoas;
+    //private ControladorPessoas controladorPessoas;
     static private double taxaTemporada = 1.0;
 
     public ControladorHospedagens(ControladorQuartos controladorQuartos) {
@@ -28,12 +32,12 @@ public class ControladorHospedagens {
     }
 
 
-    public void criarHospedagem(Hospedagem hospedagem) throws QIException, PHException, LIMHException{
+    public void criarHospedagem(Hospedagem hospedagem) throws QIException, CIFException, CIJRException, PHException, LIMHException{
 
         if (!quartoEstaDisponivel(hospedagem.getQuarto())) {
             throw new QIException(hospedagem.getQuarto());
             }
-        if (!quartoTemEspaco(hospedagem.getQuarto, hospedagem.getHospedes())) {
+        if (!quartoTemEspaco(hospedagem.getQuarto(), hospedagem.getHospedes())) {
             throw new LIMHException(hospedagem.getQuarto());
         }
         for (Hospede hospede : hospedagem.getHospedes()) {
@@ -41,7 +45,7 @@ public class ControladorHospedagens {
                 throw new PHException(hospede);
             }
         }
-        if (hospedagem.getStatus == StatusHospedagem.ATIVA) {
+        if (hospedagem.getStatus() == StatusHospedagem.ATIVA) {
             checkIn(hospedagem);
         }
         repositorioHospedagens.adicionar(hospedagem);
@@ -54,8 +58,8 @@ public class ControladorHospedagens {
             throw new CIJRException();
         }
         // caso o quarto seja nulo ou não esteja disponível, não permite check-in
-        if (!hospedagem.quartoEstaDisponivel(hospedagem.quarto)) {
-            throw new QIException(hospedagem.getQuarto);
+        if (!quartoEstaDisponivel(hospedagem.getQuarto())) {
+            throw new QIException(hospedagem.getQuarto());
         }
         // Verifica se o check-in está sendo feito no dia previsto
         LocalDate hoje = LocalDate.now();
@@ -63,8 +67,8 @@ public class ControladorHospedagens {
             throw new CIFException();
         }
 
-        horarioCheckIn = LocalDateTime.now();
-        hospedagem.getQuarto().setStatus(hospedagem.setStatus(StatusQuarto.OCUPADO));
+        hospedagem.setHorarioCheckIn(LocalDateTime.now());
+        hospedagem.getQuarto().setStatus(StatusQuarto.OCUPADO);
 
     }
 
@@ -81,7 +85,7 @@ public class ControladorHospedagens {
         }
 
         // Registra horário de saída
-        hospedagem.getHorarioCheckOut() = LocalDateTime.now();
+        hospedagem.setHorarioCheckOut(LocalDateTime.now());
         hospedagem.setStatus(StatusHospedagem.ENCERRADA);
 
         // Libera o quarto, mas ele fica sujo
@@ -101,7 +105,7 @@ public class ControladorHospedagens {
 
         LocalDateTime agora = LocalDateTime.now();
         if (hospedagem.getHorarioEntrada() != null) {
-            if (agora.isBefore(horarioEntrada.atTime(12, 0).minusHours(24))) {
+            if (agora.isBefore(hospedagem.getHorarioEntrada().atTime(12, 0).minusHours(24))) {
                 return true;
             }
         }
@@ -155,7 +159,7 @@ public class ControladorHospedagens {
 
     public void adicionarHospede(Hospedagem hospedagem, Hospede hospede) throws LIMHException {
         if (hospede != null) {
-            if (!quartoTemEspaco(hospedagem.getQuarto())) {
+            if (!quartoTemEspaco(hospedagem.getQuarto(), hospedagem.getHospedes())) {
                 throw new LIMHException(hospedagem.getQuarto());
             }
             hospedagem.getHospedes().add(hospede);
@@ -192,11 +196,11 @@ public class ControladorHospedagens {
     public void trocarConta(Hospedagem hospedagem, ContaHospedagem novaConta) {
         if (novaConta != null) {
             // passando divida e recibos da conta antiga para a nova conta
-            novaConta.setDividaTotal(conta.getDividaTotal());
-            novaConta.setRecibos(conta.getRecibos());
+            novaConta.setDividaTotal(hospedagem.getConta().getDividaTotal());
+            novaConta.setRecibos(hospedagem.getConta().getRecibos());
             // deletando as dividas da conta antiga
-            conta.setDividaTotal(0);
-            conta.setRecibos(null);
+            hospedagem.getConta().setDividaTotal(0);
+            hospedagem.getConta().setRecibos(null);
 
             hospedagem.setConta(novaConta);
         }

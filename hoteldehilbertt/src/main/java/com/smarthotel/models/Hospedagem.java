@@ -25,24 +25,13 @@ public class Hospedagem implements IIdentificavel {
     private Quarto quarto;
 
     // Construtor: caso a hospedagem seja criada sem reserva previa
-    public Hospedagem(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) throws QIException, PHException, LIMHException, CIFException, CIJRException {
+    public Hospedagem(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) throws QIException, PHException, LIMHException, CIFException, CIJRException, ENException {
         
-        if (quarto == null) {throw new ENException(quarto);}
-        if (horarioSaida == null) {throw new ENException(horarioSaida);}
-        if (conta == null) {throw new ENException(conta);}
-        if (hospedes == null) {throw new ENException(hospedes);}
+        if (quarto == null) {throw new ENException();}
+        if (horarioSaida == null) {throw new ENException();}
+        if (conta == null) {throw new ENException();}
+        if (hospedes == null) {throw new ENException();}
 
-        if (!quartoEstaDisponivel(quarto)) {
-            throw new QIException(quarto);
-        }
-        if (!quartoTemEspaco(quarto, hospedes)) {
-            throw new LIMHException(quarto);
-        }
-        for (Hospede hospede : hospedes) {
-            if (hospedeTemRestricao(hospede)) {
-                throw new PHException(hospede);
-            }
-        }
         this.status = StatusHospedagem.ATIVA;
         this.quarto = quarto;
         this.horarioEntrada = LocalDate.now(); // não há reserva prévia, então a entrada é a data atual
@@ -53,25 +42,14 @@ public class Hospedagem implements IIdentificavel {
     }
 
     // Construtor: caso a hospedagem seja criada a partir de uma reserva previa
-    public Hospedagem(Quarto quarto, LocalDate horarioEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) throws QIException, PHException, LIMHException{
+    public Hospedagem(Quarto quarto, LocalDate horarioEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) throws QIException, PHException, LIMHException, ENException{
         
-        if (quarto == null) {throw new ENException(quarto);}
-        if (horarioEntrada == null) {throw new ENException(horarioEntrada);}
-        if (horarioSaida == null) {throw new ENException(horarioSaida);}
-        if (conta == null) {throw new ENException(conta);}
-        if (hospedes == null) {throw new ENException(hospedes);}
+        if (quarto == null) {throw new ENException();}
+        if (horarioEntrada == null) {throw new ENException();}
+        if (horarioSaida == null) {throw new ENException();}
+        if (conta == null) {throw new ENException();}
+        if (hospedes == null) {throw new ENException();}
 
-        if (!quartoEstaDisponivel(quarto)) {
-            throw new QIException(quarto);
-        }
-        if (!quartoTemEspaco(quarto, hospedes)) {
-            throw new LIMHException(quarto);
-        }
-        for (Hospede hospede : hospedes) {
-            if (hospedeTemRestricao(hospede)) {
-                throw new PHException(hospede);
-            }
-        }
         this.status = StatusHospedagem.RESERVADA;
         this.quarto = quarto;
         this.horarioReserva = LocalDateTime.now();
