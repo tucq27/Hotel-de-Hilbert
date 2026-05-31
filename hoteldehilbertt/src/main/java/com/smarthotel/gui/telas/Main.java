@@ -11,11 +11,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         Scene scene = new Scene(
-                FXMLLoader.load(
-                        getClass().getResource("TelaAdmin.fxml")
-                )
-        );
-
+                FXMLLoader.load(getClass().getResource("TelaAdmin.fxml")));
         stage.setScene(scene);
         stage.setTitle("SmartHotel");
         stage.show();

@@ -1,20 +1,20 @@
 package com.smarthotel.negocios;
-import com.smarthotel.dados.IRepositorio;
-import com.smarthotel.dados.Repositorio;
-import com.smarthotel.models.Item;
+
+import com.smarthotel.models.Frigobar;
+import com.smarthotel.models.ItemFrigobar;
 import com.smarthotel.models.Quarto;
-import com.smarthotel.dados.IRepositorio;
+import com.smarthotel.models.StatusQuarto;
 import com.smarthotel.dados.RepoQuartos;
-import com.smarthotel.dados.RepoItens;
+//import com.smarthotel.dados.RepoItens;
 
 import com.smarthotel.negocios.exceptions.*;
 
 import java.util.ArrayList;
 
-/* falta implementar: 
-    - recibo do frigobar (debitar da conta responsável pela hospedagem)
-    - buscarItemRegistrado (verificar se o item está no sistema, depende do ControladorItens)
-*/
+// falta implementar: 
+//  - recibo do frigobar (debitar da conta responsável pela hospedagem)
+// - buscarItemRegistrado (verificar se o item está no sistema, depende do ControladorItens)
+
 public class ControladorQuartos {
 
     static private RepoQuartos quartosHotel;
@@ -30,33 +30,37 @@ public class ControladorQuartos {
     public Quarto buscarQuarto(String id) throws ENEException {
         Quarto quarto = quartosHotel.buscar(id);
         if (quarto == null) {
-            throw new ENEException(); // exceção de quarto não encontrado
+            throw new ENEException("Quarto não encontrado");
         }
         return quarto;
     }
 
     public void adicionarQuarto(Quarto quarto) throws ERException {
         if (quartosHotel.buscar(quarto.getId()) != null) {
-            throw new ERException(quarto); // exceção de quarto já existente
+            throw new ERException(quarto); // quarto repetido no repositório
         }
         quartosHotel.adicionar(quarto);
     }
 
     public void removerQuarto(String id) throws ENEException {
-        if (quartosHotel.buscar(id) == null) {
-            throw new ENEException(); // exceção de quarto não encontrado
+        Quarto quarto = quartosHotel.buscar(id);
+        if (quarto == null) {
+            throw new ENEException("Quarto não encontrado");
         }
-        quartosHotel.remover(id);
+        quartosHotel.remover(quartosHotel.buscar(id));
     }
     
-    public void atualizarQuarto(Quarto quarto) throws ENEException {
-        if (quartosHotel.buscar(quarto.getId()) == null) {
-            throw new ENEException(); // exceção de quarto não encontrado
+    public void atualizarQuarto(String id, Quarto quarto) throws ENEException {
+        if (id != null && quarto != null) {
+            quartosHotel.atualizar(id, quarto);
         }
-        quartosHotel.atualizar(quarto);
     }
 
-    public boolean estaDisponivel(String id) throws ENEException {
+    public boolean estaDisponivel(Quarto quarto) {
+        if (quarto == null) {
+            return false;
+        }
+        String id = quarto.getId();
         return (quartosHotel.buscar(id).getStatus() == StatusQuarto.DISPONIVEL);
     }
 
@@ -67,56 +71,73 @@ public class ControladorQuartos {
     public ArrayList<Quarto> listarQuartosDisponiveis() {
         ArrayList<Quarto> quartosDisponiveis = new ArrayList<>();
         for (Quarto quarto : listarQuartos()) {
-            if (quarto.estaDisponivel()) {
+            if (estaDisponivel(quarto)) {
                 quartosDisponiveis.add(quarto);
             }
         }
         return quartosDisponiveis;
     }
 
-    public Item buscarItemFrigobar(String idQuarto, String idItem) throws ENEException {
+    public ItemFrigobar buscarItemFrigobar(String idQuarto, String idItem) throws ENEException {
+        ItemFrigobar itemEncontrado = null;
+
         if (idQuarto != null && idItem != null) {
             Quarto quarto = quartosHotel.buscar(idQuarto);
-            
-            if (quarto.getFrigobar() != null) {
-                ArrayList<Item> inventario = quarto.getFrigobar().getInventarioFrigobar();
+            Frigobar frigobar = quarto.getFrigobar();
 
-                for (Item item : inventario) {
-                    if (item.getId().equals(idItem)) {
-                        return item; 
-                    }
+            if (frigobar == null) {
+                throw new ENEException("Frigobar não encontrado no quarto");
+            }
+
+            ArrayList<ItemFrigobar> inventario = quarto.getFrigobar().getInventarioFrigobar();
+            for (ItemFrigobar item : inventario) {
+                if (item.getId().equals(idItem)) {
+                    itemEncontrado = item;
+                    break;
                 }
             }
+        
+            if (itemEncontrado == null) {
+                throw new ENEException("Item do frigobar não encontrado");
+            }
+            
         }
-        throw new ENEException(); // exceção de item não encontrado
+        return itemEncontrado;
     }
 
     public void pegarItemFrigobar(String idQuarto, String idItem) throws ENEException {
         if (idQuarto != null && idItem != null) {
+            ItemFrigobar item = buscarItemFrigobar(idQuarto, idItem); // pode lançar ENEException se o item não for encontrado
             Quarto quarto = quartosHotel.buscar(idQuarto);
-            
-            Item item = buscarItemFrigobar(idQuarto, idItem); // pode lançar ENEException se o item não for encontrado
-            /* 
-                gera um recibo frigobar e adiciona
-            */
-            ArrayList<Item> inventario = quarto.getFrigobar().getInventarioFrigobar();
-            inventario.remove(item); // remove o item do inventário do frigobar
+            Frigobar frigobar = quarto.getFrigobar();
+
+            if (frigobar == null) {
+                throw new ENEException("Frigobar não encontrado no quarto");
+            }
+            // caso o quarto realmente tenha um frigobar
+            ArrayList<ItemFrigobar> inventario = quarto.getFrigobar().getInventarioFrigobar();
+            inventario.remove(item);
+
+            //////////// gera um recibo do tipo frigobar e adiciona na conta
+
         }
     }
 
+    /* 
     public void adicionarItemFrigobar(String idQuarto, String idItem) throws ENEException {
         if (idQuarto != null && idItem != null && buscarItemRegistrado(idQuarto, idItem) != null) {
             Quarto quarto = quartosHotel.buscar(idQuarto);
             
             if (quarto.getFrigobar() != null) {
-                ArrayList<Item> inventario = quarto.getFrigobar().getInventarioFrigobar();
+                ArrayList<ItemFrigobar> inventario = quarto.getFrigobar().getInventarioFrigobar();
 
-                Item item = buscarItemRegistrado(idQuarto, idItem); // pode lançar ENEException se o item não for encontrado
+                ItemFrigobar item = buscarItemFrigobar(idQuarto, idItem); // pode lançar ENEException se o item não for encontrado
                 if (inventario.size() < quarto.getFrigobar().getCapacidadeMaxima()) {
                     inventario.add(item);
                 }
             }
         }
-    }
+    }*/
 
 }
+
