@@ -20,17 +20,14 @@ import java.util.ArrayList;
 public class ControladorHospedagens {
 
     static private IRepositorio<Hospedagem> repositorioHospedagens;
-    private ControladorQuartos controladorQuartos;
-    //private ControladorPessoas controladorPessoas;
     static private double taxaTemporada = 1.0;
 
-    public ControladorHospedagens(ControladorQuartos controladorQuartos) {
+    public ControladorHospedagens() {
 
         if (repositorioHospedagens == null) {
             repositorioHospedagens = new RepoHospedagens();
         }
     }
-
 
     public void criarHospedagem(Hospedagem hospedagem) throws QIException, CIFException, CIJRException, PHException, LIMHException{
 
