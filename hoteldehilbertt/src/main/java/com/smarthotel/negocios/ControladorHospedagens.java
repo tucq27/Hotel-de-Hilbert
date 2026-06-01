@@ -9,12 +9,13 @@ import java.time.Month;
 import java.util.ArrayList;
 
 import com.smarthotel.negocios.exceptions.*;
+import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.dados.exceptions.ORException;
 
 public class ControladorHospedagens implements IContHospedagens {
 
     static private RepoHospedagens repositorioHospedagens;
-    static private double taxaTemporada = 1.0;
+    static private double taxaTemporada = 1.0; // migrar para controlador de pagamentos depois
 
     public ControladorHospedagens() {
 
@@ -37,7 +38,13 @@ public class ControladorHospedagens implements IContHospedagens {
         return false;
     }
 
-
+    public Hospedagem buscarHospedagem(String id) throws ONEException {
+        Hospedagem hospedagem = repositorioHospedagens.buscar(id);
+        if (hospedagem == null) {
+            throw new ONEException("Hospedagem de " + id + " não encontrada.");
+        }
+        return hospedagem;
+    }
 
     public String hospedarAgora(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
       throws QIException, CIFException, CIJRException, HPException, QLException, ORException {
@@ -79,7 +86,6 @@ public class ControladorHospedagens implements IContHospedagens {
     }
 
     public void checkIn(Hospedagem hospedagem) throws QIException, CIFException, CIJRException {
-
         // caso o checkin já tenha sido realizado, não permite novo check-in
         if (hospedagem.getHorarioCheckIn() != null) {
             throw new CIJRException();
@@ -95,6 +101,7 @@ public class ControladorHospedagens implements IContHospedagens {
         }
 
         hospedagem.setHorarioCheckIn(LocalDateTime.now());
+        hospedagem.setStatus(StatusHospedagem.ATIVA);
         hospedagem.getQuarto().setStatus(StatusQuarto.OCUPADO);
 
     }

@@ -30,17 +30,17 @@ public class ControladorPessoas {
         repositorioPessoas.adicionar(pessoa);
     }
 
-    public void removerPessoa(String id) throws ONEException {
-        Pessoa pessoa = repositorioPessoas.buscar(id);
+    public void removerPessoa(String cpf) throws ONEException {
+        Pessoa pessoa = repositorioPessoas.buscar(cpf);
         if (pessoa == null) {
-            throw new ONEException("Pessoa não encontrado");
+            throw new ONEException("Pessoa não encontrada.");
         }
-        repositorioPessoas.remover(repositorioPessoas.buscar(id));
+        repositorioPessoas.remover(repositorioPessoas.buscar(cpf));
     }
     
-    public void atualizarPessoa(String id, Pessoa Pessoa) throws ONEException {
-        if (id != null && Pessoa != null) {
-            repositorioPessoas.atualizar(id, Pessoa);
+    public void atualizarPessoa(String cpf, Pessoa Pessoa) throws ONEException {
+        if (cpf != null && Pessoa != null) {
+            repositorioPessoas.atualizar(cpf, Pessoa);
         }
     }
 }

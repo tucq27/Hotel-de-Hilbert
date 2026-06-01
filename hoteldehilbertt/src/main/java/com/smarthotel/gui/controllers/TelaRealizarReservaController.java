@@ -21,11 +21,7 @@ import com.smarthotel.negocios.exceptions.QLException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class TelaRealizarReservaController extends TelaRealizarHospedagemController {
     /* 
