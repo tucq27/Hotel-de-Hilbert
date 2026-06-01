@@ -5,7 +5,7 @@ import com.smarthotel.models.Pessoa;
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.dados.exceptions.ORException;
 
-public class ControladorPessoas {
+public class ControladorPessoas implements IContPessoas {
     static private RepoPessoas repositorioPessoas;
 
     public ControladorPessoas() {
