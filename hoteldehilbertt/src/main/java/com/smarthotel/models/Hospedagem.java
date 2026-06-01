@@ -15,7 +15,7 @@ public class Hospedagem implements IIdentificavel {
     private LocalDateTime horarioCheckIn; // Horários de entrada e saída do hospede no hotel
     private LocalDateTime horarioCheckOut;
     private LocalDateTime horarioReserva; // horario que a reserva foi feita (se for NULL, a hospedagem não tem rserva previa)
-    private LocalDate horarioEntrada; // data prevista pra Entrada (reserva)
+    private LocalDate dataEntrada; // data prevista pra Entrada (reserva)
     private LocalDateTime horarioSaida; // hora prevista pra Saída (reserva)
     private ContaHospedagem conta; // associação com a conta de hospedagem
     private ArrayList<Hospede> hospedes;
@@ -27,7 +27,7 @@ public class Hospedagem implements IIdentificavel {
         if (quarto != null && horarioSaida != null && conta != null && hospedes != null) {
             this.status = StatusHospedagem.ATIVA;
             this.quarto = quarto;
-            this.horarioEntrada = LocalDate.now(); // não há reserva prévia, então a entrada é a data atual
+            this.dataEntrada = LocalDate.now(); // não há reserva prévia, então a entrada é a data atual
             this.horarioSaida = horarioSaida;
             this.conta = conta;
             this.hospedes = hospedes;
@@ -36,18 +36,11 @@ public class Hospedagem implements IIdentificavel {
     }
 
     // Construtor: caso a hospedagem seja criada a partir de uma reserva previa
-    public Hospedagem(Quarto quarto, LocalDate horarioEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) {
-        
-        if (quarto != null && horarioEntrada != null && horarioSaida != null && conta != null && hospedes != null) {
-            this.status = StatusHospedagem.RESERVADA;
-            this.quarto = quarto;
-            this.horarioReserva = LocalDateTime.now();
-            this.horarioEntrada = horarioEntrada;
-            this.horarioSaida = horarioSaida;
-            this.conta = conta;
-            this.hospedes = hospedes;
-            gerarId();
-        }
+    public Hospedagem(Quarto quarto, LocalDate dataEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) {
+        this(quarto, horarioSaida, conta, hospedes); // reutiliza o construtor anterior
+        this.dataEntrada = dataEntrada;
+        this.horarioReserva = LocalDateTime.now();
+        this.status = StatusHospedagem.RESERVADA;
     }
 
     ////// o metodo final deverá ser mais complexo (baixa prioridade)
@@ -69,8 +62,8 @@ public class Hospedagem implements IIdentificavel {
     public LocalDateTime getHorarioReserva() {
         return horarioReserva;
     }
-    public LocalDate getHorarioEntrada() {
-        return horarioEntrada;
+    public LocalDate getDataEntrada() {
+        return dataEntrada;
     }
     public LocalDateTime getHorarioSaida() {
         return horarioSaida;
@@ -109,8 +102,8 @@ public class Hospedagem implements IIdentificavel {
         this.horarioReserva = horarioReserva;
     }
 
-    public void setHorarioEntrada(LocalDate horarioEntrada) {
-        this.horarioEntrada = horarioEntrada;
+    public void setDataEntrada(LocalDate dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
     public void setHorarioSaida(LocalDateTime horarioSaida) {

@@ -19,5 +19,5 @@ public interface IContQuartos {
 
     // Gerenciamento do frigobar
     void pegarItemFrigobar(String idQuarto, String idItem) throws ONEException;
-    // void adicionarItemFrigobar(String idQuarto, String idItem) throws ONEException;
+    void reporItemFrigobar(String idQuarto, String idItem) throws ONEException;
 }

@@ -123,21 +123,9 @@ public class ControladorQuartos implements IContQuartos {
         }
     }
 
-    /* 
-    public void adicionarItemFrigobar(String idQuarto, String idItem) throws ENEException {
-        if (idQuarto != null && idItem != null && buscarItemRegistrado(idQuarto, idItem) != null) {
-            Quarto quarto = quartosHotel.buscar(idQuarto);
-            
-            if (quarto.getFrigobar() != null) {
-                ArrayList<ItemFrigobar> inventario = quarto.getFrigobar().getInventarioFrigobar();
-
-                ItemFrigobar item = buscarItemFrigobar(idQuarto, idItem); // pode lançar ENEException se o item não for encontrado
-                if (inventario.size() < quarto.getFrigobar().getCapacidadeMaxima()) {
-                    inventario.add(item);
-                }
-            }
-        }
-    }*/
+    public void reporItemFrigobar(String idQuarto, String idItem) throws ONEException {
+        //if (idQuarto != null && idItem != null && buscarItemRegistrado(idQuarto, idItem) != null) { }
+    }
 
 }
 

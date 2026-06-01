@@ -23,29 +23,47 @@ public class ControladorHospedagens {
         }
     }
 
-    public void criarHospedagem(Hospedagem hospedagem) throws QIException, CIFException, CIJRException, HPException, QLException, ORException {
-
-        if (!quartoEstaDisponivel(hospedagem.getQuarto())) {
-            throw new QIException(hospedagem.getQuarto());
-            }
-        if (!quartoTemEspaco(hospedagem.getQuarto(), hospedagem.getHospedes())) {
-            throw new QLException(hospedagem.getQuarto());
+    public void hospedarAgora(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
+      throws QIException, CIFException, CIJRException, HPException, QLException, ORException {
+        
+        if (!quartoEstaDisponivel(quarto)) {
+            throw new QIException(quarto); // quarto não disponível
         }
-        for (Hospede hospede : hospedagem.getHospedes()) {
+        if (!quartoTemEspaco(quarto, hospedes)) {
+            throw new QLException(quarto); // limite de hospedes para o quarto excedido
+        }
+        for (Hospede hospede : hospedes) {
             if (hospedeTemRestricao(hospede)) {
-                throw new HPException(hospede);
+                throw new HPException(hospede); // um dos hospedes tem restrição para se hospedar
             }
         }
-        if (hospedagem.getStatus() == StatusHospedagem.ATIVA) {
-            checkIn(hospedagem);
+        Hospedagem hospedagem = new Hospedagem(quarto, horarioSaida, conta, hospedes);
+        checkIn(hospedagem); // realiza o check-in imediato, registra o quarto como ocupado
+        repositorioHospedagens.adicionar(hospedagem);
+    }
+
+    public void reservarHospedagem(Quarto quarto, LocalDate dataEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
+      throws QIException, CIFException, CIJRException, HPException, QLException, ORException {
+        
+        if (!quartoEstaDisponivel(quarto)) {
+            throw new QIException(quarto); // quarto não disponível
         }
+        if (!quartoTemEspaco(quarto, hospedes)) {
+            throw new QLException(quarto); // limite de hospedes para o quarto excedido
+        }
+        for (Hospede hospede : hospedes) {
+            if (hospedeTemRestricao(hospede)) {
+                throw new HPException(hospede); // um dos hospedes tem restrição para se hospedar
+            }
+        }
+        Hospedagem hospedagem = new Hospedagem(quarto, dataEntrada, horarioSaida, conta, hospedes);
         repositorioHospedagens.adicionar(hospedagem);
     }
 
     public void checkIn(Hospedagem hospedagem) throws QIException, CIFException, CIJRException {
 
         // caso o checkin já tenha sido realizado, não permite novo check-in
-        if (hospedagem.getHorarioCheckIn() == null) {
+        if (hospedagem.getHorarioCheckIn() != null) {
             throw new CIJRException();
         }
         // caso o quarto seja nulo ou não esteja disponível, não permite check-in
@@ -54,7 +72,7 @@ public class ControladorHospedagens {
         }
         // Verifica se o check-in está sendo feito no dia previsto
         LocalDate hoje = LocalDate.now();
-        if (!hoje.isEqual(hospedagem.getHorarioEntrada())) {
+        if (!hoje.isEqual(hospedagem.getDataEntrada())) {
             throw new CIFException();
         }
 
@@ -85,37 +103,17 @@ public class ControladorHospedagens {
         }
     }
 
-    // só pode cancelar a reserva previa até meio dia do dia anterior à data prevista para entrada
-    private boolean podeCancelarReserva(Hospedagem hospedagem) {
-        if (hospedagem.getStatus() != StatusHospedagem.RESERVADA) {
-            return false; // Não há reserva prévia para cancelar
-        }
-        if (hospedagem.getHorarioCheckIn() != null) {
-            return false; // Check-in já realizado, não pode cancelar
-        }
-
-        LocalDateTime agora = LocalDateTime.now();
-        if (hospedagem.getHorarioEntrada() != null) {
-            if (agora.isBefore(hospedagem.getHorarioEntrada().atTime(12, 0).minusHours(24))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // cancela a reserva
+    // cancela a reserva, antes de se hospedar no hotel
     public void cancelarReserva(Hospedagem hospedagem) {
         if (!podeCancelarReserva(hospedagem)) {
             ///// Cobrar a multa de cancelamento
         }
-        // Libera o quarto, mas ele fica sujo
         if (hospedagem.getQuarto() != null) {
-            hospedagem.getQuarto().setStatus(StatusQuarto.SUJO);
             hospedagem.setStatus(StatusHospedagem.CANCELADA);
 
             // Limpa os dados da reserva
             hospedagem.setHorarioReserva(null);
-            hospedagem.setHorarioEntrada(null);
+            hospedagem.setDataEntrada(null);
             hospedagem.setHorarioSaida(null);
         }
     }
@@ -131,6 +129,23 @@ public class ControladorHospedagens {
 
     private boolean hospedeTemRestricao(Hospede hospede) {
         return (hospede.getRestricao() == RestricaoHospede.PROIBIDO);
+    }
+    // só pode cancelar a reserva previa até meio dia do dia anterior à data prevista para entrada
+    private boolean podeCancelarReserva(Hospedagem hospedagem) {
+        if (hospedagem.getStatus() != StatusHospedagem.RESERVADA) {
+            return false; // Não há reserva prévia para cancelar
+        }
+        if (hospedagem.getHorarioCheckIn() != null) {
+            return false; // Check-in já realizado, não pode cancelar
+        }
+
+        LocalDateTime agora = LocalDateTime.now();
+        if (hospedagem.getDataEntrada() != null) {
+            if (agora.isBefore(hospedagem.getDataEntrada().atTime(12, 0).minusHours(24))) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

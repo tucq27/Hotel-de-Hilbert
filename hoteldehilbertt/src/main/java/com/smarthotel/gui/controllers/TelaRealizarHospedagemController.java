@@ -5,7 +5,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class TelaRealizarHospedagemController {
+
+    @FXML
+    private TextField txtCpfResponsavel;
 
     @FXML
     private TextField txtCpfHospede;
@@ -25,6 +30,9 @@ public class TelaRealizarHospedagemController {
 
     @FXML
     private void confirmarHospedagem() {
+        String cpfResponsavel = txtCpfResponsavel.getText();
+        ArrayList<String> cpfsHospedes = new ArrayList<>(listHospedes.getItems());
+
         System.out.println("Hospedagem confirmada!");
     }
 
