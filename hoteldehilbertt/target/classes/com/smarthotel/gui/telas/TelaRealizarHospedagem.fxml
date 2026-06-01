@@ -77,14 +77,14 @@
                   layoutX="27.0" layoutY="452.0"
                   prefHeight="26.0" prefWidth="124.0" />
 
-      <Label layoutX="26.0" layoutY="502.0" text="Hora de Saída:">
+      <!--<Label layoutX="26.0" layoutY="502.0" text="Hora de Saída:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
       <TextField fx:id="txtHoraSaida"
                  layoutX="27.0" layoutY="520.0"
-                 prefHeight="26.0" prefWidth="60.0" />
+                 prefHeight="26.0" prefWidth="60.0" /> -->
 
       <Button fx:id="btnConfirmarHospedagem"
               layoutX="56.0" layoutY="571.0"
