@@ -9,10 +9,10 @@ import com.smarthotel.negocios.exceptions.*;
 import com.smarthotel.dados.exceptions.ORException;
 
 public interface IContHospedagens {
-    void hospedarAgora(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
+    String hospedarAgora(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
         throws QIException, CIFException, CIJRException, HPException, QLException, ORException;
 
-    void reservarHospedagem(Quarto quarto, LocalDate dataEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
+    String reservarHospedagem(Quarto quarto, LocalDate dataEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
         throws QIException, CIFException, CIJRException, HPException, QLException, ORException;
 
     void checkIn(Hospedagem hospedagem) throws QIException, CIFException, CIJRException;

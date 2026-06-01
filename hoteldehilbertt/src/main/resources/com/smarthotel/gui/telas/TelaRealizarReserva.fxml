@@ -108,7 +108,7 @@
                   prefHeight="26.0"
                   prefWidth="124.0" />
 
-      <Label layoutX="25.0" layoutY="569.0" text="Hora de Saída:">
+      <!--<Label layoutX="25.0" layoutY="569.0" text="Hora de Saída:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -118,7 +118,7 @@
                  layoutX="27.0"
                  layoutY="596.0"
                  prefHeight="26.0"
-                 prefWidth="68.0" />
+                 prefWidth="68.0" /> -->
 
       <Button fx:id="btnConfirmarReserva"
               layoutX="31.0"

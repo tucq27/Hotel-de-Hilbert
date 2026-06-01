@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import com.smarthotel.negocios.exceptions.*;
 import com.smarthotel.dados.exceptions.ORException;
 
-public class ControladorHospedagens {
+public class ControladorHospedagens implements IContHospedagens {
 
     static private RepoHospedagens repositorioHospedagens;
     static private double taxaTemporada = 1.0;
@@ -23,7 +23,23 @@ public class ControladorHospedagens {
         }
     }
 
-    public void hospedarAgora(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
+    public boolean hospedagmJaExiste(LocalDate dataSaida, Quarto quarto) {
+        
+        if (repositorioHospedagens.getObjetos() == null || repositorioHospedagens.getObjetos().isEmpty()) {
+            return false;
+        }
+
+        for (Hospedagem hospedagem : repositorioHospedagens.getObjetos()) {
+            if (hospedagem.getQuarto().equals(quarto) && hospedagem.getHorarioSaida().isEqual(dataSaida.atTime(12,0))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+    public String hospedarAgora(Quarto quarto, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
       throws QIException, CIFException, CIJRException, HPException, QLException, ORException {
         
         if (!quartoEstaDisponivel(quarto)) {
@@ -40,9 +56,10 @@ public class ControladorHospedagens {
         Hospedagem hospedagem = new Hospedagem(quarto, horarioSaida, conta, hospedes);
         checkIn(hospedagem); // realiza o check-in imediato, registra o quarto como ocupado
         repositorioHospedagens.adicionar(hospedagem);
+        return hospedagem.getId();
     }
 
-    public void reservarHospedagem(Quarto quarto, LocalDate dataEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
+    public String reservarHospedagem(Quarto quarto, LocalDate dataEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
       throws QIException, CIFException, CIJRException, HPException, QLException, ORException {
         
         if (!quartoEstaDisponivel(quarto)) {
@@ -58,6 +75,7 @@ public class ControladorHospedagens {
         }
         Hospedagem hospedagem = new Hospedagem(quarto, dataEntrada, horarioSaida, conta, hospedes);
         repositorioHospedagens.adicionar(hospedagem);
+        return hospedagem.getId();
     }
 
     public void checkIn(Hospedagem hospedagem) throws QIException, CIFException, CIJRException {
