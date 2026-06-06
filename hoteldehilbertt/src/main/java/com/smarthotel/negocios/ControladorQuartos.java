@@ -5,12 +5,6 @@ import com.smarthotel.models.ItemFrigobar;
 import com.smarthotel.models.Quarto;
 import com.smarthotel.models.StatusQuarto;
 
-import com.smarthotel.models.QuartoPadrao;
-import com.smarthotel.models.QuartoPresidencial;
-import com.smarthotel.models.QuartoSuite;
-import com.smarthotel.dados.RepoQuartoPadrao;
-import com.smarthotel.dados.RepoQuartoPresidencial;
-import com.smarthotel.dados.RepoQuartoSuite;
 import com.smarthotel.dados.RepoQuartos;
 //import com.smarthotel.dados.RepoItens;
 import java.util.ArrayList;
@@ -25,23 +19,11 @@ import com.smarthotel.dados.exceptions.ORException;
 public class ControladorQuartos implements IContQuartos {
 
     static private RepoQuartos quartosHotel;
-    static private RepoQuartoPadrao quartosPadraoHotel;
-    static private RepoQuartoSuite quartosSuiteHotel;
-    static private RepoQuartoPresidencial quartosPresidencialHotel;
 
     public ControladorQuartos() {
         // Se o repositório já existir, não pode criar um novo
         if (quartosHotel == null) {
             quartosHotel = new RepoQuartos();
-        }
-        if (quartosPadraoHotel == null) {
-            quartosPadraoHotel = new RepoQuartoPadrao();
-        }
-        if (quartosSuiteHotel == null) {
-            quartosSuiteHotel = new RepoQuartoSuite();
-        }
-        if (quartosPresidencialHotel == null) {
-            quartosPresidencialHotel = new RepoQuartoPresidencial();
         }
     }
 
@@ -59,15 +41,6 @@ public class ControladorQuartos implements IContQuartos {
             throw new ORException(quarto); // quarto repetido no repositório
         }
         quartosHotel.adicionar(quarto);
-        if (quarto instanceof QuartoSuite) {
-            quartosSuiteHotel.adicionar((QuartoSuite) quarto);
-        }
-        if (quarto instanceof QuartoPadrao) {
-            quartosPadraoHotel.adicionar((QuartoPadrao) quarto);
-        }
-        if (quarto instanceof QuartoPresidencial) {
-            quartosPresidencialHotel.adicionar((QuartoPresidencial) quarto);
-        }
     }
 
     public void removerQuarto(String id) throws ONEException {
@@ -76,16 +49,6 @@ public class ControladorQuartos implements IContQuartos {
             throw new ONEException("Quarto não encontrado");
         }
         quartosHotel.remover(quarto);
-        if (quarto instanceof QuartoSuite) {
-            quartosSuiteHotel.remover((QuartoSuite) quarto);
-        }
-        if (quarto instanceof QuartoPadrao) {
-            quartosPadraoHotel.remover((QuartoPadrao) quarto);
-        }
-        if (quarto instanceof QuartoPresidencial) {
-            quartosPresidencialHotel.remover((QuartoPresidencial) quarto);
-        }
-
     }
     
     public void atualizarQuarto(String id, Quarto quarto) throws ONEException {
