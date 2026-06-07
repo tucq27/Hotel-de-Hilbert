@@ -10,9 +10,7 @@ import com.smarthotel.models.StatusHospedagem;
 
 public class ControladorRelatorios implements IContRelatorios{
 
-    public ControladorRelatorios() {
-        
-    }
+    public ControladorRelatorios() {}
 
     // verifica todas as hospedagens ativas agora
     public ArrayList<Hospedagem> gerarOcupacaoDiaria(RepoHospedagens repositorioHospedagens) {

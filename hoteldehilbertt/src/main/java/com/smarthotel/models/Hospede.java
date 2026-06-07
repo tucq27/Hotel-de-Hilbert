@@ -7,11 +7,12 @@ public class Hospede extends Pessoa {
     private RestricaoHospede restricao= RestricaoHospede.DISPONIVEL; //caso o Hospede tenha historico ruim ele será PROIBIDO
 
     // Construtor
-     public Hospede(String nome, String cpf, java.time.LocalDate dataNascimento) {
-        super(nome, cpf, dataNascimento);
+    public Hospede(Pessoa p) {
+        super( p.getNome(), p.getCpf(), p.getDataNascimento(), p.getTelefone(), p.getEmail());
     }
-    public Hospede(String nome, String cpf, java.time.LocalDate dataNascimento, String telefone, String email, String preferencias, String historico) {
-        super(nome, cpf, dataNascimento, telefone, email);
+    
+    public Hospede(Pessoa p, String preferencias, String historico) {
+        super( p.getNome(), p.getCpf(), p.getDataNascimento(), p.getTelefone(), p.getEmail());
         this.preferencias = preferencias;
         this.historico = historico;
     }

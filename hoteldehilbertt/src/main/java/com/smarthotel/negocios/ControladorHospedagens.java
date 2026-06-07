@@ -247,7 +247,6 @@ public class ControladorHospedagens implements IContHospedagens {
         return false;
     }
 
-
     private void setTaxaTemporada() {
         Month mesAtual = LocalDate.now().getMonth();
         if (mesAtual == Month.JANUARY ||

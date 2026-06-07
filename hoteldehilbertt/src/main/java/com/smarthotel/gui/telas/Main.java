@@ -35,9 +35,13 @@ public class Main extends Application {
         Quarto quarto1 = new QuartoPadrao("001", 1, 2);
         QuartoSuite quarto2 = new QuartoSuite("002", 1, 2);
 
-        Hospede hospJ = new Hospede("Jojo", "1234", LocalDate.of(1997, 1, 1));
-        Hospede hospM = new Hospede("Maria", "5678", LocalDate.of(1990, 5, 15));
-        Responsavel resp = new Responsavel("Carlos", "4321", LocalDate.of(1985, 3, 20), "99999");
+        Pessoa j = new Pessoa("Jojo", "1234", LocalDate.of(1997, 1, 1));
+        Pessoa m = new Pessoa("Maria", "5678", LocalDate.of(1990, 5, 15));
+        Pessoa c = new Pessoa("Carlos", "4321", LocalDate.of(1985, 3, 20));
+
+        Pessoa hospJ = new Hospede(j);
+        Pessoa hospM = new Hospede(m);
+        Pessoa resp = new Responsavel(c, "99999");
         try {
             contPessoas.adicionarPessoa(hospJ);
             contPessoas.adicionarPessoa(hospM);
@@ -48,9 +52,9 @@ public class Main extends Application {
             System.out.println(" - - - - Erro: " + e.getMessage());
         }
         
-        ContaHospedagem conta1 = new ContaHospedagem("conta282828", resp);
+        ContaHospedagem conta1 = new ContaHospedagem("conta282828", new Responsavel(c, "99999"));
         ArrayList<Hospede> hospedes = new ArrayList<>();
-        hospedes.add(hospM);
+        hospedes.add(new Hospede(m));
 
         try {
             String h1 =contHospedagens.hospedarAgora(quarto1, LocalDateTime.of(2026, 6, 5, 12, 0), conta1, hospedes);

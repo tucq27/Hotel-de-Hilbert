@@ -1,18 +1,12 @@
 package com.smarthotel.models;
 
-import java.time.LocalDate; 
-
 public class Funcionario extends Pessoa {
     private String cargo;
     private boolean ocupado = false; // por padrão, funcionario está disponivel
 
     // Construtor
-    public Funcionario(String nome, String cpf, LocalDate dataNascimento, String cargo) {
-        super(nome, cpf, dataNascimento);
-        this.cargo = cargo;
-    }
-    public Funcionario(String nome, String cpf, LocalDate dataNascimento, String telefone, String email, String cargo) {
-        super(nome, cpf, dataNascimento, telefone, email);
+    public Funcionario(Pessoa p, String cargo) {
+        super( p.getNome(), p.getCpf(), p.getDataNascimento(), p.getTelefone(), p.getEmail());
         this.cargo = cargo;
     }
 

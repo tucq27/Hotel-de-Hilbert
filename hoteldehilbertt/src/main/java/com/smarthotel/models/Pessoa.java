@@ -5,7 +5,7 @@ import java.time.Period;
 
 import com.smarthotel.dados.IIdentificavel;
 
-public abstract class Pessoa implements IIdentificavel {
+public class Pessoa implements IIdentificavel {
     protected String nome;
     protected String cpf;
     protected LocalDate dataNascimento;

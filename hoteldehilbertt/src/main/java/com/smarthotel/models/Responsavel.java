@@ -1,17 +1,11 @@
 package com.smarthotel.models;
 
-import java.time.LocalDate;
-
 public class Responsavel extends Pessoa {
     private String dadosDePagamento;
 
     // Construtor
-    public Responsavel(String nome, String cpf, LocalDate dataNascimento, String dadosDePagamento) {
-        super(nome, cpf, dataNascimento);
-        this.dadosDePagamento = dadosDePagamento;
-    }
-    public Responsavel(String nome, String cpf, LocalDate dataNascimento, String telefone, String email, String dadosDePagamento) {
-        super(nome, cpf, dataNascimento, telefone, email);
+    public Responsavel(Pessoa p, String dadosDePagamento) {
+        super( p.getNome(), p.getCpf(), p.getDataNascimento(), p.getTelefone(), p.getEmail());
         this.dadosDePagamento = dadosDePagamento;
     }
 
