@@ -67,7 +67,7 @@ public class ControladorRelatorios implements IContRelatorios{
         return ocupacao;
     }
 
-    ArrayList<Hospedagem> gerarAlertaSaidas(RepoHospedagens repositorioHospedagens) {
+    public ArrayList<Hospedagem> gerarRelatorioSaidas(RepoHospedagens repositorioHospedagens) {
         ArrayList<Hospedagem> hospedagensHotel = repositorioHospedagens.getObjetos();
         ArrayList<Hospedagem> hospEncerradas = new ArrayList<>();
 
@@ -80,7 +80,7 @@ public class ControladorRelatorios implements IContRelatorios{
         return hospEncerradas;
     }
 
-    ArrayList<Hospedagem> gerarAlertaSaidaPendente(RepoHospedagens repositorioHospedagens) {
+    public ArrayList<Hospedagem> alertarSaidaPendente(RepoHospedagens repositorioHospedagens) {
         ArrayList<Hospedagem> hospedagensHotel = repositorioHospedagens.getObjetos();
         ArrayList<Hospedagem> hospPendente = new ArrayList<>();
         LocalDateTime agora = LocalDateTime.now();
