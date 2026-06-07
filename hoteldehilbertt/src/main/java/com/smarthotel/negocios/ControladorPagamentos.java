@@ -2,6 +2,7 @@ package com.smarthotel.negocios;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.Period;
 import java.util.ArrayList;
 
@@ -22,7 +23,12 @@ public class ControladorPagamentos {
         int dias = Period.between(entrada, LocalDate.now()).getDays();
 
         double taxaQuarto = hosp.getQuarto().getMultTaxa();
-        double taxaTemp = Quarto.getMultTemporada();
+        double taxaTemp = 1;
+        Month mesAtual = LocalDate.now().getMonth();
+
+        if (estaEmAltaTemporada(mesAtual)) {
+            taxaTemp = Quarto.getMultTemporada();
+        }
 
         double valor = dias * taxaQuarto * taxaTemp;
         
@@ -68,6 +74,22 @@ public class ControladorPagamentos {
         double dividaTotal = conta.getDividaTotal();
         dividaTotal -= recibo.getValor();
         conta.setDividaTotal(dividaTotal);
+    }
+
+    public void alterarTaxaTemporada(double novaTaxa) {
+        if (novaTaxa >= 1) {
+            Quarto.setMultTemporada(novaTaxa);
+        }
+    }
+
+    private boolean estaEmAltaTemporada(Month mes) {
+        ArrayList<Month> meses = Quarto.getAltaTemporada();
+
+        if (meses != null) {
+            return meses.contains(mes);
+        }
+
+        return false; // caso não exista altaTemporada
     }
 }
     
