@@ -1,10 +1,12 @@
 package com.smarthotel.negocios;
 
 import com.smarthotel.models.Frigobar;
-import com.smarthotel.models.ItemFrigobar;
+import com.smarthotel.models.Hospedagem;
+import com.smarthotel.models.Item;
 import com.smarthotel.models.Quarto;
+import com.smarthotel.models.Recibo;
 import com.smarthotel.models.StatusQuarto;
-
+import com.smarthotel.negocios.exceptions.LFException;
 import com.smarthotel.dados.RepoQuartos;
 //import com.smarthotel.dados.RepoItens;
 import java.util.ArrayList;
@@ -79,8 +81,8 @@ public class ControladorQuartos implements IContQuartos {
         return quartosDisponiveis;
     }
 
-    public ItemFrigobar buscarItemFrigobar(String idQuarto, String idItem) throws ONEException {
-        ItemFrigobar itemEncontrado = null;
+    public Item buscarItemFrigobar(String idQuarto, String idItem) throws ONEException {
+        Item itemEncontrado = null;
 
         if (idQuarto != null && idItem != null) {
             Quarto quarto = quartosHotel.buscar(idQuarto);
@@ -90,8 +92,8 @@ public class ControladorQuartos implements IContQuartos {
                 throw new ONEException("Frigobar não encontrado no quarto");
             }
 
-            ArrayList<ItemFrigobar> inventario = quarto.getFrigobar().getInventarioFrigobar();
-            for (ItemFrigobar item : inventario) {
+            ArrayList<Item> inventario = quarto.getFrigobar().getInventarioFrigobar();
+            for (Item item : inventario) {
                 if (item.getId().equals(idItem)) {
                     itemEncontrado = item;
                     break;
@@ -106,9 +108,9 @@ public class ControladorQuartos implements IContQuartos {
         return itemEncontrado;
     }
 
-    public void pegarItemFrigobar(String idQuarto, String idItem) throws ONEException {
+    public void pegarItemFrigobar(Hospedagem hosp, String idQuarto, String idItem) throws ONEException {
         if (idQuarto != null && idItem != null) {
-            ItemFrigobar item = buscarItemFrigobar(idQuarto, idItem); // pode lançar ENEException se o item não for encontrado
+            Item item = buscarItemFrigobar(idQuarto, idItem); // pode lançar ENEException se o item não for encontrado
             Quarto quarto = quartosHotel.buscar(idQuarto);
             Frigobar frigobar = quarto.getFrigobar();
 
@@ -116,17 +118,42 @@ public class ControladorQuartos implements IContQuartos {
                 throw new ONEException("Frigobar não encontrado no quarto");
             }
             // caso o quarto realmente tenha um frigobar
-            ArrayList<ItemFrigobar> inventario = quarto.getFrigobar().getInventarioFrigobar();
+            ArrayList<Item> inventario = quarto.getFrigobar().getInventarioFrigobar();
             inventario.remove(item);
 
-            //////////// gera um recibo do tipo frigobar e adiciona na conta
-
+            // se a hospedagem existir, um recibo é enviado para a conta responsavel
+            // caso a hospedagem não exista, o item está sendo pego do frigobar pela administração do hotel
+            if (hosp != null) {
+                ControladorPagamentos pagamento = new ControladorPagamentos();
+                
+                Recibo recibo = pagamento.gerarReciboFrigobar(item, hosp);
+                pagamento.adicionarRecibo(hosp.getConta(), recibo);
+            }
         }
     }
 
-    public void reporItemFrigobar(String idQuarto, String idItem) throws ONEException {
-        //if (idQuarto != null && idItem != null && buscarItemRegistrado(idQuarto, idItem) != null) { }
-    }
+    public void reporItemFrigobar(String idQuarto, String idItem) throws ONEException, LFException {
+        if (idQuarto != null && idItem != null) {
+            ControladorItens itensRegistrados = new ControladorItens();
+            Item novoItem = itensRegistrados.buscarItem(idItem);
 
+            Quarto quarto = quartosHotel.buscar(idQuarto);
+            Frigobar frigobar = quarto.getFrigobar();
+
+            if (frigobar == null) {
+                throw new ONEException("Frigobar não encontrado no quarto");
+            }
+            // caso o quarto realmente tenha um frigobar
+            int capacidade = frigobar.getCapacidadeMaxima();
+            ArrayList<Item> inventario = quarto.getFrigobar().getInventarioFrigobar();
+            
+            if (inventario.size() < capacidade) {
+                inventario.add(novoItem);
+            }
+            else {
+                throw new LFException(capacidade);
+            }
+        }
+    }
 }
 

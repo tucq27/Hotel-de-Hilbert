@@ -1,13 +1,20 @@
 package com.smarthotel.models;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.smarthotel.dados.IIdentificavel;
 
 public abstract class Quarto implements IIdentificavel {
+
+    private static final List<Month> MESESPADRAO = List.of(Month.JANUARY, Month.DECEMBER, Month.JULY, Month.JUNE);
 
     protected String id;
     protected int andar;
     protected StatusQuarto status= StatusQuarto.DISPONIVEL;
     protected double multTaxa; //Multiplicador de taxa de acordo com o tipo de quarto
     protected static double multTemporada;
+    protected static ArrayList<Month> altaTemporada = new ArrayList<>(MESESPADRAO);
     protected int capacidade;
     protected Frigobar frigobar;
 
@@ -49,6 +56,9 @@ public abstract class Quarto implements IIdentificavel {
     public StatusQuarto getStatus() {
         return status;
     }
+    public static ArrayList<Month> getAltaTemporada(){
+        return altaTemporada;
+    }
 
 
     public void setAndar(int andar) {
@@ -68,6 +78,9 @@ public abstract class Quarto implements IIdentificavel {
     }
     public void setStatus(StatusQuarto status) {
         this.status = status;
+    }
+    public void setAltaTemporada(ArrayList<Month> meses) {
+        Quarto.altaTemporada = meses;
     }
 
     public String getChave() {

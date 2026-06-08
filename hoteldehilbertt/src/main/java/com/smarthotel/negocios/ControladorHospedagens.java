@@ -5,7 +5,6 @@ import com.smarthotel.models.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 
 import com.smarthotel.negocios.exceptions.*;
@@ -15,7 +14,6 @@ import com.smarthotel.dados.exceptions.ORException;
 public class ControladorHospedagens implements IContHospedagens {
 
     static private RepoHospedagens repositorioHospedagens;
-    static private double taxaTemporada = 1.0; // migrar para controlador de pagamentos depois
 
     public ControladorHospedagens() {
 
@@ -245,16 +243,5 @@ public class ControladorHospedagens implements IContHospedagens {
             }
         }
         return false;
-    }
-
-    private void setTaxaTemporada() {
-        Month mesAtual = LocalDate.now().getMonth();
-        if (mesAtual == Month.JANUARY ||
-            mesAtual == Month.DECEMBER ||
-            mesAtual == Month.JULY ||
-            mesAtual == Month.JUNE) {
-                ControladorHospedagens.taxaTemporada = 2.0;
-                //Ainda temos que implementar realmente a taxa no pagamento
-            }
     }
 }
