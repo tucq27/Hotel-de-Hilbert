@@ -29,6 +29,13 @@ public class ControladorQuartos implements IContQuartos {
         }
     }
 
+    public int gerarId() {
+        int idAtual = Quarto.getDefinirId();
+        int novoId = idAtual + 1;
+        Quarto.setDefinirId(novoId);
+        return idAtual;
+    }
+
     // Métodos para gerenciar o repositório de quartos
     public Quarto buscarQuarto(String id) throws ONEException {
         Quarto quarto = quartosHotel.buscar(id);
@@ -42,6 +49,8 @@ public class ControladorQuartos implements IContQuartos {
         if (quartosHotel.buscar(quarto.getId()) != null) {
             throw new ORException(quarto); // quarto repetido no repositório
         }
+        String idQuarto =  "q" + String.valueOf(gerarId()); 
+        quarto.setId(idQuarto);
         quartosHotel.adicionar(quarto);
     }
 

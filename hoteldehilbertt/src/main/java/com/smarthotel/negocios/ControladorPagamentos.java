@@ -18,6 +18,13 @@ public class ControladorPagamentos {
     
     public ControladorPagamentos() {}
 
+    private int gerarId() {
+        int idAtual = Recibo.getDefinirId();
+        int novoId = idAtual + 1;
+        Recibo.setDefinirId(novoId);
+        return idAtual;
+    }
+
     public Recibo gerarReciboDiaria(Hospedagem hosp) {
         LocalDate entrada = hosp.getDataEntrada();
         int dias = Period.between(entrada, LocalDate.now()).getDays();
@@ -32,7 +39,10 @@ public class ControladorPagamentos {
 
         double valor = dias * taxaQuarto * taxaTemp;
         
-        return new Recibo(TipoRecibo.DIARIA, valor);
+        Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
+        String reciboId = String.valueOf(gerarId()) + recibo.getTipo().name(); 
+        recibo.setId(reciboId);
+        return recibo;
     }
 
     public Recibo gerarReciboServico(Hospedagem hosp, Funcionario f, String descricao) {
@@ -48,13 +58,21 @@ public class ControladorPagamentos {
 
         valor = valor * taxaNoturna;
         String mensagem = f.getNome() + " | " + f.getCargo() + " | " + descricao;
-        return new Recibo(TipoRecibo.SERVICO, valor, mensagem);
+
+        Recibo recibo = new Recibo(TipoRecibo.SERVICO, valor, mensagem);
+        String reciboId = String.valueOf(gerarId()) + recibo.getTipo().name(); 
+        recibo.setId(reciboId);
+        return recibo;
     }
 
     public Recibo gerarReciboFrigobar(Item item, Hospedagem hosp) {
         double valor = item.getValor();
         String idHospedagem = hosp.getId();
-        return new Recibo(TipoRecibo.FRIGOBAR, valor, idHospedagem);
+
+        Recibo recibo = new Recibo(TipoRecibo.FRIGOBAR, valor, idHospedagem);
+        String reciboId = String.valueOf(gerarId()) + recibo.getTipo().name(); 
+        recibo.setId(reciboId);
+        return recibo;
     }
 
     

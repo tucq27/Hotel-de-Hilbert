@@ -6,6 +6,7 @@ import com.smarthotel.dados.RepoItens;
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.dados.exceptions.ORException;
 import com.smarthotel.models.Item;
+import com.smarthotel.models.Recibo;
 
 public class ControladorItens {
     private static RepoItens repositorioItens;
@@ -14,6 +15,13 @@ public class ControladorItens {
         if (repositorioItens == null) {
             repositorioItens = new RepoItens();
         }
+    }
+
+    private int gerarId() {
+        int idAtual = Recibo.getDefinirId();
+        int novoId = idAtual + 1;
+        Recibo.setDefinirId(novoId);
+        return idAtual;
     }
 
     public Item buscarItem(String id) throws ONEException {
@@ -28,6 +36,9 @@ public class ControladorItens {
         if (repositorioItens.buscar(item.getId()) != null) {
             throw new ORException(item); // Item repetida no repositório
         }
+
+        String novoId = String.valueOf(gerarId());
+        item.setId(novoId);
         repositorioItens.adicionar(item);
     }
 

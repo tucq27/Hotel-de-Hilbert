@@ -32,8 +32,10 @@ public class Main extends Application {
         ControladorPessoas contPessoas = new ControladorPessoas();
         ControladorQuartos contQuartos = new ControladorQuartos();
 
-        Quarto quarto1 = new QuartoPadrao("001", 1, 2);
-        QuartoSuite quarto2 = new QuartoSuite("002", 1, 2);
+        Quarto quarto1 = new QuartoPadrao(001, 1, 2);
+        quarto1.setId("001");
+        QuartoSuite quarto2 = new QuartoSuite(002, 1, 2);
+        quarto2.setId("002");
 
         Pessoa j = new Pessoa("Jojo", "1234", LocalDate.of(1997, 1, 1));
         Pessoa m = new Pessoa("Maria", "5678", LocalDate.of(1990, 5, 15));
