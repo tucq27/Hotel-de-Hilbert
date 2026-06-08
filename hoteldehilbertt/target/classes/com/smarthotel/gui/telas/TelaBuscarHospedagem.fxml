@@ -9,12 +9,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="731.0" prefWidth="942.0"
+            prefHeight="614.0" prefWidth="942.0"
             xmlns="http://javafx.com/javafx/26"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.smarthotel.gui.controllers.TelaBuscarHospedagemController">
 
    <children>
+
       <Label layoutX="374.0" layoutY="49.0" text="SMART HOTEL">
          <font>
             <Font name="System Bold" size="28.0" />
@@ -27,17 +28,21 @@
          </font>
       </Label>
 
-      <Label layoutX="66.0" layoutY="180.0" text="ID da Hospedagem:">
+      <Label layoutX="32.0" layoutY="202.0" text="Insira o ID da Hospedagem:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
 
       <TextField fx:id="txtIdHospedagem"
-                 layoutX="66.0" layoutY="198.0" />
+                 layoutX="201.0"
+                 layoutY="198.0"
+                 prefHeight="26.0"
+                 prefWidth="90.0" />
 
       <Button fx:id="btnBuscar"
-              layoutX="226.0" layoutY="198.0"
+              layoutX="307.0"
+              layoutY="198.0"
               mnemonicParsing="false"
               onAction="#buscarHospedagem"
               text="Buscar">
@@ -46,104 +51,48 @@
          </font>
       </Button>
 
-      <Label layoutX="66.0" layoutY="258.0" text="Responsável:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-
-      <Label fx:id="lblResponsavel"
-             layoutX="160.0" layoutY="258.0"
-             text="-">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-
-      <Label layoutX="66.0" layoutY="310.0" text="Hóspedes:">
+      <Label layoutX="38.0" layoutY="251.0" text="Hospedagens Ativas:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
 
       <ListView fx:id="listHospedes"
-                layoutX="65.0" layoutY="328.0"
-                prefHeight="96.0" prefWidth="155.0" />
+                layoutX="38.0"
+                layoutY="283.0"
+                prefHeight="236.0"
+                prefWidth="210.0" />
 
-      <Label layoutX="67.0" layoutY="436.0" text="Quarto:">
+      <Label layoutX="690.0" layoutY="251.0" text="Hospedagens Reservadas:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
 
-      <Label fx:id="lblQuarto"
-             layoutX="130.0" layoutY="436.0"
-             text="-">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-
-      <Label layoutX="63.0" layoutY="474.0" text="Status:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-
-      <Label fx:id="lblStatus"
-             layoutX="130.0" layoutY="474.0"
-             text="-">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-
-      <Label layoutX="66.0" layoutY="525.0" text="Entrada:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-
-      <Label fx:id="lblEntrada"
-             layoutX="140.0" layoutY="525.0"
-             text="-">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-
-      <Label layoutX="65.0" layoutY="583.0" text="Saída:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-
-      <Label fx:id="lblSaida"
-             layoutX="130.0" layoutY="583.0"
-             text="-">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-
-      <Button fx:id="btnGerenciarHospedagem"
-              layoutX="759.0" layoutY="601.0"
-              mnemonicParsing="false"
-              onAction="#abrirGerenciarHospedagem"
-              text="Gerenciar Hospedagem">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
+      <ListView layoutX="690.0"
+                layoutY="282.0"
+                prefHeight="236.0"
+                prefWidth="210.0" />
 
       <Button fx:id="btnVoltar"
-              layoutX="445.0" layoutY="679.0"
+              layoutX="444.0"
+              layoutY="505.0"
               mnemonicParsing="false"
               onAction="#voltar"
+              prefHeight="26.0"
+              prefWidth="60.0"
               text="Voltar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+
+
+      <Label fx:id="lblResponsavel" visible="false" text="-" />
+      <Label fx:id="lblQuarto" visible="false" text="-" />
+      <Label fx:id="lblStatus" visible="false" text="-" />
+      <Label fx:id="lblEntrada" visible="false" text="-" />
+      <Label fx:id="lblSaida" visible="false" text="-" />
+
    </children>
 </AnchorPane>
