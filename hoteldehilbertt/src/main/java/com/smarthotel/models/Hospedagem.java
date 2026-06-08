@@ -31,7 +31,6 @@ public class Hospedagem implements IIdentificavel {
             this.horarioSaida = horarioSaida;
             this.conta = conta;
             this.hospedes = hospedes;
-            gerarId(); 
         }
     }
 
@@ -41,12 +40,6 @@ public class Hospedagem implements IIdentificavel {
         this.dataEntrada = dataEntrada;
         this.horarioReserva = LocalDateTime.now();
         this.status = StatusHospedagem.RESERVADA;
-    }
-
-    ////// o metodo final deverá ser mais complexo (baixa prioridade)
-    private void gerarId() {
-        definirId++;
-        this.id = String.valueOf(definirId);
     }
 
     // Getters
@@ -80,8 +73,15 @@ public class Hospedagem implements IIdentificavel {
     public StatusHospedagem getStatus() {
         return status;
     }
+    public static int getDefinirId() {
+        return definirId;
+    }
 
     // Setters
+    public static void setDefinirId(int novo) {
+        definirId = novo;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -121,9 +121,11 @@ public class Hospedagem implements IIdentificavel {
     public void setQuarto(Quarto quarto) {
         this.quarto = quarto;
     }
-
     // Método exigido pela interface
     public String getChave() {
         return id;
+    }
+    public void setChave(String id) {
+        this.id = id;
     }
 }

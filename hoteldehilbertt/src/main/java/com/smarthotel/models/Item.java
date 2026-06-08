@@ -48,4 +48,7 @@ public class Item implements IIdentificavel {
     public String getChave() {
         return this.id;
     }
+    public void setChave(String id) {
+        this.id = id;
+    }
 }

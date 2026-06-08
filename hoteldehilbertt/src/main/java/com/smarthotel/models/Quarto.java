@@ -86,5 +86,8 @@ public abstract class Quarto implements IIdentificavel {
     public String getChave() {
         return id; // O id é a chave de identificação única para a classe Quarto
     }
+    public void setChave(String id) {
+        this.id = id;
+    }
 
 }   

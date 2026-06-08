@@ -58,7 +58,9 @@ public abstract class Repositorio<Tipo extends IIdentificavel> implements IRepos
     @Override
     public void atualizar(String id, Tipo objeto) throws ONEException {
         Tipo objetoExistente = buscar(id);
+        
         if (objetoExistente != null) {
+            objeto.setChave(id); // mantendo a chave antiga (cpf ou id) do objeto
             int indice = objetos.indexOf(objetoExistente);
             objetos.set(indice, objeto);
         } else {

@@ -48,4 +48,7 @@ public class Servico implements IIdentificavel {
     public String getChave() {
         return id;
     }
+    public void setChave(String id) {
+        this.id = id;
+    }
 }
