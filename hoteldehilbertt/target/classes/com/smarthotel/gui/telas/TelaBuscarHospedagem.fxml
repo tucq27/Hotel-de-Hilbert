@@ -7,92 +7,64 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="614.0" prefWidth="942.0"
-            xmlns="http://javafx.com/javafx/26"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.smarthotel.gui.controllers.TelaBuscarHospedagemController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smarthotel.gui.controllers.TelaBuscarHospedagemController">
 
    <children>
 
-      <Label layoutX="374.0" layoutY="49.0" text="SMART HOTEL">
+      <Label layoutX="306.0" layoutY="53.0" text="SMART HOTEL">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
 
-      <Label layoutX="403.0" layoutY="109.0" text="Buscar Hospedagem">
+      <Label layoutX="335.0" layoutY="93.0" text="Buscar Hospedagem">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
 
-      <Label layoutX="32.0" layoutY="202.0" text="Insira o ID da Hospedagem:">
+      <Label layoutX="66.0" layoutY="153.0" text="Insira o ID da Hospedagem:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
 
-      <TextField fx:id="txtIdHospedagem"
-                 layoutX="201.0"
-                 layoutY="198.0"
-                 prefHeight="26.0"
-                 prefWidth="90.0" />
+      <TextField fx:id="txtIdHospedagem" layoutX="245.0" layoutY="149.0" prefHeight="26.0" prefWidth="133.0" />
 
-      <Button fx:id="btnBuscar"
-              layoutX="307.0"
-              layoutY="198.0"
-              mnemonicParsing="false"
-              onAction="#buscarHospedagem"
-              text="Buscar">
+      <Button fx:id="btnBuscar" layoutX="417.0" layoutY="149.0" mnemonicParsing="false" onAction="#buscarHospedagem" text="Buscar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
 
-      <Label layoutX="38.0" layoutY="251.0" text="Hospedagens Ativas:">
+      <Label layoutX="85.0" layoutY="208.0" text="Hospedagens Ativas:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
 
-      <ListView fx:id="listHospedes"
-                layoutX="38.0"
-                layoutY="283.0"
-                prefHeight="236.0"
-                prefWidth="210.0" />
+      <ListView fx:id="listHospAtivas" layoutX="33.0" layoutY="239.0" prefHeight="265.0" prefWidth="302.0" />
 
-      <Label layoutX="690.0" layoutY="251.0" text="Hospedagens Reservadas:">
+      <Label layoutX="546.0" layoutY="208.0" text="Hospedagens Reservadas:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
 
-      <ListView layoutX="690.0"
-                layoutY="282.0"
-                prefHeight="236.0"
-                prefWidth="210.0" />
+      <ListView fx:id="listHospReservadas" layoutX="468.0" layoutY="239.0" prefHeight="265.0" prefWidth="302.0" />
 
-      <Button fx:id="btnVoltar"
-              layoutX="444.0"
-              layoutY="505.0"
-              mnemonicParsing="false"
-              onAction="#voltar"
-              prefHeight="26.0"
-              prefWidth="60.0"
-              text="Voltar">
+      <Button fx:id="btnVoltar" layoutX="373.0" layoutY="504.0" mnemonicParsing="false" onAction="#voltar" prefHeight="26.0" prefWidth="60.0" text="Voltar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
 
 
-      <Label fx:id="lblResponsavel" visible="false" text="-" />
-      <Label fx:id="lblQuarto" visible="false" text="-" />
-      <Label fx:id="lblStatus" visible="false" text="-" />
-      <Label fx:id="lblEntrada" visible="false" text="-" />
-      <Label fx:id="lblSaida" visible="false" text="-" />
+      <Label fx:id="lblResponsavel" text="-" visible="false" />
+      <Label fx:id="lblQuarto" text="-" visible="false" />
+      <Label fx:id="lblStatus" text="-" visible="false" />
+      <Label fx:id="lblEntrada" text="-" visible="false" />
+      <Label fx:id="lblSaida" text="-" visible="false" />
 
    </children>
 </AnchorPane>

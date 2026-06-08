@@ -244,4 +244,28 @@ public class ControladorHospedagens implements IContHospedagens {
         }
         return false;
     }
+
+    public ArrayList<Hospedagem> verHospedagensAtivas() {
+        ArrayList<Hospedagem> total = repositorioHospedagens.getObjetos();
+        ArrayList<Hospedagem> ativas = new ArrayList<>();
+
+        for (Hospedagem h : total) {
+            if (h.getStatus() == StatusHospedagem.ATIVA) {
+                ativas.add(h);
+            }
+        }
+        return ativas;
+    }
+
+    public ArrayList<Hospedagem> verHospedagensReservadas() {
+        ArrayList<Hospedagem> total = repositorioHospedagens.getObjetos();
+        ArrayList<Hospedagem> reservadas = new ArrayList<>();
+
+        for (Hospedagem h : total) {
+            if (h.getStatus() == StatusHospedagem.RESERVADA) {
+                reservadas.add(h);
+            }
+        }
+        return reservadas;
+    }
 }

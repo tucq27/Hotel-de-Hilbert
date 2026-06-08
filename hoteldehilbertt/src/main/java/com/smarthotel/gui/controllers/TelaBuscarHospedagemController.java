@@ -1,10 +1,10 @@
 package com.smarthotel.gui.controllers;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.models.Hospedagem;
-import com.smarthotel.models.Hospede;
 import com.smarthotel.negocios.ControladorHospedagens;
 
 import javafx.collections.FXCollections;
@@ -13,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -30,17 +29,30 @@ public class TelaBuscarHospedagemController {
 
     // informações da hospedagem selecionada que serão exibidas
     @FXML
-    private Label lblResponsavel;
+    private ListView<String> listHospAtivas;
     @FXML
-    private ListView<String> listHospedes;
+    private ListView<String> listHospReservadas;
+    
     @FXML
-    private Label lblQuarto;
-    @FXML
-    private Label lblStatus;
-    @FXML
-    private Label lblEntrada;
-    @FXML
-    private Label lblSaida;
+    public void initialize() {
+        ControladorHospedagens contHosp = new ControladorHospedagens();
+        ArrayList<String> hospAtivas = new ArrayList<>();
+        ArrayList<String> hospReservadas = new ArrayList<>();
+        DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+        DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (Hospedagem h : contHosp.verHospedagensAtivas()) {
+            String saida = h.getHorarioSaida().format(formato1);
+            hospAtivas.add(" Id: " + h.getId() + "  |  Quarto: " + h.getQuarto().getId() + "  |  Saída: " + saida);
+        }
+        for (Hospedagem h : contHosp.verHospedagensReservadas()) {
+            String entrada = h.getDataEntrada().format(formato2);
+            hospReservadas.add(" Id: " + h.getId() + "  |  Quarto: " + h.getQuarto() + "  |  Entrada: " + entrada);
+        }
+
+        listHospAtivas.setItems(FXCollections.observableArrayList(hospAtivas));
+        listHospReservadas.setItems(FXCollections.observableArrayList(hospReservadas));
+    }
 
     @FXML
     private void buscarHospedagem() throws ONEException {
@@ -48,22 +60,8 @@ public class TelaBuscarHospedagemController {
             ControladorHospedagens controladorHospedagens = new ControladorHospedagens();
             String idHospedagem = txtIdHospedagem.getText();
             hospedagemSelecionada = controladorHospedagens.buscarHospedagem(idHospedagem);
-
-            ArrayList<String> nomesHospedes = new ArrayList<>();
-            for (Hospede hospede : hospedagemSelecionada.getHospedes()) {
-                nomesHospedes.add(hospede.getNome());
-            }
-            lblResponsavel.setText(hospedagemSelecionada.getConta().getResponsavel().getNome());
-            listHospedes.setItems(FXCollections.observableArrayList(nomesHospedes));
-            lblQuarto.setText(hospedagemSelecionada.getQuarto().getId());
-            lblStatus.setText(hospedagemSelecionada.getStatus().toString());
-            lblEntrada.setText(hospedagemSelecionada.getDataEntrada().toString());
-            lblSaida.setText(hospedagemSelecionada.getHorarioSaida().toString());
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Hospedagem Encontrada");
-            alert.setContentText("Hospedagem de id " + idHospedagem + " encontrada.");
-            alert.showAndWait();
+            
+            abrirTela("/com/smarthotel/gui/telas/TelaGerenciamento.fxml", "Gerenciar Hospedagem");
         } catch (ONEException e) {
             hospedagemSelecionada = null;
             System.out.println(" - - - - Erro: " + e.getMessage());
@@ -79,21 +77,13 @@ public class TelaBuscarHospedagemController {
     }
 
     @FXML
-    private void abrirGerenciarHospedagem() {
-        if (hospedagemSelecionada == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Nenhuma Hospedagem Selecionada");
-            alert.setContentText("Por favor, busque e selecione uma hospedagem antes de abrir o gerenciador.");
-            alert.showAndWait();
-            return;
-        } else {
-            abrirTela("/com/smarthotel/gui/telas/TelaGerenciarHospedagem.fxml", "Gerenciar Hospedagem");
-        }
+    protected void voltar() {
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
 
-
-
-    private void abrirTela(String caminho, String titulo) {
+    // metodo de auxilio
+    protected void abrirTela(String caminho, String titulo) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(caminho)
@@ -107,11 +97,5 @@ public class TelaBuscarHospedagemController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
     }
 }
