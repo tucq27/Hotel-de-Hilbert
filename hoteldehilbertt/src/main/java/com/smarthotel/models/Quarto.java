@@ -11,7 +11,7 @@ public abstract class Quarto implements IIdentificavel {
 
     protected String id;
     protected int numero;
-    protected static int definirId;
+    protected static int definirId = 1;
     protected int andar;
     protected StatusQuarto status= StatusQuarto.DISPONIVEL;
     protected double multTaxa; //Multiplicador de taxa de acordo com o tipo de quarto
