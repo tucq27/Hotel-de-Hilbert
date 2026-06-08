@@ -131,7 +131,7 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
 
     @FXML
     private void alterarEstadia() {
-        System.out.println("Reduzir hospedagem");
+        abrirTela("/com/smarthotel/gui/telas/TelaAlterarEstadia.fxml", "Alterar Estadia");
     }
 
     @FXML
