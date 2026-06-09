@@ -6,33 +6,31 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class TelaAdmPessoasController {
+public class TelaAdmItensController {
 
     @FXML
-    private Button btnCadastrarPessoa;
+    private Button btnCadastrarItem;
 
     @FXML
-    private Button btnCadastrarFuncionario;
-
-    @FXML
-    private Button btnBuscarPessoa;
+    private Button btnBuscarItem;
 
     @FXML
     private Button btnVoltar;
 
     @FXML
-    private void abrirCadastrarPessoa() {
-        abrirTela("/com/smarthotel/gui/telas/TelaCadastrarPessoa.fxml", "Cadastrar Pessoa");
+    private void abrirCadastrarItem() {
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaCadastrarItem.fxml",
+                "Cadastrar Item"
+        );
     }
 
     @FXML
-    private void abrirCadastrarFuncionario() {
-        abrirTela("/com/smarthotel/gui/telas/TelaCadastrarFuncionario.fxml", "Cadastrar Funcionário");
-    }
-
-    @FXML
-    private void abrirBuscarPessoa() {
-        abrirTela("/com/smarthotel/gui/telas/TelaBuscarPessoa.fxml", "Buscar Pessoa");
+    private void abrirBuscarItem() {
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaBuscarItem.fxml",
+                "Buscar Item"
+        );
     }
 
     @FXML
@@ -42,8 +40,12 @@ public class TelaAdmPessoasController {
     }
 
     private void abrirTela(String caminhoFXML, String titulo) {
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(caminhoFXML)
+            );
+
             Scene scene = new Scene(loader.load());
 
             Stage stage = new Stage();
