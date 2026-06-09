@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class Recibo {
     private String id;
+    private static int definirId = 1;
     private TipoRecibo tipo;
     private final LocalDateTime horario;
     private String desricaoAdicional;
@@ -58,6 +59,14 @@ public class Recibo {
 
     public LocalDateTime getHorario() {
         return horario;
+    }
+
+    public static int getDefinirId() {
+        return definirId;
+    }
+
+    public static void setDefinirId(int definirId) {
+        Recibo.definirId = definirId;
     }
 
     // nao havera setter para horario pois ele nao pode ser alterado

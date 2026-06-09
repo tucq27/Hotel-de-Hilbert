@@ -2,8 +2,8 @@ package com.smarthotel.models;
 
 public class QuartoSuite extends Quarto {
 
-    public QuartoSuite(String id, int andar, int capacidade) {
-        super(id, andar, capacidade);
+    public QuartoSuite(int numero, int andar, int capacidade) {
+        super(numero, andar, capacidade);
         this.multTaxa = 2;
     }
 }

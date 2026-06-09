@@ -22,6 +22,13 @@ public class ControladorHospedagens implements IContHospedagens {
         }
     }
 
+    private int gerarId() {
+        int idAtual = Hospedagem.getDefinirId();
+        int novoId = idAtual + 1;
+        Hospedagem.setDefinirId(novoId);
+        return idAtual;
+    }
+
     public boolean hospedagmJaExiste(LocalDate dataSaida, Quarto quarto) {
         
         if (repositorioHospedagens.getObjetos() == null || repositorioHospedagens.getObjetos().isEmpty()) {
@@ -59,8 +66,13 @@ public class ControladorHospedagens implements IContHospedagens {
             }
         }
         Hospedagem hospedagem = new Hospedagem(quarto, horarioSaida, conta, hospedes);
+
+        // definindo o id da hospedagem
+        int idHosp = gerarId();
+        hospedagem.setId(String.valueOf(idHosp));
+
         checkIn(hospedagem); // realiza o check-in imediato, registra o quarto como ocupado
-        repositorioHospedagens.adicionar(hospedagem);
+        repositorioHospedagens.adicionar(hospedagem); // adicionano repositorio
         return hospedagem.getId();
     }
 
@@ -79,7 +91,12 @@ public class ControladorHospedagens implements IContHospedagens {
             }
         }
         Hospedagem hospedagem = new Hospedagem(quarto, dataEntrada, horarioSaida, conta, hospedes);
-        repositorioHospedagens.adicionar(hospedagem);
+        
+        // definindo o id da hospedagem
+        int idHosp = gerarId();
+        hospedagem.setId(String.valueOf(idHosp));
+
+        repositorioHospedagens.adicionar(hospedagem); // adicionano repositorio
         return hospedagem.getId();
     }
 

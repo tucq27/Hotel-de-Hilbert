@@ -10,6 +10,8 @@ public abstract class Quarto implements IIdentificavel {
     private static final List<Month> MESESPADRAO = List.of(Month.JANUARY, Month.DECEMBER, Month.JULY, Month.JUNE);
 
     protected String id;
+    protected int numero;
+    protected static int definirId = 1;
     protected int andar;
     protected StatusQuarto status= StatusQuarto.DISPONIVEL;
     protected double multTaxa; //Multiplicador de taxa de acordo com o tipo de quarto
@@ -19,16 +21,16 @@ public abstract class Quarto implements IIdentificavel {
     protected Frigobar frigobar;
 
     // construtor sem frigobar
-    public Quarto(String id, int andar, int capacidade) {
-        this.id = id;
+    public Quarto(int numero, int andar, int capacidade) {
+        this.numero = numero;
         this.andar = andar;
         this.capacidade = capacidade;
         // por padrao, o quarto é limpo e livre, entao não precisa passar isso no construtor
     }
 
     // construtor com frigobar
-    public Quarto(String id, int andar, int capacidade, Frigobar frigobar) {
-        this.id = id;
+    public Quarto(int numero, int andar, int capacidade, Frigobar frigobar) {
+        this.numero = numero;
         this.andar = andar;
         this.capacidade = capacidade;
         this.frigobar = frigobar;
@@ -59,8 +61,19 @@ public abstract class Quarto implements IIdentificavel {
     public static ArrayList<Month> getAltaTemporada(){
         return altaTemporada;
     }
+    public int getNumero() {
+        return numero;
+    }
+    public static int getDefinirId() {
+        return definirId;
+    }
 
-
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+    public static void setDefinirId(int definirId) {
+        Quarto.definirId = definirId;
+    }
     public void setAndar(int andar) {
         this.andar = andar;
     }
@@ -82,9 +95,15 @@ public abstract class Quarto implements IIdentificavel {
     public void setAltaTemporada(ArrayList<Month> meses) {
         Quarto.altaTemporada = meses;
     }
+    public void setId(String id) {
+        this.id =id;
+    }
 
     public String getChave() {
         return id; // O id é a chave de identificação única para a classe Quarto
+    }
+    public void setChave(String id) {
+        this.id = id;
     }
 
 }   

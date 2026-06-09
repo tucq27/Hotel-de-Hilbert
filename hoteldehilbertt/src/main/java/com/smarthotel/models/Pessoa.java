@@ -73,4 +73,7 @@ public class Pessoa implements IIdentificavel {
     public String getChave() {
         return cpf; // O CPF é a chave de identificação única para a classe Pessoa
     }
+    public void setChave(String cpf) {
+        this.cpf = cpf;
+    }
 }

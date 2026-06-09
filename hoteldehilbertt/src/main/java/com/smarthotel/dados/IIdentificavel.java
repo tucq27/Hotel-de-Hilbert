@@ -2,6 +2,7 @@ package com.smarthotel.dados;
 
 public interface IIdentificavel {
     String getChave(); // método para obter a chave de identificação do objeto
+    void setChave(String id);
 
     /*  
         Todas as classes basicas que são armazenadas em um repositorio devem implementar
