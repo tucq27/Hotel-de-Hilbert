@@ -274,15 +274,19 @@ public class ControladorHospedagens implements IContHospedagens {
         return ativas;
     }
 
-    public ArrayList<Hospedagem> verHospedagensReservadas() {
-        ArrayList<Hospedagem> total = repositorioHospedagens.getObjetos();
-        ArrayList<Hospedagem> reservadas = new ArrayList<>();
+   public ArrayList<Hospedagem> verHospedagensReservadas() {
+    ArrayList<Hospedagem> total = repositorioHospedagens.getObjetos();
+    ArrayList<Hospedagem> reservadas = new ArrayList<>();
 
-        for (Hospedagem h : total) {
-            if (h.getStatus() == StatusHospedagem.RESERVADA) {
-                reservadas.add(h);
-            }
+    for (Hospedagem h : total) {
+        if (h.getStatus() == StatusHospedagem.RESERVADA) {
+            reservadas.add(h);
         }
-        return reservadas;
     }
+    return reservadas;
+}
+
+public RepoHospedagens getRepositorioHospedagens() {
+    return repositorioHospedagens;
+}
 }
