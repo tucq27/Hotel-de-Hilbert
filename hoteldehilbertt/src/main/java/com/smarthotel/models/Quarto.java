@@ -15,7 +15,7 @@ public abstract class Quarto implements IIdentificavel {
     protected int andar;
     protected StatusQuarto status= StatusQuarto.DISPONIVEL;
     protected double multTaxa; //Multiplicador de taxa de acordo com o tipo de quarto
-    protected static double multTemporada;
+    protected static double multTemporada = 1.5;
     protected static ArrayList<Month> altaTemporada = new ArrayList<>(MESESPADRAO);
     protected int capacidade;
     protected Frigobar frigobar;

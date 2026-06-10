@@ -29,6 +29,10 @@ public class ControladorPagamentos {
         LocalDate entrada = hosp.getDataEntrada();
         int dias = Period.between(entrada, LocalDate.now()).getDays();
 
+        System.out.println("Entrada: " + entrada);
+        System.out.println("Hoje: " + LocalDate.now());
+        System.out.println("Dias: " + dias);
+
         double taxaQuarto = hosp.getQuarto().getMultTaxa();
         double taxaTemp = 1;
         Month mesAtual = LocalDate.now().getMonth();
