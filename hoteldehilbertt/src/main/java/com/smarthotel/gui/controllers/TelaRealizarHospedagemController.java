@@ -51,7 +51,7 @@ public class TelaRealizarHospedagemController {
 
         ControladorPessoas controladorPessoas = new ControladorPessoas();
         ControladorQuartos controladorQuartos = new ControladorQuartos();
-        ControladorHospedagens controladorHospedagens = new ControladorHospedagens();
+        IContHospedagens controladorHospedagens = ControladorHospedagens.getInstance();
 
         // atribuindo o valor do responsável e dos hóspedes a partir dos CPFs informados
         try {

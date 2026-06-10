@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.models.Hospedagem;
 import com.smarthotel.negocios.ControladorHospedagens;
+import com.smarthotel.negocios.IContHospedagens;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -35,7 +36,7 @@ public class TelaBuscarHospedagemController {
     
     @FXML
     public void initialize() {
-        ControladorHospedagens contHosp = new ControladorHospedagens();
+        IContHospedagens contHosp = ControladorHospedagens.getInstance();
         ArrayList<String> hospAtivas = new ArrayList<>();
         ArrayList<String> hospReservadas = new ArrayList<>();
         DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
@@ -57,7 +58,7 @@ public class TelaBuscarHospedagemController {
     @FXML
     private void buscarHospedagem() throws ONEException {
         try{
-            ControladorHospedagens controladorHospedagens = new ControladorHospedagens();
+            IContHospedagens controladorHospedagens = ControladorHospedagens.getInstance();
             String idHospedagem = txtIdHospedagem.getText();
             hospedagemSelecionada = controladorHospedagens.buscarHospedagem(idHospedagem);
             

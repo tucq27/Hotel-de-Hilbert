@@ -28,7 +28,7 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         // preencehndo dados de teste
-        ControladorHospedagens contHospedagens = new ControladorHospedagens();
+        IContHospedagens contHospedagens = ControladorHospedagens.getInstance();
         ControladorPessoas contPessoas = new ControladorPessoas();
         ControladorQuartos contQuartos = new ControladorQuartos();
 

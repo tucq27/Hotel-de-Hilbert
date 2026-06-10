@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.smarthotel.models.*;
 import com.smarthotel.negocios.exceptions.*;
+import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.dados.exceptions.ORException;
 
 public interface IContHospedagens {
@@ -29,7 +30,10 @@ public interface IContHospedagens {
     void trocarConta(Hospedagem hospedagem, ContaHospedagem novaConta);
 
     boolean verificarHospede(Hospedagem hospedagem, String nome, String cpf, LocalDate dataNascimento);
+    boolean hospedagmJaExiste(LocalDate dataSaida, Quarto quarto);
 
     ArrayList<Hospedagem> verHospedagensReservadas();
     ArrayList<Hospedagem> verHospedagensAtivas();
+
+    Hospedagem buscarHospedagem(String id) throws ONEException;
 }

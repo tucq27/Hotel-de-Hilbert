@@ -13,6 +13,7 @@ import com.smarthotel.models.Responsavel;
 import com.smarthotel.negocios.ControladorHospedagens;
 import com.smarthotel.negocios.ControladorPessoas;
 import com.smarthotel.negocios.ControladorQuartos;
+import com.smarthotel.negocios.IContHospedagens;
 import com.smarthotel.negocios.exceptions.CIFException;
 import com.smarthotel.negocios.exceptions.CIJRException;
 import com.smarthotel.negocios.exceptions.HPException;
@@ -69,7 +70,7 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
 
         ControladorPessoas controladorPessoas = new ControladorPessoas();
         ControladorQuartos controladorQuartos = new ControladorQuartos();
-        ControladorHospedagens controladorHospedagens = new ControladorHospedagens();
+        IContHospedagens controladorHospedagens = ControladorHospedagens.getInstance();
 
         // atribuindo o valor do responsável e dos hóspedes a partir dos CPFs informados
         try {

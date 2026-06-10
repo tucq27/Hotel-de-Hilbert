@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.smarthotel.models.Hospede;
 import com.smarthotel.negocios.ControladorHospedagens;
+import com.smarthotel.negocios.IContHospedagens;
 import com.smarthotel.negocios.exceptions.CIFException;
 import com.smarthotel.negocios.exceptions.CIJRException;
 import com.smarthotel.negocios.exceptions.CINRException;
@@ -66,7 +67,7 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
     @FXML
     private void checkIn() {
         try{
-            ControladorHospedagens contHosp = new ControladorHospedagens();
+            IContHospedagens contHosp = ControladorHospedagens.getInstance();
             contHosp.checkIn(hospedagemSelecionada);
 
             System.out.println("Check-in");
@@ -103,7 +104,7 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
     private void checkOut() {
 
         try {
-            ControladorHospedagens contHosp = new ControladorHospedagens();
+            IContHospedagens contHosp = ControladorHospedagens.getInstance();
             contHosp.checkOut(hospedagemSelecionada);
 
             System.out.println("Check-out");

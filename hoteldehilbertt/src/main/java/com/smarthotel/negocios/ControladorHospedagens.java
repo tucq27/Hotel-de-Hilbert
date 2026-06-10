@@ -13,13 +13,23 @@ import com.smarthotel.dados.exceptions.ORException;
 
 public class ControladorHospedagens implements IContHospedagens {
 
-    static private RepoHospedagens repositorioHospedagens;
+    private static ControladorHospedagens instance;
+    private static RepoHospedagens repositorioHospedagens;
 
-    public ControladorHospedagens() {
+    private ControladorHospedagens() {
 
-        if (repositorioHospedagens == null) {
+    }
+
+    // o metodo getInstance() será usado no projeto no lugar do construtor da classe
+    // isso garante que somente uma instancia (objeto) dessa classe será criada, e garante a existencia de
+    // um único repositório de hospedagens em todo o projeto
+    public static ControladorHospedagens getInstance(){
+        if (instance == null) {
+            instance = new ControladorHospedagens();
             repositorioHospedagens = new RepoHospedagens();
         }
+
+        return instance;
     }
 
     private int gerarId() {
