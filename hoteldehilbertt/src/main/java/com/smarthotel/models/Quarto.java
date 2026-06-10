@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.smarthotel.dados.IIdentificavel;
 
-public abstract class Quarto implements IIdentificavel {
+public class Quarto implements IIdentificavel {
 
     private static final List<Month> MESESPADRAO = List.of(Month.JANUARY, Month.DECEMBER, Month.JULY, Month.JUNE);
 
@@ -14,22 +14,26 @@ public abstract class Quarto implements IIdentificavel {
     protected static int definirId = 1;
     protected int andar;
     protected StatusQuarto status= StatusQuarto.DISPONIVEL;
-    protected double multTaxa; //Multiplicador de taxa de acordo com o tipo de quarto
+    private TipoQuarto tipo;
+    private static double taxaPadrao =1;
+    private static double taxaSuite = 2;
+    private static double taxaPresidencial = 5;
     protected static double multTemporada;
     protected static ArrayList<Month> altaTemporada = new ArrayList<>(MESESPADRAO);
     protected int capacidade;
     protected Frigobar frigobar;
 
     // construtor sem frigobar
-    public Quarto(int numero, int andar, int capacidade) {
+    public Quarto(TipoQuarto tipo, int numero, int andar, int capacidade) {
+        this.tipo = tipo;
         this.numero = numero;
         this.andar = andar;
         this.capacidade = capacidade;
-        // por padrao, o quarto é limpo e livre, entao não precisa passar isso no construtor
     }
 
     // construtor com frigobar
-    public Quarto(int numero, int andar, int capacidade, Frigobar frigobar) {
+    public Quarto(TipoQuarto tipo, int numero, int andar, int capacidade, Frigobar frigobar) {
+        this.tipo = tipo;
         this.numero = numero;
         this.andar = andar;
         this.capacidade = capacidade;
@@ -42,9 +46,6 @@ public abstract class Quarto implements IIdentificavel {
     }
     public int getAndar() {
         return andar;
-    }
-    public double getMultTaxa() {
-        return multTaxa;
     }
     public static double getMultTemporada() {
         return multTemporada;
@@ -77,9 +78,6 @@ public abstract class Quarto implements IIdentificavel {
     public void setAndar(int andar) {
         this.andar = andar;
     }
-    public void setMultTaxa(double multTaxa) {
-        this.multTaxa = multTaxa;
-    }
     public static void setMultTemporada(double multTemporada) {
         Quarto.multTemporada = multTemporada;
     }
@@ -97,6 +95,54 @@ public abstract class Quarto implements IIdentificavel {
     }
     public void setId(String id) {
         this.id =id;
+    }
+     public TipoQuarto getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoQuarto tipo) {
+        this.tipo = tipo;
+    }
+
+    public static double getTaxaPadrao() {
+        return taxaPadrao;
+    }
+
+    public static void setTaxaPadrao(double taxaPadrao) {
+        Quarto.taxaPadrao = taxaPadrao;
+    }
+
+    public static double getTaxaSuite() {
+        return taxaSuite;
+    }
+
+    public static void setTaxaSuite(double taxaSuite) {
+        Quarto.taxaSuite = taxaSuite;
+    }
+
+    public static double getTaxaPresidencial() {
+        return taxaPresidencial;
+    }
+
+    public static void setTaxaPresidencial(double taxaPresidencial) {
+        Quarto.taxaPresidencial = taxaPresidencial;
+    }
+
+    // retorna a taxa de um quarto
+    public double getMultTaxa(){
+        double taxa = 1;
+
+        if (tipo == TipoQuarto.PADRAO) {
+            taxa = taxaPadrao;
+        }
+        if (tipo == TipoQuarto.SUITE) {
+            taxa = taxaSuite;
+        }
+        if (tipo == TipoQuarto.PRESIDENCIAL) {
+            taxa = taxaPresidencial;
+        }
+
+        return taxa;
     }
 
     public String getChave() {

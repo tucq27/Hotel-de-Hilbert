@@ -6,6 +6,7 @@ import com.smarthotel.models.Item;
 import com.smarthotel.models.Quarto;
 import com.smarthotel.models.Recibo;
 import com.smarthotel.models.StatusQuarto;
+import com.smarthotel.models.TipoQuarto;
 import com.smarthotel.negocios.exceptions.LFException;
 import com.smarthotel.dados.RepoQuartos;
 //import com.smarthotel.dados.RepoItens;
@@ -62,9 +63,28 @@ public class ControladorQuartos implements IContQuartos {
         quartosHotel.remover(quarto);
     }
     
-    public void atualizarQuarto(String id, Quarto quarto) throws ONEException {
-        if (id != null && quarto != null) {
-            quartosHotel.atualizar(id, quarto);
+    // int numero, int andar, int capacidade, StatusQuarto status, TipoQuarto tipo
+    public void atualizarQuarto(String id, int numero, int andar, int capacidade, StatusQuarto status, TipoQuarto tipo) throws ONEException {
+        if (id != null) {
+            Quarto quarto = buscarQuarto(id);
+
+            if (numero > 0) {
+                quarto.setNumero(numero);
+            }
+            if (andar >= 0) {
+                quarto.setAndar(andar);
+            }
+            if (capacidade >= 1 && capacidade <=10) {
+                quarto.setCapacidade(capacidade);
+            }
+
+            if (status != null) {
+                quarto.setStatus(status);
+            }
+            // alterar tipo do quarto
+            if (tipo != null) {
+                quarto.setTipo(tipo);
+            }
         }
     }
 

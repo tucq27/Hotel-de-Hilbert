@@ -14,7 +14,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /*
-    mvn -f hoteldehilbertt/pom.xml javafx:run
+
+mvn -f hoteldehilbertt/pom.xml javafx:run
+
 */
 public class Main extends Application {
 
@@ -35,10 +37,10 @@ public class Main extends Application {
         ControladorPessoas contPessoas = new ControladorPessoas();
         ControladorQuartos contQuartos = new ControladorQuartos();
 
-        Quarto quarto1 = new QuartoPadrao(001, 1, 2);
+        Quarto quarto1 = new Quarto(TipoQuarto.PADRAO,001, 1, 2);
         quarto1.setId("001");
 
-        QuartoSuite quarto2 = new QuartoSuite(002, 1, 2);
+        Quarto quarto2 = new Quarto(TipoQuarto.SUITE, 002, 1, 2);
         quarto2.setId("002");
 
         Pessoa j = new Pessoa("Jojo", "1234", LocalDate.of(1997, 1, 1));
