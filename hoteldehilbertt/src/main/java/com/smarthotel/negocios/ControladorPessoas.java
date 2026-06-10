@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 import com.smarthotel.dados.RepoPessoas;
 import com.smarthotel.models.Funcionario;
+import com.smarthotel.models.Hospede;
 import com.smarthotel.models.Pessoa;
+import com.smarthotel.models.RestricaoHospede;
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.dados.exceptions.ORException;
 
@@ -47,6 +49,18 @@ public class ControladorPessoas implements IContPessoas {
 
     }
 
+    public void adicionarHospede(String cpf, String preferencias) throws ONEException, ORException{
+        Pessoa h = buscarPessoa(cpf);
+
+        if (h instanceof Hospede) {
+            throw new ORException(h);
+        }
+
+        Pessoa novoHospede = new Hospede(h, preferencias, null);
+        removerPessoa(cpf);
+        adicionarPessoa(novoHospede);
+    }
+
     public void removerPessoa(String cpf) throws ONEException {
         Pessoa pessoa = repositorioPessoas.buscar(cpf);
         if (pessoa == null) {
@@ -70,6 +84,43 @@ public class ControladorPessoas implements IContPessoas {
             }
             if (email != null) {
                 pessoa.setEmail(email);
+            }
+        }
+    }
+
+    public void atualizarHospede(String cpf, String pref, String historico, RestricaoHospede restricao) throws ONEException {
+        if (cpf != null) {
+            Pessoa pessoa = buscarPessoa(cpf);
+
+            if (pessoa instanceof Hospede) {
+                Hospede hosp = (Hospede) pessoa;
+
+                if (pref != null) {
+                    hosp.setPreferencias(pref);
+                }
+                if (historico != null) {
+                    hosp.setHistorico(historico);
+                }
+                if (restricao != null) {
+                    hosp.setRestricao(restricao);
+                }
+            }
+        }
+    }
+
+    public void atualizarFuncionario(String cpf, String cargo, Boolean ocupado) throws ONEException {
+        if (cpf != null) {
+            Pessoa pessoa = buscarPessoa(cpf);
+
+            if (pessoa instanceof Funcionario) {
+                Funcionario f = (Funcionario) pessoa;
+
+                if (cargo != null) {
+                    f.setCargo(cargo);
+                }
+                if (ocupado != null) {
+                    f.setOcupado(ocupado);
+                }
             }
         }
     }

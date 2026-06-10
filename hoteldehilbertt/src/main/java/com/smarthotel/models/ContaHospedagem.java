@@ -4,24 +4,34 @@ import java.util.ArrayList;
 
 public class ContaHospedagem {
     private String id;
-    private Responsavel responsavel;
+    private Pessoa responsavel;
+    private String dadosPagamento;
     private double dividaTotal;
     private ArrayList<Recibo> recibos;
 
-    public ContaHospedagem(String id, Responsavel responsavel){
+    public ContaHospedagem(String id, Pessoa responsavel, String dados){
         this.id= id;
         this.responsavel= responsavel;
+        this.dadosPagamento = dados;
         this.dividaTotal= 0;
         this.recibos= new ArrayList<Recibo>(10);
     }
 
     // Getters e Setters
-    public Responsavel getResponsavel() {
+    public Pessoa getResponsavel() {
         return responsavel;
     }
 
-    public void setResponsavel(Responsavel responsavel) {
+    public void setResponsavel(Pessoa responsavel) {
         this.responsavel = responsavel;
+    }
+
+    public String getDadosPagamento() {
+        return dadosPagamento;
+    }
+
+    public void setDadosPagamento(String dadosPagamento) {
+        this.dadosPagamento = dadosPagamento;
     }
 
     public double getDividaTotal() {
