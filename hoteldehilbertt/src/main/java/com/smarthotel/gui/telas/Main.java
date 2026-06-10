@@ -13,12 +13,15 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/*
+    mvn -f hoteldehilbertt/pom.xml javafx:run
+*/
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
 
-        Scene scene = new Scene(FXMLLoader.load( getClass().getResource("TelaPrincipal.fxml") ));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("TelaPrincipal.fxml")));
 
         stage.setScene(scene);
         stage.setTitle("SmartHotel");
@@ -34,6 +37,7 @@ public class Main extends Application {
 
         Quarto quarto1 = new QuartoPadrao(001, 1, 2);
         quarto1.setId("001");
+
         QuartoSuite quarto2 = new QuartoSuite(002, 1, 2);
         quarto2.setId("002");
 
@@ -44,27 +48,37 @@ public class Main extends Application {
         Pessoa hospJ = new Hospede(j);
         Pessoa hospM = new Hospede(m);
         Pessoa resp = new Responsavel(c, "99999");
+
         try {
             contPessoas.adicionarPessoa(hospJ);
             contPessoas.adicionarPessoa(hospM);
             contPessoas.adicionarPessoa(resp);
+
             contQuartos.adicionarQuarto(quarto1);
-            contQuartos.adicionarQuarto(quarto2); 
+            contQuartos.adicionarQuarto(quarto2);
+
         } catch (ORException e) {
             System.out.println(" - - - - Erro: " + e.getMessage());
         }
-        
-        ContaHospedagem conta1 = new ContaHospedagem("conta282828", new Responsavel(c, "99999"));
+
+        ContaHospedagem conta1 =
+                new ContaHospedagem("conta282828", new Responsavel(c, "99999"));
+
         ArrayList<Hospede> hospedes = new ArrayList<>();
         hospedes.add(new Hospede(m));
 
         try {
-            String h1 =contHospedagens.hospedarAgora(quarto1, LocalDateTime.of(2026, 6, 5, 12, 0), conta1, hospedes);
+            String h1 = contHospedagens.hospedarAgora(
+                    quarto1,
+                    LocalDateTime.of(2026, 6, 5, 12, 0),
+                    conta1,
+                    hospedes);
+
             System.out.println("id da hospedagem automatica: " + h1);
+
         } catch (Exception e) {
             System.out.println(" - - - - Erro: " + e.getMessage());
         }
-        //Hospedagem h2= new Hospedagem(quarto2, LocalDate.of(2026, 6, 2), LocalDateTime.of(2026, 6, 5, 12, 0), conta1, hospedes);
 
         // abre a tela principal do sistema
         launch();

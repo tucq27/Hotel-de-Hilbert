@@ -9,16 +9,55 @@ public class TelaPrincipalController {
 
     @FXML
     private void abrirAdministracao() {
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaAdministrarHospedagens.fxml",
+                "Administrar Hospedagens"
+        );
+    }
+
+    @FXML
+    private void abrirAdministrarPessoas() {
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaAdmPessoas.fxml",
+                "Administrar Pessoas"
+        );
+    }
+
+    @FXML
+    private void abrirAdministrarQuartos() {
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaAdmQuarto.fxml",
+                "Administrar Quartos"
+        );
+    }
+
+    @FXML
+    private void abrirAdministrarItens() {
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaAdmItens.fxml",
+                "Administrar Itens"
+        );
+    }
+
+    @FXML
+    private void abrirAlertas() {
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaVerAlertas.fxml",
+                "Ver Alertas"
+        );
+    }
+
+    private void abrirTela(String caminhoFXML, String titulo) {
 
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/smarthotel/gui/telas/TelaAdministrarHospedagens.fxml")
+                    getClass().getResource(caminhoFXML)
             );
 
             Scene scene = new Scene(loader.load());
 
             Stage stage = new Stage();
-            stage.setTitle("Administrar Hospedagens");
+            stage.setTitle(titulo);
             stage.setScene(scene);
             stage.show();
 

@@ -20,50 +20,79 @@
          </font>
       </Label>
 
-      <Label layoutX="254.0" layoutY="86.0" text="Sistema de Gerenciamento de Hospedagens">
+      <Label layoutX="254.0"
+             layoutY="86.0"
+             text="Sistema de Gerenciamento de Hospedagens">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
 
-      <Button layoutX="287.0" layoutY="171.0" mnemonicParsing="false"
-              prefHeight="34.0" prefWidth="192.0" text="Administrar Pessoas">
+      <Button fx:id="btnAdministrarPessoas"
+              layoutX="287.0"
+              layoutY="171.0"
+              mnemonicParsing="false"
+              onAction="#abrirAdministrarPessoas"
+              prefHeight="34.0"
+              prefWidth="192.0"
+              text="Administrar Pessoas">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
 
-      <Button layoutX="287.0" layoutY="227.0" mnemonicParsing="false"
-              prefHeight="34.0" prefWidth="192.0" text="Administrar Quartos">
+      <Button fx:id="btnAdministrarQuartos"
+              layoutX="287.0"
+              layoutY="227.0"
+              mnemonicParsing="false"
+              onAction="#abrirAdministrarQuartos"
+              prefHeight="34.0"
+              prefWidth="192.0"
+              text="Administrar Quartos">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
 
-      <Button layoutX="287.0" layoutY="290.0" mnemonicParsing="false"
-              prefHeight="34.0" prefWidth="192.0" text="Administrar Itens">
+      <Button fx:id="btnAdministrarItens"
+              layoutX="287.0"
+              layoutY="290.0"
+              mnemonicParsing="false"
+              onAction="#abrirAdministrarItens"
+              prefHeight="34.0"
+              prefWidth="192.0"
+              text="Administrar Itens">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
 
       <Button fx:id="btnAdministrarHospedagens"
-              layoutX="287.0" layoutY="347.0"
+              layoutX="287.0"
+              layoutY="347.0"
               mnemonicParsing="false"
               onAction="#abrirAdministracao"
-              prefHeight="34.0" prefWidth="192.0"
+              prefHeight="34.0"
+              prefWidth="192.0"
               text="Administrar Hospedagens">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
 
-      <Button layoutX="287.0" layoutY="407.0" mnemonicParsing="false"
-              prefHeight="34.0" prefWidth="192.0" text="Ver Alertas">
+      <Button fx:id="btnVerAlertas"
+              layoutX="287.0"
+              layoutY="407.0"
+              mnemonicParsing="false"
+              onAction="#abrirAlertas"
+              prefHeight="34.0"
+              prefWidth="192.0"
+              text="Ver Alertas">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
 
    </children>
+
 </AnchorPane>
