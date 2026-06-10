@@ -1,5 +1,6 @@
 package com.smarthotel.negocios;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.smarthotel.dados.RepoItens;
@@ -8,7 +9,7 @@ import com.smarthotel.dados.exceptions.ORException;
 import com.smarthotel.models.Item;
 import com.smarthotel.models.Recibo;
 
-public class ControladorItens {
+public class ControladorItens implements IContItens{
     private static RepoItens repositorioItens;
 
     public ControladorItens() {
@@ -50,9 +51,19 @@ public class ControladorItens {
         repositorioItens.remover(item);
     }
     
-    public void atualizarItem(String id, Item item) throws ONEException {
-        if (id != null && item != null) {
-            repositorioItens.atualizar(id, item);
+    public void atualizarItem(String id, String nome, LocalDate validade, double valor) throws ONEException {
+        if (id != null) {
+            Item item = buscarItem(id);
+
+            if (nome != null) {
+                item.setNome(nome);
+            }
+            if (validade != null) {
+                item.setValidade(validade);
+            }
+            if (valor > 0) {
+                item.setValor(valor);
+            }
         }
     }
 

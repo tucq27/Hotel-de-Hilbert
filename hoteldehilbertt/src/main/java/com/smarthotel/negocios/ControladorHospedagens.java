@@ -296,6 +296,14 @@ public class ControladorHospedagens implements IContHospedagens {
     return reservadas;
 }
 
+public void removerHospedagem(String id) throws ONEException{
+    Hospedagem hosp = repositorioHospedagens.buscar(id);
+        if (hosp == null) {
+            throw new ONEException("Hospedagem não encontrada.");
+        }
+        repositorioHospedagens.remover(hosp);
+}
+
 public RepoHospedagens getRepositorioHospedagens() {
     return repositorioHospedagens;
 }
