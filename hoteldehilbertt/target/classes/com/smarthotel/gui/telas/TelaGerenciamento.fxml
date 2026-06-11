@@ -114,12 +114,23 @@
         <Font name="System Bold" size="12.0" />
     </font>
 </Button>
+<Button layoutX="461.0"
+        layoutY="390.0"
+        mnemonicParsing="false"
+        onAction="#gerarRelatorioHospedagem"
+        prefHeight="26.0"
+        prefWidth="170.0"
+        text="Relatório Hospedagem PDF">
+    <font>
+        <Font name="System Bold" size="12.0" />
+    </font>
+</Button>
       <Label layoutX="476.0" layoutY="414.0" text="REPOSITÓRIO">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="btnExcluir" layoutX="441.0" layoutY="439.0" mnemonicParsing="false" onAction="#excluir" prefHeight="26.0" prefWidth="146.0" text="Excluir Hospedagem">
+      <Button fx:id="btnExcluir" layoutX="441.0" layoutY="475.0" mnemonicParsing="false" onAction="#excluir" prefHeight="26.0" prefWidth="146.0" text="Excluir Hospedagem">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

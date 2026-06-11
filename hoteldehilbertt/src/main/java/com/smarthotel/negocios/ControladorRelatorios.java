@@ -13,6 +13,7 @@ public class ControladorRelatorios implements IContRelatorios {
     private static ControladorRelatorios instance;
 
     private GeradorPDF geradorPDF = new GeradorPDF();
+    private GeradorCSV geradorCSV = new GeradorCSV();
 
     private ControladorRelatorios() { }
 
@@ -127,4 +128,13 @@ public class ControladorRelatorios implements IContRelatorios {
 
         geradorPDF.gerarRelatorioSaidasPDF(saidas);
     }
+    public void exportarRelatorioGeralCSV() throws Exception {
+
+    RepoHospedagens repositorio =
+            getRepoHospedagens();
+
+    geradorCSV.gerarRelatorioGeralCSV(
+            repositorio.getObjetos()
+    );
+}
 }

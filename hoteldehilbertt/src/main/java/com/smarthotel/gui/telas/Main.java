@@ -94,6 +94,11 @@ public class Main extends Application {
 
            gerador.gerarRelatorioHospedagemPDF(hospedagem);
 
+           ControladorRelatorios relatorios =
+           ControladorRelatorios.getInstance();
+
+           relatorios.exportarRelatorioGeralCSV();
+
             System.out.println("id da hospedagem automatica: " + h1);
 
         } catch (Exception e) {

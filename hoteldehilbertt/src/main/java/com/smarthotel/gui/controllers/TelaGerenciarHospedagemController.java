@@ -117,6 +117,46 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
     }
 
     @FXML
+    private void gerarRelatorioHospedagem() {
+
+        try {
+
+            GeradorPDF gerador = new GeradorPDF();
+
+            gerador.gerarRelatorioHospedagemPDF(
+                    hospedagemSelecionada);
+
+            Alert alert = new Alert(
+                    Alert.AlertType.INFORMATION);
+
+            alert.setTitle("Relatório Gerado");
+            alert.setHeaderText(null);
+
+            alert.setContentText(
+                    "Relatório da hospedagem gerado com sucesso."
+            );
+
+            alert.showAndWait();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            Alert alert = new Alert(
+                    Alert.AlertType.ERROR);
+
+            alert.setTitle("Erro");
+            alert.setHeaderText(null);
+
+            alert.setContentText(
+                    "Erro ao gerar relatório da hospedagem."
+            );
+
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
     private void checkOut() {
 
         try {
