@@ -10,13 +10,27 @@ import com.smarthotel.models.StatusHospedagem;
 
 public class ControladorRelatorios implements IContRelatorios {
 
+    private static ControladorRelatorios instance;
+
     private GeradorPDF geradorPDF = new GeradorPDF();
 
-    public ControladorRelatorios() {}
+    private ControladorRelatorios() { }
+
+    public static ControladorRelatorios getInstance() {
+        if (instance == null) {
+            instance = new ControladorRelatorios();
+        }
+        return instance;
+    }
+
+    private RepoHospedagens getRepoHospedagens() {
+        IContHospedagens hospedagens = ControladorHospedagens.getInstance();
+        return hospedagens.getRepositorioHospedagens();
+    }
 
     // verifica todas as hospedagens ativas agora
-    public ArrayList<Hospedagem> gerarOcupacaoDiaria(RepoHospedagens repositorioHospedagens) {
-
+    public ArrayList<Hospedagem> gerarOcupacaoDiaria() {
+        RepoHospedagens repositorioHospedagens = getRepoHospedagens();
         ArrayList<Hospedagem> hospedagensHotel = repositorioHospedagens.getObjetos();
         ArrayList<Hospedagem> ocupacao = new ArrayList<>();
 
@@ -37,8 +51,8 @@ public class ControladorRelatorios implements IContRelatorios {
         return ocupacao;
     }
 
-    public ArrayList<Hospedagem> gerarOcupacaoMensal(RepoHospedagens repositorioHospedagens) {
-
+    public ArrayList<Hospedagem> gerarOcupacaoMensal() {
+        RepoHospedagens repositorioHospedagens = getRepoHospedagens();
         ArrayList<Hospedagem> hospedagensHotel = repositorioHospedagens.getObjetos();
         ArrayList<Hospedagem> ocupacao = new ArrayList<>();
 
@@ -70,8 +84,8 @@ public class ControladorRelatorios implements IContRelatorios {
         return ocupacao;
     }
 
-    public ArrayList<Hospedagem> gerarRelatorioSaidas(RepoHospedagens repositorioHospedagens) {
-
+    public ArrayList<Hospedagem> gerarRelatorioSaidas() {
+        RepoHospedagens repositorioHospedagens = getRepoHospedagens();
         ArrayList<Hospedagem> hospedagensHotel = repositorioHospedagens.getObjetos();
         ArrayList<Hospedagem> hospEncerradas = new ArrayList<>();
 
@@ -85,8 +99,8 @@ public class ControladorRelatorios implements IContRelatorios {
         return hospEncerradas;
     }
 
-    public ArrayList<Hospedagem> alertarSaidaPendente(RepoHospedagens repositorioHospedagens) {
-
+    public ArrayList<Hospedagem> alertarSaidaPendente() {
+        RepoHospedagens repositorioHospedagens = getRepoHospedagens();
         ArrayList<Hospedagem> hospedagensHotel = repositorioHospedagens.getObjetos();
         ArrayList<Hospedagem> hospPendente = new ArrayList<>();
 
@@ -109,7 +123,7 @@ public class ControladorRelatorios implements IContRelatorios {
     public void exportarRelatorioSaidasPDF(RepoHospedagens repositorioHospedagens) throws Exception {
 
         ArrayList<Hospedagem> saidas =
-                gerarRelatorioSaidas(repositorioHospedagens);
+                gerarRelatorioSaidas();
 
         geradorPDF.gerarRelatorioSaidasPDF(saidas);
     }

@@ -1,9 +1,17 @@
 package com.smarthotel.gui.controllers;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+import com.smarthotel.models.Hospedagem;
+import com.smarthotel.negocios.*;
+
 
 public class TelaVerAlertasController {
 
@@ -19,12 +27,23 @@ public class TelaVerAlertasController {
     @FXML
     public void initialize() {
 
-        // Exemplos para teste
-        listCheckPen.getItems().add("Hospedagem #101 - Checkout pendente");
-        listCheckPen.getItems().add("Hospedagem #102 - Checkout pendente");
+        IContRelatorios relatorios = ControladorRelatorios.getInstance();
 
-        listCheckRe.getItems().add("Hospedagem #085 - Checkout realizado");
-        listCheckRe.getItems().add("Hospedagem #090 - Checkout realizado");
+        ArrayList<String> pendente = new ArrayList<>();
+        ArrayList<String> saidasRealizadas = new ArrayList<>();
+        DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+
+        for (Hospedagem h : relatorios.alertarSaidaPendente()) {
+            String saida = h.getHorarioSaida().format(formato1);
+            pendente.add(" Id: " + h.getId() + "  |  Quarto: " + h.getQuarto().getId() + "  |  Saída: " + saida);
+        }
+        for (Hospedagem h : relatorios.gerarRelatorioSaidas()) {
+            String saida = h.getHorarioSaida().format(formato1);
+            saidasRealizadas.add(" Id: " + h.getId() + "  |  Quarto: " + h.getQuarto().getId() + "  |  Saída: " + saida);
+        }
+        
+        listCheckPen.setItems(FXCollections.observableArrayList(pendente));
+        listCheckRe.setItems(FXCollections.observableArrayList(saidasRealizadas));
     }
 
     @FXML

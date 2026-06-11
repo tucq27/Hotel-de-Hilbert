@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.smarthotel.models.*;
 import com.smarthotel.negocios.exceptions.*;
+import com.smarthotel.dados.RepoHospedagens;
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.dados.exceptions.ORException;
 
@@ -36,4 +37,5 @@ public interface IContHospedagens {
 
     void removerHospedagem(String id) throws ONEException;
     Hospedagem buscarHospedagem(String id) throws ONEException;
+    RepoHospedagens getRepositorioHospedagens();
 }
