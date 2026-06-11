@@ -39,6 +39,10 @@ public class ControladorPagamentos implements IContPagamentos {
     LocalDate entrada = hosp.getDataEntrada();
     int dias = Period.between(entrada, LocalDate.now()).getDays();
 
+    if (dias <= 0) {
+        dias = 1;
+    }
+
     double taxaQuarto = hosp.getQuarto().getMultTaxa();
     double taxaTemp = 1;
 

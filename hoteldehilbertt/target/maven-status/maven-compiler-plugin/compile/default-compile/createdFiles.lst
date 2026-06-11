@@ -1,10 +1,15 @@
 com\smarthotel\dados\exceptions\ONEException.class
+com\smarthotel\gui\controllers\TelaAdmQuartoController.class
 com\smarthotel\dados\IRepositorio.class
 com\smarthotel\dados\RepoPessoas.class
 com\smarthotel\models\Frigobar.class
 com\smarthotel\negocios\ControladorPagamentos.class
+com\smarthotel\negocios\GeradorPDF.class
 com\smarthotel\negocios\IContRelatorios.class
+com\smarthotel\gui\controllers\TelaAdmPessoasController.class
+com\smarthotel\gui\controllers\TelaBuscarQuartoController.class
 com\smarthotel\dados\RepoHospedagens.class
+com\smarthotel\models\TipoQuarto.class
 com\smarthotel\negocios\exceptions\CIJRException.class
 com\smarthotel\dados\exceptions\ORException.class
 com\smarthotel\gui\controllers\TelaCadastrarPessoaController.class
@@ -24,6 +29,7 @@ com\smarthotel\models\Pessoa.class
 com\smarthotel\models\Funcionario.class
 com\smarthotel\gui\controllers\TelaBuscarHospedagemController.class
 com\smarthotel\models\StatusHospedagem.class
+com\smarthotel\gui\controllers\TelaAdmItensController.class
 com\smarthotel\dados\RepoItens.class
 com\smarthotel\gui\controllers\TelaRealizarHospedagemController.class
 com\smarthotel\negocios\exceptions\QLException.class
@@ -32,11 +38,13 @@ com\smarthotel\gui\controllers\TelaGerenciarHospedagemController.class
 com\smarthotel\gui\controllers\TelaCadastrarQuartoController.class
 com\smarthotel\negocios\exceptions\LFException.class
 com\smarthotel\negocios\ControladorHospedagens.class
+com\smarthotel\teste\TesteFatura.class
 com\smarthotel\negocios\IContHospedagens.class
 com\smarthotel\models\ContaHospedagem.class
 com\smarthotel\negocios\ControladorItens.class
 com\smarthotel\negocios\IContPagamentos.class
 com\smarthotel\gui\controllers\TelaRealizarReservaController.class
+com\smarthotel\gui\controllers\TelaVerAlertasController.class
 com\smarthotel\negocios\IContItens.class
 com\smarthotel\gui\controllers\TelaVerRecibosController.class
 com\smarthotel\models\Item.class

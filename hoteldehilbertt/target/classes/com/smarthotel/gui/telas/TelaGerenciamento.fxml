@@ -103,11 +103,29 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="btnVerRecibos" layoutX="461.0" layoutY="306.0" mnemonicParsing="false" onAction="#verRecibos" text="Ver Recibos">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
+      <Button fx:id="btnVerRecibos"
+        layoutX="461.0"
+        layoutY="306.0"
+        mnemonicParsing="false"
+        onAction="#verRecibos"
+        text="Ver Recibos">
+    <font>
+        <Font name="System Bold" size="12.0" />
+    </font>
+</Button>
+
+<Button
+        layoutX="461.0"
+        layoutY="350.0"
+        mnemonicParsing="false"
+        onAction="#gerarFatura"
+        prefHeight="26.0"
+        prefWidth="140.0"
+        text="Gerar Fatura PDF">
+    <font>
+        <Font name="System Bold" size="12.0" />
+    </font>
+</Button>
       <Label layoutX="476.0" layoutY="414.0" text="REPOSITÓRIO">
          <font>
             <Font name="System Bold Italic" size="12.0" />
