@@ -1,6 +1,8 @@
 package com.smarthotel.gui.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -17,17 +19,41 @@ public class TelaAdmQuartoController {
 
     @FXML
     private void abrirCadastrarQuarto() {
-        System.out.println("Abrir tela Cadastrar Quarto");
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaCadastrarQuarto.fxml",
+                "Cadastrar Quarto"
+        );
     }
 
     @FXML
     private void abrirBuscarQuarto() {
-        System.out.println("Abrir tela Buscar Quarto");
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaBuscarQuarto.fxml",
+                "Buscar Quarto"
+        );
     }
 
     @FXML
     private void voltar() {
         Stage stage = (Stage) btnVoltar.getScene().getWindow();
         stage.close();
+    }
+
+    private void abrirTela(String caminhoFXML, String titulo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(caminhoFXML)
+            );
+
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = new Stage();
+            stage.setTitle(titulo);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
