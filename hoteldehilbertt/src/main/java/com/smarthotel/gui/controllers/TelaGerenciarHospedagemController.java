@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.smarthotel.models.Hospede;
 import com.smarthotel.negocios.ControladorHospedagens;
+import com.smarthotel.negocios.GeradorPDF;
+import com.smarthotel.negocios.IContHospedagens;
 import com.smarthotel.negocios.exceptions.CIFException;
 import com.smarthotel.negocios.exceptions.CIJRException;
 import com.smarthotel.negocios.exceptions.CINRException;
@@ -66,7 +68,7 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
     @FXML
     private void checkIn() {
         try{
-            ControladorHospedagens contHosp = new ControladorHospedagens();
+            IContHospedagens contHosp = ControladorHospedagens.getInstance();
             contHosp.checkIn(hospedagemSelecionada);
 
             System.out.println("Check-in");
@@ -100,18 +102,56 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
     }
 
     @FXML
+    private void gerarFatura() {
+
+        try {
+
+            GeradorPDF gerador = new GeradorPDF();
+
+            gerador.gerarFaturaPDF(hospedagemSelecionada);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Fatura Gerada");
+            alert.setHeaderText(null);
+            alert.setContentText(
+                "A fatura PDF foi gerada com sucesso."
+            );
+            alert.showAndWait();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText(null);
+            alert.setContentText(
+                "Erro ao gerar a fatura."
+            );
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
     private void checkOut() {
 
         try {
-            ControladorHospedagens contHosp = new ControladorHospedagens();
+            IContHospedagens contHosp = ControladorHospedagens.getInstance();
             contHosp.checkOut(hospedagemSelecionada);
+
+            GeradorPDF gerador = new GeradorPDF();
+            gerador.gerarFaturaPDF(hospedagemSelecionada);
 
             System.out.println("Check-out");
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Check-out Realizado");
-            alert.setContentText("Check-out realizado com sucesso para a hospedagem selecionada.");
+            alert.setContentText(
+                "Check-out realizado com sucesso para a hospedagem selecionada.\n" +
+                "A fatura em PDF foi gerada na pasta relatorios."
+            );
             alert.showAndWait();
+
         } catch (CINRException e) {
             System.out.println(" - - - - Erro: " + e.getMessage());
 
@@ -119,12 +159,21 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
             alert.setTitle("Erro");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
+
         } catch (COJRException e) {
             System.out.println(" - - - - Erro: " + e.getMessage());
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
             alert.setContentText(e.getMessage());
+            alert.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro ao gerar a fatura PDF.");
             alert.showAndWait();
         }
     }

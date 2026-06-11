@@ -35,7 +35,7 @@ public class TelaVerRecibosController extends TelaGerenciarHospedagemController{
         listRecibos.setItems(FXCollections.observableArrayList(recibos));
         lblDadosPagamento.setText("Não informados");
         
-        String dadosPagamento = hospedagemSelecionada.getConta().getResponsavel().getDadosDePagamento();
+        String dadosPagamento = hospedagemSelecionada.getConta().getDadosPagamento();
         if (dadosPagamento != null) {
             lblDadosPagamento.setText(dadosPagamento);
         }

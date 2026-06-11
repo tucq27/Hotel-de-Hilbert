@@ -13,6 +13,11 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/*
+
+mvn -f hoteldehilbertt/pom.xml javafx:run
+
+*/
 public class Main extends Application {
 
     @Override
@@ -27,15 +32,15 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        // preenchendo dados de teste
-        ControladorHospedagens contHospedagens = new ControladorHospedagens();
-        ControladorPessoas contPessoas = new ControladorPessoas();
-        ControladorQuartos contQuartos = new ControladorQuartos();
+        // preencehndo dados de teste
+        IContHospedagens contHospedagens = ControladorHospedagens.getInstance();
+        IContPessoas contPessoas = ControladorPessoas.getInstance();
+        IContQuartos contQuartos = ControladorQuartos.getInstance();
 
-        Quarto quarto1 = new QuartoPadrao(001, 1, 2);
+        Quarto quarto1 = new Quarto(TipoQuarto.PADRAO,001, 1, 2);
         quarto1.setId("001");
 
-        QuartoSuite quarto2 = new QuartoSuite(002, 1, 2);
+        Quarto quarto2 = new Quarto(TipoQuarto.SUITE, 002, 1, 2);
         quarto2.setId("002");
 
         Pessoa j = new Pessoa("Jojo", "1234", LocalDate.of(1997, 1, 1));
@@ -44,7 +49,7 @@ public class Main extends Application {
 
         Pessoa hospJ = new Hospede(j);
         Pessoa hospM = new Hospede(m);
-        Pessoa resp = new Responsavel(c, "99999");
+        Pessoa resp = c;
 
         try {
             contPessoas.adicionarPessoa(hospJ);
@@ -59,7 +64,7 @@ public class Main extends Application {
         }
 
         ContaHospedagem conta1 =
-                new ContaHospedagem("conta282828", new Responsavel(c, "99999"));
+                new ContaHospedagem("conta282828", c, "99999");
 
         ArrayList<Hospede> hospedes = new ArrayList<>();
         hospedes.add(new Hospede(m));
@@ -70,6 +75,20 @@ public class Main extends Application {
                     LocalDateTime.of(2026, 6, 5, 12, 0),
                     conta1,
                     hospedes);
+            IContPagamentos contPagamentos = ControladorPagamentos.getInstance();
+
+            Hospedagem hospedagem = contHospedagens.buscarHospedagem(h1);
+
+            Recibo reciboDiaria =
+                    contPagamentos.gerarReciboDiaria(hospedagem);
+
+            contPagamentos.adicionarRecibo(
+                    hospedagem.getConta(),
+                    reciboDiaria);
+
+            GeradorPDF geradorPDF = new GeradorPDF();
+
+            geradorPDF.gerarFaturaPDF(hospedagem);
 
             System.out.println("id da hospedagem automatica: " + h1);
 
@@ -78,6 +97,7 @@ public class Main extends Application {
         }
 
         // abre a tela principal do sistema
+        System.out.println("ANTES DO LAUNCH");
         launch();
     }
 }

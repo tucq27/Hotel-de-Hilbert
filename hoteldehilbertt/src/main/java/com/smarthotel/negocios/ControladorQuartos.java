@@ -6,6 +6,7 @@ import com.smarthotel.models.Item;
 import com.smarthotel.models.Quarto;
 import com.smarthotel.models.Recibo;
 import com.smarthotel.models.StatusQuarto;
+import com.smarthotel.models.TipoQuarto;
 import com.smarthotel.negocios.exceptions.LFException;
 import com.smarthotel.dados.RepoQuartos;
 //import com.smarthotel.dados.RepoItens;
@@ -20,13 +21,17 @@ import com.smarthotel.dados.exceptions.ORException;
 
 public class ControladorQuartos implements IContQuartos {
 
+    static private ControladorQuartos instance;
     static private RepoQuartos quartosHotel;
 
-    public ControladorQuartos() {
-        // Se o repositório já existir, não pode criar um novo
-        if (quartosHotel == null) {
+    private ControladorQuartos() { }
+
+    public static ControladorQuartos getInstance() {
+        if (instance == null) {
+            instance = new ControladorQuartos();
             quartosHotel = new RepoQuartos();
         }
+        return instance;
     }
 
     public int gerarId() {
@@ -62,10 +67,45 @@ public class ControladorQuartos implements IContQuartos {
         quartosHotel.remover(quarto);
     }
     
-    public void atualizarQuarto(String id, Quarto quarto) throws ONEException {
-        if (id != null && quarto != null) {
-            quartosHotel.atualizar(id, quarto);
+    // int numero, int andar, int capacidade, StatusQuarto status, TipoQuarto tipo
+    public void atualizarQuarto(String id, int numero, int andar, int capacidade, StatusQuarto status, TipoQuarto tipo) throws ONEException {
+        if (id != null) {
+            Quarto quarto = buscarQuarto(id);
+
+            if (numero > 0) {
+                quarto.setNumero(numero);
+            }
+            if (andar >= 0) {
+                quarto.setAndar(andar);
+            }
+            if (capacidade >= 1 && capacidade <=10) {
+                quarto.setCapacidade(capacidade);
+            }
+
+            if (status != null) {
+                quarto.setStatus(status);
+            }
+            // alterar tipo do quarto
+            if (tipo != null) {
+                quarto.setTipo(tipo);
+            }
         }
+    }
+
+    public void alterarTaxaQuarto(TipoQuarto tipo, double taxa) {
+        if (tipo == TipoQuarto.PADRAO) {
+            Quarto.setTaxaPadrao(taxa);
+        }
+        if (tipo == TipoQuarto.PRESIDENCIAL) {
+            Quarto.setTaxaPresidencial(taxa);
+        }
+        if (tipo == TipoQuarto.SUITE) {
+            Quarto.setTaxaSuite(taxa);
+        }
+    }
+
+    public void alterarTaxaTemporada(double taxa) {
+        Quarto.setTaxaTemporada(taxa);
     }
 
     public boolean estaDisponivel(Quarto quarto) {
@@ -133,7 +173,7 @@ public class ControladorQuartos implements IContQuartos {
             // se a hospedagem existir, um recibo é enviado para a conta responsavel
             // caso a hospedagem não exista, o item está sendo pego do frigobar pela administração do hotel
             if (hosp != null) {
-                ControladorPagamentos pagamento = new ControladorPagamentos();
+                IContPagamentos pagamento = ControladorPagamentos.getInstance();
                 
                 Recibo recibo = pagamento.gerarReciboFrigobar(item, hosp);
                 pagamento.adicionarRecibo(hosp.getConta(), recibo);
@@ -143,7 +183,7 @@ public class ControladorQuartos implements IContQuartos {
 
     public void reporItemFrigobar(String idQuarto, String idItem) throws ONEException, LFException {
         if (idQuarto != null && idItem != null) {
-            ControladorItens itensRegistrados = new ControladorItens();
+            IContItens itensRegistrados = ControladorItens.getInstance();
             Item novoItem = itensRegistrados.buscarItem(idItem);
 
             Quarto quarto = quartosHotel.buscar(idQuarto);

@@ -3,21 +3,10 @@ package com.smarthotel.gui.controllers;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import com.smarthotel.dados.exceptions.ONEException;
-import com.smarthotel.dados.exceptions.ORException;
-import com.smarthotel.models.ContaHospedagem;
-import com.smarthotel.models.Hospede;
-import com.smarthotel.models.Pessoa;
-import com.smarthotel.models.Quarto;
-import com.smarthotel.models.Responsavel;
-import com.smarthotel.negocios.ControladorHospedagens;
-import com.smarthotel.negocios.ControladorPessoas;
-import com.smarthotel.negocios.ControladorQuartos;
-import com.smarthotel.negocios.exceptions.CIFException;
-import com.smarthotel.negocios.exceptions.CIJRException;
-import com.smarthotel.negocios.exceptions.HPException;
-import com.smarthotel.negocios.exceptions.QIException;
-import com.smarthotel.negocios.exceptions.QLException;
+import com.smarthotel.negocios.*;
+import com.smarthotel.negocios.exceptions.*;
+import com.smarthotel.dados.exceptions.*;
+import com.smarthotel.models.*;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -67,13 +56,13 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
         LocalDate dataEntrada = dpDataEntrada.getValue();
         LocalDate dataSaida = dpDataSaida.getValue();
 
-        ControladorPessoas controladorPessoas = new ControladorPessoas();
-        ControladorQuartos controladorQuartos = new ControladorQuartos();
-        ControladorHospedagens controladorHospedagens = new ControladorHospedagens();
+        IContPessoas controladorPessoas = ControladorPessoas.getInstance();
+        IContQuartos controladorQuartos = ControladorQuartos.getInstance();
+        IContHospedagens controladorHospedagens = ControladorHospedagens.getInstance();
 
         // atribuindo o valor do responsável e dos hóspedes a partir dos CPFs informados
         try {
-            Responsavel responsavel = (Responsavel) controladorPessoas.buscarPessoa(cpfResponsavel);
+            Pessoa responsavel = controladorPessoas.buscarPessoa(cpfResponsavel);
             
             ArrayList<Hospede> hospedes = new ArrayList<>();
             for (String cpfHospede : cpfsHospedes) {
@@ -117,9 +106,13 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
             }
 
             boolean hospedagemExiste = controladorHospedagens.hospedagmJaExiste(dataSaida, quarto);
-            // criando de fato a Reserva
+
             if (!hospedagemExiste){
-                String idHospedagem = controladorHospedagens.reservarHospedagem(quarto, dataEntrada, dataSaida.atTime(12, 0), new ContaHospedagem("conta" + cpfResponsavel, responsavel), hospedes);
+
+                //------> criando de fato a Reserva
+
+                String pagamento = null; ///////////// temporario
+                String idHospedagem = controladorHospedagens.reservarHospedagem(quarto, dataEntrada, dataSaida.atTime(12, 0), new ContaHospedagem("conta" + cpfResponsavel, responsavel, pagamento), hospedes);
                 System.out.println("Reserva confirmada!");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

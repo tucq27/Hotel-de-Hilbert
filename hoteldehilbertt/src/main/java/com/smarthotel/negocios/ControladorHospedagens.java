@@ -13,13 +13,21 @@ import com.smarthotel.dados.exceptions.ORException;
 
 public class ControladorHospedagens implements IContHospedagens {
 
-    static private RepoHospedagens repositorioHospedagens;
+    private static ControladorHospedagens instance;
+    private static RepoHospedagens repositorioHospedagens;
 
-    public ControladorHospedagens() {
+    private ControladorHospedagens() { }
 
-        if (repositorioHospedagens == null) {
+    // o metodo getInstance() será usado no projeto no lugar do construtor da classe
+    // isso garante que somente uma instancia (objeto) dessa classe será criada, e garante a existencia de
+    // um único repositório de hospedagens em todo o projeto
+    public static ControladorHospedagens getInstance(){
+        if (instance == null) {
+            instance = new ControladorHospedagens();
             repositorioHospedagens = new RepoHospedagens();
         }
+
+        return instance;
     }
 
     private int gerarId() {
@@ -123,25 +131,36 @@ public class ControladorHospedagens implements IContHospedagens {
 
     public void checkOut(Hospedagem hospedagem) throws CINRException, COJRException {
 
-        // Só permite check-out se houver check-in
-        if (hospedagem.getHorarioCheckIn() == null) {
-            throw new CINRException();
-        }
-
-        // Impede múltiplos check-outs
-        if (hospedagem.getHorarioCheckOut() != null) {
-            throw new COJRException();
-        }
-
-        // Registra horário de saída
-        hospedagem.setHorarioCheckOut(LocalDateTime.now());
-        hospedagem.setStatus(StatusHospedagem.ENCERRADA);
-
-        // Libera o quarto, mas ele fica sujo
-        if (hospedagem.getQuarto() != null) {
-            hospedagem.getQuarto().setStatus(StatusQuarto.SUJO);
-        }
+    // Só permite check-out se houver check-in
+    if (hospedagem.getHorarioCheckIn() == null) {
+        throw new CINRException();
     }
+
+    // Impede múltiplos check-outs
+    if (hospedagem.getHorarioCheckOut() != null) {
+        throw new COJRException();
+    }
+
+    // Gera o recibo da diária
+    ControladorPagamentos pagamentos =
+            ControladorPagamentos.getInstance();
+
+    Recibo reciboDiaria =
+            pagamentos.gerarReciboDiaria(hospedagem);
+
+    pagamentos.adicionarRecibo(
+            hospedagem.getConta(),
+            reciboDiaria);
+
+    // Registra horário de saída
+    hospedagem.setHorarioCheckOut(LocalDateTime.now());
+    hospedagem.setStatus(StatusHospedagem.ENCERRADA);
+
+    // Libera o quarto, mas ele fica sujo
+    if (hospedagem.getQuarto() != null) {
+        hospedagem.getQuarto().setStatus(StatusQuarto.SUJO);
+    }
+}
 
     // cancela a reserva, antes de se hospedar no hotel
     public void cancelarReserva(Hospedagem hospedagem) {
@@ -284,6 +303,14 @@ public class ControladorHospedagens implements IContHospedagens {
         }
     }
     return reservadas;
+}
+
+public void removerHospedagem(String id) throws ONEException{
+    Hospedagem hosp = repositorioHospedagens.buscar(id);
+        if (hosp == null) {
+            throw new ONEException("Hospedagem não encontrada.");
+        }
+        repositorioHospedagens.remover(hosp);
 }
 
 public RepoHospedagens getRepositorioHospedagens() {
