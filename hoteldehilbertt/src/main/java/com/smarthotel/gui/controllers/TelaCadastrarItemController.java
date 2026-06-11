@@ -36,7 +36,7 @@ public class TelaCadastrarItemController {
 
             Item item = new Item("", nome, LocalDate.now(), valor);
 
-            ControladorItens controladorItens = new ControladorItens();
+            ControladorItens controladorItens = ControladorItens.getInstance();
             controladorItens.adicionarItem(item);
 
             mostrarInfo("Item cadastrado com sucesso!");

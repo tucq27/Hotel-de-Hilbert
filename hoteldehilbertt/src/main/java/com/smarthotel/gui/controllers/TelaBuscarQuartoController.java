@@ -42,7 +42,7 @@ public class TelaBuscarQuartoController {
     }
 
     private void carregarQuartos() {
-        ControladorQuartos controladorQuartos = new ControladorQuartos();
+        ControladorQuartos controladorQuartos = ControladorQuartos.getInstance();
 
         ArrayList<String> quartosDisponiveis = new ArrayList<>();
         ArrayList<String> quartosOcupados = new ArrayList<>();
@@ -68,7 +68,7 @@ public class TelaBuscarQuartoController {
     @FXML
     private void buscarQuarto() {
         try {
-            ControladorQuartos controladorQuartos = new ControladorQuartos();
+            ControladorQuartos controladorQuartos = ControladorQuartos.getInstance();
 
             String idQuarto = txtIdQuartos.getText();
 

@@ -2,9 +2,6 @@ package com.smarthotel.gui.controllers;
 
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.models.Quarto;
-import com.smarthotel.models.QuartoPadrao;
-import com.smarthotel.models.QuartoPresidencial;
-import com.smarthotel.models.QuartoSuite;
 import com.smarthotel.negocios.ControladorQuartos;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

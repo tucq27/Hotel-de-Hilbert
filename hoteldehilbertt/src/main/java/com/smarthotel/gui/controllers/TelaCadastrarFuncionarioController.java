@@ -46,7 +46,7 @@ public class TelaCadastrarFuncionarioController {
                 return;
             }
 
-            ControladorPessoas controladorPessoas = new ControladorPessoas();
+            ControladorPessoas controladorPessoas = ControladorPessoas.getInstance();
             Pessoa pessoa = controladorPessoas.buscarPessoa(cpf);
 
             txtNome.setText(pessoa.getNome());
@@ -86,7 +86,7 @@ public class TelaCadastrarFuncionarioController {
                     txtCargo.getText()
             );
 
-            ControladorPessoas controladorPessoas = new ControladorPessoas();
+            ControladorPessoas controladorPessoas = ControladorPessoas.getInstance();
 
             try {
                 controladorPessoas.removerPessoa(txtCpf.getText());
