@@ -90,6 +90,10 @@ public class Main extends Application {
 
             geradorPDF.gerarFaturaPDF(hospedagem);
 
+            GeradorPDF gerador = new GeradorPDF();
+
+           gerador.gerarRelatorioHospedagemPDF(hospedagem);
+
             System.out.println("id da hospedagem automatica: " + h1);
 
         } catch (Exception e) {
