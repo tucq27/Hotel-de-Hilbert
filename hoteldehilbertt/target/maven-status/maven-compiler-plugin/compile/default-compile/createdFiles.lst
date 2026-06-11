@@ -7,7 +7,6 @@ com\smarthotel\negocios\ControladorPagamentos.class
 com\smarthotel\negocios\GeradorPDF.class
 com\smarthotel\negocios\IContRelatorios.class
 com\smarthotel\gui\controllers\TelaAdmPessoasController.class
-com\smarthotel\gui\controllers\TelaBuscarQuartoController.class
 com\smarthotel\dados\RepoHospedagens.class
 com\smarthotel\models\TipoQuarto.class
 com\smarthotel\negocios\exceptions\CIJRException.class
