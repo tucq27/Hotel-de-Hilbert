@@ -14,9 +14,18 @@ import com.smarthotel.models.Quarto;
 import com.smarthotel.models.Recibo;
 import com.smarthotel.models.TipoRecibo;
 
-public class ControladorPagamentos {
+public class ControladorPagamentos implements IContPagamentos {
     
-    public ControladorPagamentos() {}
+    private static ControladorPagamentos instance;
+
+    private ControladorPagamentos() { }
+
+    public static ControladorPagamentos getInstance() {
+        if (instance == null) {
+            instance = new ControladorPagamentos();
+        }
+        return instance;
+    }
 
     private int gerarId() {
         int idAtual = Recibo.getDefinirId();
@@ -38,7 +47,7 @@ public class ControladorPagamentos {
         Month mesAtual = LocalDate.now().getMonth();
 
         if (estaEmAltaTemporada(mesAtual)) {
-            taxaTemp = Quarto.getMultTemporada();
+            taxaTemp = Quarto.getTaxaTemporada();
         }
 
         double valor = dias * taxaQuarto * taxaTemp;
@@ -96,12 +105,6 @@ public class ControladorPagamentos {
         double dividaTotal = conta.getDividaTotal();
         dividaTotal -= recibo.getValor();
         conta.setDividaTotal(dividaTotal);
-    }
-
-    public void alterarTaxaTemporada(double novaTaxa) {
-        if (novaTaxa >= 1) {
-            Quarto.setMultTemporada(novaTaxa);
-        }
     }
 
     private boolean estaEmAltaTemporada(Month mes) {

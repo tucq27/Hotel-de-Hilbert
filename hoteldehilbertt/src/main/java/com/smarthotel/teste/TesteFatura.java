@@ -13,19 +13,16 @@ public class TesteFatura {
 
         try {
 
-            Quarto quarto = new QuartoPadrao(1, 1, 2);
+            Quarto quarto = new Quarto(TipoQuarto.PADRAO, 1, 1, 2);
             quarto.setId("001");
 
-            Pessoa pessoa = new Pessoa(
+            Pessoa responsavel = new Pessoa(
                     "Carlos",
                     "4321",
                     LocalDate.of(1985, 3, 20));
 
-            Responsavel responsavel =
-                    new Responsavel(pessoa, "99999");
-
             ContaHospedagem conta =
-                    new ContaHospedagem("conta1", responsavel);
+                    new ContaHospedagem("conta1", responsavel, "99999");
 
             ArrayList<Hospede> hospedes = new ArrayList<>();
 
@@ -49,8 +46,8 @@ public class TesteFatura {
             hospedagem.setHorarioCheckIn(
             LocalDateTime.now().minusDays(3));
 
-            ControladorPagamentos pagamentos =
-                    new ControladorPagamentos();
+            IContPagamentos pagamentos =
+                    ControladorPagamentos.getInstance();
 
             Recibo diaria =
                     pagamentos.gerarReciboDiaria(hospedagem);

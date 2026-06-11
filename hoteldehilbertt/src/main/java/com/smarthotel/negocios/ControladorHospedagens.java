@@ -16,9 +16,7 @@ public class ControladorHospedagens implements IContHospedagens {
     private static ControladorHospedagens instance;
     private static RepoHospedagens repositorioHospedagens;
 
-    private ControladorHospedagens() {
-
-    }
+    private ControladorHospedagens() { }
 
     // o metodo getInstance() será usado no projeto no lugar do construtor da classe
     // isso garante que somente uma instancia (objeto) dessa classe será criada, e garante a existencia de
@@ -294,6 +292,14 @@ public class ControladorHospedagens implements IContHospedagens {
         }
     }
     return reservadas;
+}
+
+public void removerHospedagem(String id) throws ONEException{
+    Hospedagem hosp = repositorioHospedagens.buscar(id);
+        if (hosp == null) {
+            throw new ONEException("Hospedagem não encontrada.");
+        }
+        repositorioHospedagens.remover(hosp);
 }
 
 public RepoHospedagens getRepositorioHospedagens() {

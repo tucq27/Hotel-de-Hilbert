@@ -20,20 +20,20 @@ public interface IContHospedagens {
     void checkOut(Hospedagem hospedagem) throws CINRException, COJRException;
 
     void cancelarReserva(Hospedagem hospedagem);
-    void aumentarEstadia(Hospedagem hospedagem, int horas);
-    void diminuirEstadia(Hospedagem hospedagem, int horas);
-
-    void adicionarHospede(Hospedagem hospedagem, Hospede hospede) throws QLException;
-    void removerHospede(Hospedagem hospedagem, Hospede hospede) throws HNEException;
-
-    void trocarQuarto(Hospedagem hospedagem, Quarto novoQuarto) throws QIException, QLException;
-    void trocarConta(Hospedagem hospedagem, ContaHospedagem novaConta);
-
     boolean verificarHospede(Hospedagem hospedagem, String nome, String cpf, LocalDate dataNascimento);
     boolean hospedagmJaExiste(LocalDate dataSaida, Quarto quarto);
 
     ArrayList<Hospedagem> verHospedagensReservadas();
     ArrayList<Hospedagem> verHospedagensAtivas();
 
+    // atualização de dados da hospedagem
+    void aumentarEstadia(Hospedagem hospedagem, int horas);
+    void diminuirEstadia(Hospedagem hospedagem, int horas);
+    void adicionarHospede(Hospedagem hospedagem, Hospede hospede) throws QLException;
+    void removerHospede(Hospedagem hospedagem, Hospede hospede) throws HNEException;
+    void trocarQuarto(Hospedagem hospedagem, Quarto novoQuarto) throws QIException, QLException;
+    void trocarConta(Hospedagem hospedagem, ContaHospedagem novaConta);
+
+    void removerHospedagem(String id) throws ONEException;
     Hospedagem buscarHospedagem(String id) throws ONEException;
 }

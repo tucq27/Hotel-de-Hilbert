@@ -49,13 +49,13 @@ public class TelaRealizarHospedagemController {
         String idQuarto = txtIdQuarto.getText();
         LocalDate dataSaida = dpDataSaida.getValue();
 
-        ControladorPessoas controladorPessoas = new ControladorPessoas();
-        ControladorQuartos controladorQuartos = new ControladorQuartos();
+        IContPessoas controladorPessoas = ControladorPessoas.getInstance();
+        IContQuartos controladorQuartos = ControladorQuartos.getInstance();
         IContHospedagens controladorHospedagens = ControladorHospedagens.getInstance();
 
         // atribuindo o valor do responsável e dos hóspedes a partir dos CPFs informados
         try {
-            Responsavel responsavel = (Responsavel) controladorPessoas.buscarPessoa(cpfResponsavel);
+            Pessoa responsavel = controladorPessoas.buscarPessoa(cpfResponsavel);
             
             ArrayList<Hospede> hospedes = new ArrayList<>();
             for (String cpfHospede : cpfsHospedes) {
@@ -92,7 +92,9 @@ public class TelaRealizarHospedagemController {
 
             // criando de fato a hospedagem, utilizando o método de check-in imediato
             if (!hospedagemExiste){
-                String idHospedagem = controladorHospedagens.hospedarAgora(quarto, dataSaida.atTime(12, 0), new ContaHospedagem("conta" + cpfResponsavel, responsavel), hospedes);
+
+                String pagamento = null; /////////// temporario
+                String idHospedagem = controladorHospedagens.hospedarAgora(quarto, dataSaida.atTime(12, 0), new ContaHospedagem("conta" + cpfResponsavel, responsavel, pagamento), hospedes);
                 System.out.println("Hospedagem confirmada!");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
