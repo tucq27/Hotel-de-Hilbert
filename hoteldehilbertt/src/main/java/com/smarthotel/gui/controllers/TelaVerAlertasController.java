@@ -33,14 +33,20 @@ public class TelaVerAlertasController {
         ArrayList<String> saidasRealizadas = new ArrayList<>();
         DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
 
-        for (Hospedagem h : relatorios.alertarSaidaPendente()) {
-            String saida = h.getHorarioSaida().format(formato1);
-            pendente.add(" Id: " + h.getId() + "  |  Quarto: " + h.getQuarto().getId() + "  |  Saída: " + saida);
+        if (!(relatorios.alertarSaidaPendente() == null || relatorios.alertarSaidaPendente().isEmpty())){
+            for (Hospedagem h : relatorios.alertarSaidaPendente()) {
+                String saida = h.getHorarioSaida().format(formato1);
+                pendente.add(" Id: " + h.getId() + "  |  Quarto: " + h.getQuarto().getId() + "  |  Saída: " + saida);
+            }
+        } 
+        
+        if (! (relatorios.gerarRelatorioSaidas() == null || relatorios.gerarRelatorioSaidas().isEmpty())) {
+            for (Hospedagem h : relatorios.gerarRelatorioSaidas()) {
+                String saida = h.getHorarioSaida().format(formato1);
+                saidasRealizadas.add(" Id: " + h.getId() + "  |  Quarto: " + h.getQuarto().getId() + "  |  Saída: " + saida);
+            }
         }
-        for (Hospedagem h : relatorios.gerarRelatorioSaidas()) {
-            String saida = h.getHorarioSaida().format(formato1);
-            saidasRealizadas.add(" Id: " + h.getId() + "  |  Quarto: " + h.getQuarto().getId() + "  |  Saída: " + saida);
-        }
+        
         
         listCheckPen.setItems(FXCollections.observableArrayList(pendente));
         listCheckRe.setItems(FXCollections.observableArrayList(saidasRealizadas));

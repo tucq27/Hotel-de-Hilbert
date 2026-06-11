@@ -15,9 +15,6 @@ public class TelaAdmQuartoController {
     private Button btnBuscarQuarto;
 
     @FXML
-    private Button btnPdfMensal;
-
-    @FXML
     private Button btnVoltar;
 
     @FXML
@@ -34,11 +31,6 @@ public class TelaAdmQuartoController {
                 "/com/smarthotel/gui/telas/TelaBuscarQuarto.fxml",
                 "Buscar Quarto"
         );
-    }
-
-    @FXML
-    private void gerarPdfMensal() {
-        // gera pdf csv
     }
 
     @FXML

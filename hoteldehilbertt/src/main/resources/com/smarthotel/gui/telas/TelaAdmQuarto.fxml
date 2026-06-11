@@ -32,10 +32,12 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+   <!-- 
       <Button fx:id="btnPdfMensal" layoutX="198.0" layoutY="271.0" mnemonicParsing="false" onAction="#gerarPdfMensal" prefHeight="29.0" prefWidth="199.0" text="Gerar Faturamento Mensal">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
+   -->
    </children>
 </AnchorPane>
