@@ -2,7 +2,6 @@ package com.smarthotel.gui.controllers;
 
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.models.Hospede;
-import com.smarthotel.models.Pessoa;
 import com.smarthotel.models.RestricaoHospede;
 import com.smarthotel.negocios.ControladorPessoas;
 
@@ -79,31 +78,24 @@ public class TelaGerenciarHospedeController {
                 return;
             }
 
-            String cpfAntigo = hospedeSelecionado.getCpf();
+            String cpf = hospedeSelecionado.getCpf();
 
-            if (txtNovoNome.getText() != null && !txtNovoNome.getText().isBlank()) {
-                hospedeSelecionado.setNome(txtNovoNome.getText());
-            }
+            String novoNome = txtNovoNome.getText().isBlank() ? null : txtNovoNome.getText();
+            String novoTelefone = txtNovoTelefone.getText().isBlank() ? null : txtNovoTelefone.getText();
+            String novoEmail = txtNovoEmail.getText().isBlank() ? null : txtNovoEmail.getText();
+            String novaPreferencia = txtNovaPreferencia.getText().isBlank() ? null : txtNovaPreferencia.getText();
 
-            if (txtNovoTelefone.getText() != null && !txtNovoTelefone.getText().isBlank()) {
-                hospedeSelecionado.setTelefone(txtNovoTelefone.getText());
-            }
-
-            if (txtNovoEmail.getText() != null && !txtNovoEmail.getText().isBlank()) {
-                hospedeSelecionado.setEmail(txtNovoEmail.getText());
-            }
-
-            if (txtNovaPreferencia.getText() != null && !txtNovaPreferencia.getText().isBlank()) {
-                hospedeSelecionado.setPreferencias(txtNovaPreferencia.getText());
-            }
-
+            RestricaoHospede novaRestricao = null;
             if (cbRestricao.getValue() != null) {
-                hospedeSelecionado.setRestricao(RestricaoHospede.valueOf(cbRestricao.getValue()));
+                novaRestricao = RestricaoHospede.valueOf(cbRestricao.getValue());
             }
 
-            ControladorPessoas controladorPessoas = new ControladorPessoas();
-            controladorPessoas.atualizarPessoa(cpfAntigo, hospedeSelecionado);
+            ControladorPessoas controlador = ControladorPessoas.getInstance();
 
+            controlador.atualizarPessoa(cpf, novoNome, null, novoTelefone, novoEmail);
+            controlador.atualizarHospede(cpf, novaPreferencia, null, novaRestricao);
+
+            hospedeSelecionado = (Hospede) controlador.buscarPessoa(cpf);
             TelaBuscarPessoaController.pessoaSelecionada = hospedeSelecionado;
 
             preencherTela();
@@ -124,8 +116,8 @@ public class TelaGerenciarHospedeController {
                 return;
             }
 
-            ControladorPessoas controladorPessoas = new ControladorPessoas();
-            controladorPessoas.removerPessoa(hospedeSelecionado.getCpf());
+            ControladorPessoas controlador = ControladorPessoas.getInstance();
+            controlador.removerPessoa(hospedeSelecionado.getCpf());
 
             TelaBuscarPessoaController.pessoaSelecionada = null;
 
@@ -151,8 +143,8 @@ public class TelaGerenciarHospedeController {
         lblNome.setText(hospedeSelecionado.getNome());
         lblCpf.setText(hospedeSelecionado.getCpf());
         lblNascimento.setText(hospedeSelecionado.getDataNascimento().format(formato));
-        lblTelefone.setText(hospedeSelecionado.getTelefone());
-        lblEmail.setText(hospedeSelecionado.getEmail());
+        lblTelefone.setText(String.valueOf(hospedeSelecionado.getTelefone()));
+        lblEmail.setText(String.valueOf(hospedeSelecionado.getEmail()));
         lblRestricao.setText(String.valueOf(hospedeSelecionado.getRestricao()));
 
         if (hospedeSelecionado.getPreferencias() == null || hospedeSelecionado.getPreferencias().isBlank()) {

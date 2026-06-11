@@ -34,7 +34,7 @@ public class TelaBuscarItemController {
     }
 
     private void carregarItens() {
-        ControladorItens controladorItens = new ControladorItens();
+        ControladorItens controladorItens = ControladorItens.getInstance();
         ArrayList<String> itens = new ArrayList<>();
 
         for (Item item : controladorItens.listarItensRegistrados()) {
@@ -58,7 +58,7 @@ public class TelaBuscarItemController {
                 return;
             }
 
-            ControladorItens controladorItens = new ControladorItens();
+            ControladorItens controladorItens = ControladorItens.getInstance();
             itemSelecionado = controladorItens.buscarItem(id);
 
             abrirTela(

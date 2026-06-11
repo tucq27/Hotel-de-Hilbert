@@ -6,18 +6,13 @@ import com.smarthotel.models.Hospede;
 import com.smarthotel.models.Pessoa;
 import com.smarthotel.negocios.ControladorPessoas;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class TelaBuscarPessoaController {
 
@@ -27,46 +22,7 @@ public class TelaBuscarPessoaController {
     private TextField txtCpfPessoa;
 
     @FXML
-    private ListView<String> listHospedes;
-
-    @FXML
-    private ListView<String> listFuncionarios;
-
-    @FXML
     private Button btnVoltar;
-
-    @FXML
-    public void initialize() {
-        carregarPessoas();
-    }
-
-    private void carregarPessoas() {
-        ControladorPessoas controladorPessoas = new ControladorPessoas();
-
-        ArrayList<String> hospedes = new ArrayList<>();
-        ArrayList<String> funcionarios = new ArrayList<>();
-
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        for (Pessoa p : controladorPessoas.listarHospedes()) {
-            hospedes.add(
-                    "CPF: " + p.getCpf()
-                            + " | Nome: " + p.getNome()
-                            + " | Nasc.: " + p.getDataNascimento().format(formato)
-            );
-        }
-
-        for (Pessoa p : controladorPessoas.listarFuncionarios()) {
-            funcionarios.add(
-                    "CPF: " + p.getCpf()
-                            + " | Nome: " + p.getNome()
-                            + " | Nasc.: " + p.getDataNascimento().format(formato)
-            );
-        }
-
-        listHospedes.setItems(FXCollections.observableArrayList(hospedes));
-        listFuncionarios.setItems(FXCollections.observableArrayList(funcionarios));
-    }
 
     @FXML
     private void buscarPessoa() {
@@ -78,7 +34,7 @@ public class TelaBuscarPessoaController {
                 return;
             }
 
-            ControladorPessoas controladorPessoas = new ControladorPessoas();
+            ControladorPessoas controladorPessoas = ControladorPessoas.getInstance();
             pessoaSelecionada = controladorPessoas.buscarPessoa(cpf);
 
             if (pessoaSelecionada instanceof Hospede) {

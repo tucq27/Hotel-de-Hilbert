@@ -47,7 +47,7 @@ public class TelaCadastrarHospedeController {
                 return;
             }
 
-            ControladorPessoas controladorPessoas = new ControladorPessoas();
+            ControladorPessoas controladorPessoas = ControladorPessoas.getInstance();
             Pessoa pessoa = controladorPessoas.buscarPessoa(cpf);
 
             txtNome.setText(pessoa.getNome());
@@ -87,7 +87,7 @@ public class TelaCadastrarHospedeController {
                     ""
             );
 
-            ControladorPessoas controladorPessoas = new ControladorPessoas();
+            ControladorPessoas controladorPessoas = ControladorPessoas.getInstance();
 
             try {
                 controladorPessoas.removerPessoa(txtCpf.getText());

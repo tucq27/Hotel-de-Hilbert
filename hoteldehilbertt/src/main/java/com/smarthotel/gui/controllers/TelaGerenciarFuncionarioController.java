@@ -59,62 +59,42 @@ public class TelaGerenciarFuncionarioController {
 
     @FXML
     public void initialize() {
-
         cbOcupado.getItems().add("SIM");
         cbOcupado.getItems().add("NAO");
 
         if (TelaBuscarPessoaController.pessoaSelecionada instanceof Funcionario) {
-            funcionarioSelecionado =
-                    (Funcionario) TelaBuscarPessoaController.pessoaSelecionada;
-
+            funcionarioSelecionado = (Funcionario) TelaBuscarPessoaController.pessoaSelecionada;
             preencherTela();
         }
     }
 
     @FXML
     private void atualizarFuncionario() {
-
         try {
-
             if (funcionarioSelecionado == null) {
                 mostrarErro("Nenhum funcionário selecionado.");
                 return;
             }
 
-            String cpfAntigo = funcionarioSelecionado.getCpf();
+            String cpf = funcionarioSelecionado.getCpf();
 
-            if (!txtNovoNome.getText().isBlank()) {
-                funcionarioSelecionado.setNome(txtNovoNome.getText());
-            }
+            String novoNome = txtNovoNome.getText().isBlank() ? null : txtNovoNome.getText();
+            String novoTelefone = txtNovoTelefone.getText().isBlank() ? null : txtNovoTelefone.getText();
+            String novoEmail = txtNovoEmail.getText().isBlank() ? null : txtNovoEmail.getText();
+            String novoCargo = txtNovoCargo.getText().isBlank() ? null : txtNovoCargo.getText();
 
-            if (!txtNovoTelefone.getText().isBlank()) {
-                funcionarioSelecionado.setTelefone(txtNovoTelefone.getText());
-            }
-
-            if (!txtNovoEmail.getText().isBlank()) {
-                funcionarioSelecionado.setEmail(txtNovoEmail.getText());
-            }
-
-            if (!txtNovoCargo.getText().isBlank()) {
-                funcionarioSelecionado.setCargo(txtNovoCargo.getText());
-            }
-
+            Boolean ocupado = null;
             if (cbOcupado.getValue() != null) {
-                funcionarioSelecionado.setOcupado(
-                        cbOcupado.getValue().equals("SIM")
-                );
+                ocupado = cbOcupado.getValue().equals("SIM");
             }
 
-            ControladorPessoas controlador =
-                    new ControladorPessoas();
+            ControladorPessoas controlador = ControladorPessoas.getInstance();
 
-            controlador.atualizarPessoa(
-                    cpfAntigo,
-                    funcionarioSelecionado
-            );
+            controlador.atualizarPessoa(cpf, novoNome, null, novoTelefone, novoEmail);
+            controlador.atualizarFuncionario(cpf, novoCargo, ocupado);
 
-            TelaBuscarPessoaController.pessoaSelecionada =
-                    funcionarioSelecionado;
+            funcionarioSelecionado = (Funcionario) controlador.buscarPessoa(cpf);
+            TelaBuscarPessoaController.pessoaSelecionada = funcionarioSelecionado;
 
             preencherTela();
             limparCampos();
@@ -128,28 +108,20 @@ public class TelaGerenciarFuncionarioController {
 
     @FXML
     private void excluirFuncionario() {
-
         try {
-
             if (funcionarioSelecionado == null) {
                 mostrarErro("Nenhum funcionário selecionado.");
                 return;
             }
 
-            ControladorPessoas controlador =
-                    new ControladorPessoas();
-
-            controlador.removerPessoa(
-                    funcionarioSelecionado.getCpf()
-            );
+            ControladorPessoas controlador = ControladorPessoas.getInstance();
+            controlador.removerPessoa(funcionarioSelecionado.getCpf());
 
             TelaBuscarPessoaController.pessoaSelecionada = null;
 
             mostrarInfo("Funcionário excluído com sucesso!");
 
-            Stage stage =
-                    (Stage) btnVoltar.getScene().getWindow();
-
+            Stage stage = (Stage) btnVoltar.getScene().getWindow();
             stage.close();
 
         } catch (ONEException e) {
@@ -159,60 +131,32 @@ public class TelaGerenciarFuncionarioController {
 
     @FXML
     private void voltar() {
-
-        Stage stage =
-                (Stage) btnVoltar.getScene().getWindow();
-
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
         stage.close();
     }
 
     private void preencherTela() {
-
-        DateTimeFormatter formato =
-                DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         lblNome.setText(funcionarioSelecionado.getNome());
         lblCpf.setText(funcionarioSelecionado.getCpf());
-        lblNascimento.setText(
-                funcionarioSelecionado
-                        .getDataNascimento()
-                        .format(formato)
-        );
-
-        lblTelefone.setText(
-                String.valueOf(funcionarioSelecionado.getTelefone())
-        );
-
-        lblEmail.setText(
-                String.valueOf(funcionarioSelecionado.getEmail())
-        );
-
-        lblCargo.setText(
-                funcionarioSelecionado.getCargo()
-        );
-
-        lblOcupado.setText(
-                funcionarioSelecionado.isOcupado()
-                        ? "SIM"
-                        : "NÃO"
-        );
+        lblNascimento.setText(funcionarioSelecionado.getDataNascimento().format(formato));
+        lblTelefone.setText(String.valueOf(funcionarioSelecionado.getTelefone()));
+        lblEmail.setText(String.valueOf(funcionarioSelecionado.getEmail()));
+        lblCargo.setText(funcionarioSelecionado.getCargo());
+        lblOcupado.setText(funcionarioSelecionado.isOcupado() ? "SIM" : "NÃO");
     }
 
     private void limparCampos() {
-
         txtNovoNome.clear();
         txtNovoTelefone.clear();
         txtNovoEmail.clear();
         txtNovoCargo.clear();
-
         cbOcupado.setValue(null);
     }
 
     private void mostrarErro(String mensagem) {
-
-        Alert alert =
-                new Alert(Alert.AlertType.ERROR);
-
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erro");
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
@@ -220,10 +164,7 @@ public class TelaGerenciarFuncionarioController {
     }
 
     private void mostrarInfo(String mensagem) {
-
-        Alert alert =
-                new Alert(Alert.AlertType.INFORMATION);
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Sucesso");
         alert.setHeaderText(null);
         alert.setContentText(mensagem);

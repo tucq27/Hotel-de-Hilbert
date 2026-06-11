@@ -49,26 +49,29 @@ public class TelaGerenciarItemController {
                 return;
             }
 
-            String novoNome = txtNovoNome.getText();
-            String novoValorTexto = txtNovoValor.getText();
+            String novoNome = txtNovoNome.getText().isBlank() ? null : txtNovoNome.getText();
 
-            if (novoNome == null || novoNome.isBlank()) {
-                mostrarErro("Digite o novo nome.");
+            double novoValor = -1;
+            if (!txtNovoValor.getText().isBlank()) {
+                novoValor = Double.parseDouble(txtNovoValor.getText());
+            }
+
+            if (novoNome == null && novoValor <= 0) {
+                mostrarErro("Digite pelo menos um campo para atualizar.");
                 return;
             }
 
-            if (novoValorTexto == null || novoValorTexto.isBlank()) {
-                mostrarErro("Digite o novo valor.");
-                return;
-            }
+            ControladorItens controladorItens = ControladorItens.getInstance();
 
-            double novoValor = Double.parseDouble(novoValorTexto);
+            controladorItens.atualizarItem(
+                    itemSelecionado.getId(),
+                    novoNome,
+                    null,
+                    novoValor
+            );
 
-            itemSelecionado.setNome(novoNome);
-            itemSelecionado.setValor(novoValor);
-
-            ControladorItens controladorItens = new ControladorItens();
-            controladorItens.atualizarItem(itemSelecionado.getId(), itemSelecionado);
+            itemSelecionado = controladorItens.buscarItem(itemSelecionado.getId());
+            TelaBuscarItemController.itemSelecionado = itemSelecionado;
 
             atualizarLabels();
 
@@ -92,7 +95,7 @@ public class TelaGerenciarItemController {
                 return;
             }
 
-            ControladorItens controladorItens = new ControladorItens();
+            ControladorItens controladorItens = ControladorItens.getInstance();
             controladorItens.removerItem(itemSelecionado.getId());
 
             mostrarInfo("Item excluído com sucesso!");
