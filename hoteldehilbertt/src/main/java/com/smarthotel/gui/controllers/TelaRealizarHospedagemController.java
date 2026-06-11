@@ -70,6 +70,14 @@ public class TelaRealizarHospedagemController {
                 }
             }
 
+            if (pagamento == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setContentText("Insira dados de pagamento.");
+                alert.showAndWait();
+                return;
+            }
+
             if (hospedes == null || hospedes.isEmpty()) {
                 System.out.println(" - - - - Erro: Nenhum hóspede válido adicionado.");
 

@@ -1,6 +1,7 @@
 package com.smarthotel.negocios;
 
 import com.smarthotel.models.Hospedagem;
+import com.smarthotel.models.Item;
 import com.smarthotel.models.Quarto;
 import com.smarthotel.models.StatusQuarto;
 import com.smarthotel.models.TipoQuarto;
@@ -28,4 +29,5 @@ public interface IContQuartos {
     // Gerenciamento do frigobar
     void pegarItemFrigobar(Hospedagem hosp, String idQuarto, String idItem) throws ONEException;
     void reporItemFrigobar(String idQuarto, String idItem) throws ONEException, LFException;
+    Item buscarItemFrigobar(String idQuarto, String idItem) throws ONEException;
 }
