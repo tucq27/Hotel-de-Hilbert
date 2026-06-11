@@ -131,25 +131,36 @@ public class ControladorHospedagens implements IContHospedagens {
 
     public void checkOut(Hospedagem hospedagem) throws CINRException, COJRException {
 
-        // Só permite check-out se houver check-in
-        if (hospedagem.getHorarioCheckIn() == null) {
-            throw new CINRException();
-        }
-
-        // Impede múltiplos check-outs
-        if (hospedagem.getHorarioCheckOut() != null) {
-            throw new COJRException();
-        }
-
-        // Registra horário de saída
-        hospedagem.setHorarioCheckOut(LocalDateTime.now());
-        hospedagem.setStatus(StatusHospedagem.ENCERRADA);
-
-        // Libera o quarto, mas ele fica sujo
-        if (hospedagem.getQuarto() != null) {
-            hospedagem.getQuarto().setStatus(StatusQuarto.SUJO);
-        }
+    // Só permite check-out se houver check-in
+    if (hospedagem.getHorarioCheckIn() == null) {
+        throw new CINRException();
     }
+
+    // Impede múltiplos check-outs
+    if (hospedagem.getHorarioCheckOut() != null) {
+        throw new COJRException();
+    }
+
+    // Gera o recibo da diária
+    ControladorPagamentos pagamentos =
+            ControladorPagamentos.getInstance();
+
+    Recibo reciboDiaria =
+            pagamentos.gerarReciboDiaria(hospedagem);
+
+    pagamentos.adicionarRecibo(
+            hospedagem.getConta(),
+            reciboDiaria);
+
+    // Registra horário de saída
+    hospedagem.setHorarioCheckOut(LocalDateTime.now());
+    hospedagem.setStatus(StatusHospedagem.ENCERRADA);
+
+    // Libera o quarto, mas ele fica sujo
+    if (hospedagem.getQuarto() != null) {
+        hospedagem.getQuarto().setStatus(StatusQuarto.SUJO);
+    }
+}
 
     // cancela a reserva, antes de se hospedar no hotel
     public void cancelarReserva(Hospedagem hospedagem) {

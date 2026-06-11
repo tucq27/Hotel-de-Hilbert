@@ -102,6 +102,37 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
     }
 
     @FXML
+    private void gerarFatura() {
+
+        try {
+
+            GeradorPDF gerador = new GeradorPDF();
+
+            gerador.gerarFaturaPDF(hospedagemSelecionada);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Fatura Gerada");
+            alert.setHeaderText(null);
+            alert.setContentText(
+                "A fatura PDF foi gerada com sucesso."
+            );
+            alert.showAndWait();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText(null);
+            alert.setContentText(
+                "Erro ao gerar a fatura."
+            );
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
     private void checkOut() {
 
         try {
@@ -117,7 +148,7 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
             alert.setTitle("Check-out Realizado");
             alert.setContentText(
                 "Check-out realizado com sucesso para a hospedagem selecionada.\n" +
-                "A fatura em PDF foi gerada."
+                "A fatura em PDF foi gerada na pasta relatorios."
             );
             alert.showAndWait();
 

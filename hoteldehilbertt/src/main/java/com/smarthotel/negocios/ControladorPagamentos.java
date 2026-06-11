@@ -35,28 +35,41 @@ public class ControladorPagamentos implements IContPagamentos {
     }
 
     public Recibo gerarReciboDiaria(Hospedagem hosp) {
-        LocalDate entrada = hosp.getDataEntrada();
-        int dias = Period.between(entrada, LocalDate.now()).getDays();
 
-        System.out.println("Entrada: " + entrada);
-        System.out.println("Hoje: " + LocalDate.now());
-        System.out.println("Dias: " + dias);
+    LocalDate entrada = hosp.getDataEntrada();
+    int dias = Period.between(entrada, LocalDate.now()).getDays();
 
-        double taxaQuarto = hosp.getQuarto().getMultTaxa();
-        double taxaTemp = 1;
-        Month mesAtual = LocalDate.now().getMonth();
+    double taxaQuarto = hosp.getQuarto().getMultTaxa();
+    double taxaTemp = 1;
 
-        if (estaEmAltaTemporada(mesAtual)) {
-            taxaTemp = Quarto.getTaxaTemporada();
-        }
+    Month mesAtual = LocalDate.now().getMonth();
 
-        double valor = dias * taxaQuarto * taxaTemp;
-        
-        Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
-        String reciboId = String.valueOf(gerarId()) + recibo.getTipo().name(); 
-        recibo.setId(reciboId);
-        return recibo;
+    if (estaEmAltaTemporada(mesAtual)) {
+        taxaTemp = Quarto.getTaxaTemporada();
     }
+
+    double valor = dias * taxaQuarto * taxaTemp;
+
+    System.out.println("=================================");
+    System.out.println("GERANDO RECIBO DE DIARIA");
+    System.out.println("Entrada: " + entrada);
+    System.out.println("Hoje: " + LocalDate.now());
+    System.out.println("Dias: " + dias);
+    System.out.println("Taxa do quarto: " + taxaQuarto);
+    System.out.println("Taxa temporada: " + taxaTemp);
+    System.out.println("Valor calculado: " + valor);
+    System.out.println("=================================");
+
+    Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
+
+    String reciboId =
+            String.valueOf(gerarId()) +
+            recibo.getTipo().name();
+
+    recibo.setId(reciboId);
+
+    return recibo;
+}
 
     public Recibo gerarReciboServico(Hospedagem hosp, Funcionario f, String descricao) {
         LocalTime agora = LocalTime.now();
