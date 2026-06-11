@@ -10,12 +10,18 @@ import com.smarthotel.models.Item;
 import com.smarthotel.models.Recibo;
 
 public class ControladorItens implements IContItens{
+
+    private static ControladorItens instance;
     private static RepoItens repositorioItens;
 
-    public ControladorItens() {
-        if (repositorioItens == null) {
+    private ControladorItens() { }
+
+    public static ControladorItens getInstance() {
+        if (instance == null) {
+            instance = new ControladorItens();
             repositorioItens = new RepoItens();
         }
+        return instance;
     }
 
     private int gerarId() {

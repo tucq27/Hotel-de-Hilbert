@@ -21,13 +21,17 @@ import com.smarthotel.dados.exceptions.ORException;
 
 public class ControladorQuartos implements IContQuartos {
 
+    static private ControladorQuartos instance;
     static private RepoQuartos quartosHotel;
 
-    public ControladorQuartos() {
-        // Se o repositório já existir, não pode criar um novo
-        if (quartosHotel == null) {
+    private ControladorQuartos() { }
+
+    public static ControladorQuartos getInstance() {
+        if (instance == null) {
+            instance = new ControladorQuartos();
             quartosHotel = new RepoQuartos();
         }
+        return instance;
     }
 
     public int gerarId() {
@@ -153,7 +157,7 @@ public class ControladorQuartos implements IContQuartos {
             // se a hospedagem existir, um recibo é enviado para a conta responsavel
             // caso a hospedagem não exista, o item está sendo pego do frigobar pela administração do hotel
             if (hosp != null) {
-                ControladorPagamentos pagamento = new ControladorPagamentos();
+                IContPagamentos pagamento = ControladorPagamentos.getInstance();
                 
                 Recibo recibo = pagamento.gerarReciboFrigobar(item, hosp);
                 pagamento.adicionarRecibo(hosp.getConta(), recibo);
@@ -163,7 +167,7 @@ public class ControladorQuartos implements IContQuartos {
 
     public void reporItemFrigobar(String idQuarto, String idItem) throws ONEException, LFException {
         if (idQuarto != null && idItem != null) {
-            ControladorItens itensRegistrados = new ControladorItens();
+            IContItens itensRegistrados = ControladorItens.getInstance();
             Item novoItem = itensRegistrados.buscarItem(idItem);
 
             Quarto quarto = quartosHotel.buscar(idQuarto);

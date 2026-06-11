@@ -12,12 +12,18 @@ import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.dados.exceptions.ORException;
 
 public class ControladorPessoas implements IContPessoas {
+    
+    static private ControladorPessoas instance;
     static private RepoPessoas repositorioPessoas;
 
-    public ControladorPessoas() {
-        if (repositorioPessoas == null) {
+    private ControladorPessoas() { }
+
+    public static ControladorPessoas getInstance() {
+        if (instance == null) {
+            instance = new ControladorPessoas();
             repositorioPessoas = new RepoPessoas();
         }
+        return instance;
     }
     
     // Métodos para gerenciar o repositório de Pessoas

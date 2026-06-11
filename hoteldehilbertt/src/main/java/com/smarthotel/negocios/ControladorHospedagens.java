@@ -16,9 +16,7 @@ public class ControladorHospedagens implements IContHospedagens {
     private static ControladorHospedagens instance;
     private static RepoHospedagens repositorioHospedagens;
 
-    private ControladorHospedagens() {
-
-    }
+    private ControladorHospedagens() { }
 
     // o metodo getInstance() será usado no projeto no lugar do construtor da classe
     // isso garante que somente uma instancia (objeto) dessa classe será criada, e garante a existencia de

@@ -14,9 +14,18 @@ import com.smarthotel.models.Quarto;
 import com.smarthotel.models.Recibo;
 import com.smarthotel.models.TipoRecibo;
 
-public class ControladorPagamentos {
+public class ControladorPagamentos implements IContPagamentos {
     
-    public ControladorPagamentos() {}
+    private static ControladorPagamentos instance;
+
+    private ControladorPagamentos() { }
+
+    public static ControladorPagamentos getInstance() {
+        if (instance == null) {
+            instance = new ControladorPagamentos();
+        }
+        return instance;
+    }
 
     private int gerarId() {
         int idAtual = Recibo.getDefinirId();
