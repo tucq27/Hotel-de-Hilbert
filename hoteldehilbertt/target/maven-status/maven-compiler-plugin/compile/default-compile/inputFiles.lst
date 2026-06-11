@@ -31,14 +31,11 @@ C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbert
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\Item.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\Pessoa.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\Quarto.java
-C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\QuartoPadrao.java
-C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\QuartoPresidencial.java
-C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\QuartoSuite.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\Recibo.java
-C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\Responsavel.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\RestricaoHospede.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\StatusHospedagem.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\StatusQuarto.java
+C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\TipoQuarto.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\models\TipoRecibo.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\negocios\ControladorHospedagens.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\negocios\ControladorItens.java

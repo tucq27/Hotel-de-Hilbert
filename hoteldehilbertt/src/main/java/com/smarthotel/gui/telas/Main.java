@@ -34,8 +34,8 @@ public class Main extends Application {
 
         // preencehndo dados de teste
         IContHospedagens contHospedagens = ControladorHospedagens.getInstance();
-        ControladorPessoas contPessoas = new ControladorPessoas();
-        ControladorQuartos contQuartos = new ControladorQuartos();
+        IContPessoas contPessoas = ControladorPessoas.getInstance();
+        IContQuartos contQuartos = ControladorQuartos.getInstance();
 
         Quarto quarto1 = new Quarto(TipoQuarto.PADRAO,001, 1, 2);
         quarto1.setId("001");
@@ -49,7 +49,7 @@ public class Main extends Application {
 
         Pessoa hospJ = new Hospede(j);
         Pessoa hospM = new Hospede(m);
-        Pessoa resp = new Responsavel(c, "99999");
+        Pessoa resp = c;
 
         try {
             contPessoas.adicionarPessoa(hospJ);
@@ -64,7 +64,7 @@ public class Main extends Application {
         }
 
         ContaHospedagem conta1 =
-                new ContaHospedagem("conta282828", new Responsavel(c, "99999"));
+                new ContaHospedagem("conta282828", c, "99999");
 
         ArrayList<Hospede> hospedes = new ArrayList<>();
         hospedes.add(new Hospede(m));

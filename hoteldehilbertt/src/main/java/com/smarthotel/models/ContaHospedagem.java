@@ -9,10 +9,10 @@ public class ContaHospedagem {
     private double dividaTotal;
     private ArrayList<Recibo> recibos;
 
-    public ContaHospedagem(String id, Pessoa responsavel, String dados){
+    public ContaHospedagem(String id, Pessoa responsavel, String dadosPagamento){
         this.id= id;
         this.responsavel= responsavel;
-        this.dadosPagamento = dados;
+        this.dadosPagamento = dadosPagamento;
         this.dividaTotal= 0;
         this.recibos= new ArrayList<Recibo>(10);
     }
