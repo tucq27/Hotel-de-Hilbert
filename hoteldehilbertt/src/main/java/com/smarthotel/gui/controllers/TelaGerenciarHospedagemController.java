@@ -3,15 +3,13 @@ package com.smarthotel.gui.controllers;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.models.Hospede;
 import com.smarthotel.negocios.ControladorHospedagens;
 import com.smarthotel.negocios.GeradorPDF;
 import com.smarthotel.negocios.IContHospedagens;
-import com.smarthotel.negocios.exceptions.CIFException;
-import com.smarthotel.negocios.exceptions.CIJRException;
 import com.smarthotel.negocios.exceptions.CINRException;
 import com.smarthotel.negocios.exceptions.COJRException;
-import com.smarthotel.negocios.exceptions.QIException;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -36,6 +34,7 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
     private Label lblEntrada;
     @FXML
     private Label lblSaida;
+
     @FXML
     private ListView<String> listHospedes;
 
@@ -58,7 +57,9 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
         DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         lblResponsavel.setText(hospedagemSelecionada.getConta().getResponsavel().getNome());
-        listHospedes.setItems(FXCollections.observableArrayList(nomesHospedes));
+        if (nomesHospedes != null) {
+            listHospedes.setItems(FXCollections.observableArrayList(nomesHospedes));
+        }
         lblQuarto.setText(hospedagemSelecionada.getQuarto().getId());
         lblStatus.setText(hospedagemSelecionada.getStatus().toString());
         lblEntrada.setText(hospedagemSelecionada.getDataEntrada().format(formato2));
@@ -67,37 +68,13 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
 
     @FXML
     private void checkIn() {
-        try{
-            IContHospedagens contHosp = ControladorHospedagens.getInstance();
-            contHosp.checkIn(hospedagemSelecionada);
-
-            System.out.println("Check-in");
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Check-in Realizado");
-            alert.setContentText("Check-in realizado com sucesso para a hospedagem selecionada.");
-            alert.showAndWait();
-        } catch(CIJRException e) {
-            System.out.println(" - - - - Erro: " + e.getMessage());
-
+        if (hospedagemSelecionada.getHorarioCheckIn() != null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
-            alert.setContentText(e.getMessage());
+            alert.setContentText("Checkin já realizado");
             alert.showAndWait();
-        } catch (CIFException e) {
-            System.out.println(" - - - - Erro: " + e.getMessage());
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        } catch (QIException e) {
-            System.out.println(" - - - - Erro: " + e.getMessage());
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setContentText(e.getMessage() +" Quarto: " + e.getQuarto().getId() + ", Status: " + e.getStatus());
-            alert.showAndWait();
+        } else {
+            abrirTela("/com/smarthotel/gui/telas/TelaConfirmarCheckin.fxml", "Confirmar Checkin");
         }
     }
 
@@ -190,14 +167,20 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
 
     @FXML
     private void excluir() {
-        
-    }
 
-    @FXML
-    private void atualizar() {
+        IContHospedagens contH = ControladorHospedagens.getInstance();
+        try {
+            contH.removerHospedagem(hospedagemSelecionada.getId());
+        }
+        catch (ONEException e) { 
+            System.out.println("hospedagem nao encontrada");
+        }
         
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erro");
+        alert.setContentText("Erro ao gerar a fatura PDF.");
+        alert.showAndWait();
     }
-
 
     @FXML
     private void pegarItem() {

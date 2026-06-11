@@ -22,4 +22,5 @@ public interface IContPessoas {
     
     ArrayList<Pessoa> listarPessoasRegistradas();
     ArrayList<Pessoa> listarFuncionarios();
+    ArrayList<Pessoa> listarHospedes();
 }

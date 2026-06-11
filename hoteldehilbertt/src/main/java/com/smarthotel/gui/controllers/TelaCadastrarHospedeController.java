@@ -2,7 +2,6 @@ package com.smarthotel.gui.controllers;
 
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.dados.exceptions.ORException;
-import com.smarthotel.models.Hospede;
 import com.smarthotel.models.Pessoa;
 import com.smarthotel.negocios.ControladorPessoas;
 
@@ -81,20 +80,12 @@ public class TelaCadastrarHospedeController {
                     txtEmail.getText()
             );
 
-            Hospede hospede = new Hospede(
-                    pessoaBase,
-                    txtPreferencias.getText(),
-                    ""
-            );
-
             ControladorPessoas controladorPessoas = ControladorPessoas.getInstance();
-
+            controladorPessoas.adicionarPessoa(pessoaBase);
             try {
-                controladorPessoas.removerPessoa(txtCpf.getText());
+                controladorPessoas.adicionarHospede(txtCpf.getText(), txtPreferencias.getText());
             } catch (ONEException ignored) {
             }
-
-            controladorPessoas.adicionarPessoa(hospede);
 
             mostrarInfo("Hóspede cadastrado com sucesso!");
             limparCampos();

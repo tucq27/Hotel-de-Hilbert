@@ -64,7 +64,7 @@ public class Main extends Application {
         }
 
         ContaHospedagem conta1 =
-                new ContaHospedagem("conta282828", c, "99999");
+                new ContaHospedagem("conta282828", c, "Cartão - 999990");
 
         ArrayList<Hospede> hospedes = new ArrayList<>();
         hospedes.add(new Hospede(m));

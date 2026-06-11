@@ -8,20 +8,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="778.0" prefWidth="1060.0"
-            xmlns="http://javafx.com/javafx/26"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.smarthotel.gui.controllers.TelaRealizarHospedagemController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smarthotel.gui.controllers.TelaRealizarHospedagemController">
    <children>
-      <Label layoutX="424.0" layoutY="14.0" text="SMART HOTEL">
+      <Label layoutX="230.0" layoutY="23.0" text="SMART HOTEL">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
 
-      <Label layoutX="449.0" layoutY="77.0" text="Realizar Hospedagem">
+      <Label layoutX="255.0" layoutY="70.0" text="Realizar Hospedagem">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -41,12 +36,7 @@
       </Label>
       <TextField fx:id="txtCpfHospede" layoutX="28.0" layoutY="233.0" />
 
-      <Button fx:id="btnAdicionarHospede"
-              layoutX="194.0" layoutY="233.0"
-              mnemonicParsing="false"
-              onAction="#adicionarHospede"
-              prefHeight="26.0" prefWidth="124.0"
-              text="Adicionar Hóspede">
+      <Button fx:id="btnAdicionarHospede" layoutX="194.0" layoutY="233.0" mnemonicParsing="false" onAction="#adicionarHospede" prefHeight="26.0" prefWidth="124.0" text="Adicionar Hóspede">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -57,9 +47,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <ListView fx:id="listHospedes"
-                layoutX="28.0" layoutY="291.0"
-                prefHeight="70.0" prefWidth="150.0" />
+      <ListView fx:id="listHospedes" layoutX="28.0" layoutY="291.0" prefHeight="70.0" prefWidth="150.0" />
 
       <Label layoutX="27.0" layoutY="371.0" text="ID do Quarto:">
          <font>
@@ -73,9 +61,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dpDataSaida"
-                  layoutX="27.0" layoutY="452.0"
-                  prefHeight="26.0" prefWidth="124.0" />
+      <DatePicker fx:id="dpDataSaida" layoutX="27.0" layoutY="452.0" prefHeight="26.0" prefWidth="124.0" />
 
       <!--<Label layoutX="26.0" layoutY="502.0" text="Hora de Saída:">
          <font>
@@ -86,24 +72,22 @@
                  layoutX="27.0" layoutY="520.0"
                  prefHeight="26.0" prefWidth="60.0" /> -->
 
-      <Button fx:id="btnConfirmarHospedagem"
-              layoutX="56.0" layoutY="571.0"
-              mnemonicParsing="false"
-              onAction="#confirmarHospedagem"
-              text="Confirmar Hospedagem">
+      <Button fx:id="btnConfirmarHospedagem" layoutX="380.0" layoutY="430.0" mnemonicParsing="false" onAction="#confirmarHospedagem" text="Confirmar Hospedagem">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
 
-      <Button fx:id="btnVoltar"
-              layoutX="504.0" layoutY="609.0"
-              mnemonicParsing="false"
-              onAction="#voltar"
-              text="Voltar">
+      <Button fx:id="btnVoltar" layoutX="293.0" layoutY="534.0" mnemonicParsing="false" onAction="#voltar" text="Voltar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Label layoutX="216.0" layoutY="153.0" text="Dados de Pagamento:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtPagamento" layoutX="216.0" layoutY="171.0" />
    </children>
 </AnchorPane>

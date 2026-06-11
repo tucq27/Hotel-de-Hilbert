@@ -29,6 +29,9 @@ public class TelaRealizarHospedagemController {
     protected TextField txtIdQuarto;
 
     @FXML
+    protected TextField txtPagamento;
+
+    @FXML
     protected DatePicker dpDataSaida;
 
 
@@ -47,6 +50,7 @@ public class TelaRealizarHospedagemController {
         String cpfResponsavel = txtCpfResponsavel.getText();
         ArrayList<String> cpfsHospedes = new ArrayList<>(listHospedes.getItems());
         String idQuarto = txtIdQuarto.getText();
+        String pagamento = txtPagamento.getText();
         LocalDate dataSaida = dpDataSaida.getValue();
 
         IContPessoas controladorPessoas = ControladorPessoas.getInstance();
@@ -93,7 +97,6 @@ public class TelaRealizarHospedagemController {
             // criando de fato a hospedagem, utilizando o método de check-in imediato
             if (!hospedagemExiste){
 
-                String pagamento = null; /////////// temporario
                 String idHospedagem = controladorHospedagens.hospedarAgora(quarto, dataSaida.atTime(12, 0), new ContaHospedagem("conta" + cpfResponsavel, responsavel, pagamento), hospedes);
                 System.out.println("Hospedagem confirmada!");
 

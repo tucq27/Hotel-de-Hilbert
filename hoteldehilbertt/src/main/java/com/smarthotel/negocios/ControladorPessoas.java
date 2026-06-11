@@ -12,7 +12,7 @@ import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.dados.exceptions.ORException;
 
 public class ControladorPessoas implements IContPessoas {
-    
+
     static private ControladorPessoas instance;
     static private RepoPessoas repositorioPessoas;
 
@@ -25,24 +25,26 @@ public class ControladorPessoas implements IContPessoas {
         }
         return instance;
     }
-    
-    // Métodos para gerenciar o repositório de Pessoas
+
     public Pessoa buscarPessoa(String cpf) throws ONEException {
         Pessoa pessoa = repositorioPessoas.buscar(cpf);
+
         if (pessoa == null) {
             throw new ONEException("Pessoa com CPF " + cpf + " não encontrada.");
         }
+
         return pessoa;
     }
 
     public void adicionarPessoa(Pessoa pessoa) throws ORException {
         if (repositorioPessoas.buscar(pessoa.getCpf()) != null) {
-            throw new ORException(pessoa); // pessoa repetida no repositório
+            throw new ORException(pessoa);
         }
+
         repositorioPessoas.adicionar(pessoa);
     }
 
-    public void adicionarFuncionario(String cpf, String cargo) throws ONEException, ORException{
+    public void adicionarFuncionario(String cpf, String cargo) throws ONEException, ORException {
         Pessoa pessoa = buscarPessoa(cpf);
 
         if (pessoa instanceof Funcionario) {
@@ -50,31 +52,34 @@ public class ControladorPessoas implements IContPessoas {
         }
 
         Pessoa novoFuncionario = new Funcionario(pessoa, cargo);
+
         removerPessoa(cpf);
         adicionarPessoa(novoFuncionario);
-
     }
 
-    public void adicionarHospede(String cpf, String preferencias) throws ONEException, ORException{
-        Pessoa h = buscarPessoa(cpf);
+    public void adicionarHospede(String cpf, String preferencias) throws ONEException, ORException {
+        Pessoa pessoa = buscarPessoa(cpf);
 
-        if (h instanceof Hospede) {
-            throw new ORException(h);
+        if (pessoa instanceof Hospede) {
+            throw new ORException(pessoa);
         }
 
-        Pessoa novoHospede = new Hospede(h, preferencias, null);
+        Pessoa novoHospede = new Hospede(pessoa, preferencias, null);
+
         removerPessoa(cpf);
         adicionarPessoa(novoHospede);
     }
 
     public void removerPessoa(String cpf) throws ONEException {
         Pessoa pessoa = repositorioPessoas.buscar(cpf);
+
         if (pessoa == null) {
             throw new ONEException("Pessoa não encontrada.");
         }
-        repositorioPessoas.remover(repositorioPessoas.buscar(cpf));
+
+        repositorioPessoas.remover(pessoa);
     }
-    
+
     public void atualizarPessoa(String cpf, String nome, LocalDate data, String telefone, String email) throws ONEException {
         if (cpf != null) {
             Pessoa pessoa = buscarPessoa(cpf);
@@ -82,12 +87,15 @@ public class ControladorPessoas implements IContPessoas {
             if (nome != null) {
                 pessoa.setNome(nome);
             }
+
             if (data != null) {
                 pessoa.setDataNascimento(data);
             }
+
             if (telefone != null) {
                 pessoa.setTelefone(telefone);
             }
+
             if (email != null) {
                 pessoa.setEmail(email);
             }
@@ -104,9 +112,11 @@ public class ControladorPessoas implements IContPessoas {
                 if (pref != null) {
                     hosp.setPreferencias(pref);
                 }
+
                 if (historico != null) {
                     hosp.setHistorico(historico);
                 }
+
                 if (restricao != null) {
                     hosp.setRestricao(restricao);
                 }
@@ -119,13 +129,14 @@ public class ControladorPessoas implements IContPessoas {
             Pessoa pessoa = buscarPessoa(cpf);
 
             if (pessoa instanceof Funcionario) {
-                Funcionario f = (Funcionario) pessoa;
+                Funcionario funcionario = (Funcionario) pessoa;
 
                 if (cargo != null) {
-                    f.setCargo(cargo);
+                    funcionario.setCargo(cargo);
                 }
+
                 if (ocupado != null) {
-                    f.setOcupado(ocupado);
+                    funcionario.setOcupado(ocupado);
                 }
             }
         }
@@ -155,5 +166,18 @@ public class ControladorPessoas implements IContPessoas {
         }
 
         return funcionarios;
+    }
+
+    public ArrayList<Pessoa> listarHospedes() {
+        ArrayList<Pessoa> pessoasTotal = repositorioPessoas.getObjetos();
+        ArrayList<Pessoa> hospedes = new ArrayList<>();
+
+        for (Pessoa p : pessoasTotal) {
+            if (p instanceof Hospede) {
+                hospedes.add(p);
+            }
+        }
+
+        return hospedes;
     }
 }

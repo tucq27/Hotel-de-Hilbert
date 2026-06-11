@@ -53,6 +53,7 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
         String cpfResponsavel = txtCpfResponsavel.getText();
         ArrayList<String> cpfsHospedes = new ArrayList<>(listHospedes.getItems());
         String idQuarto = txtIdQuarto.getText();
+        String pagamento = txtPagamento.getText();
         LocalDate dataEntrada = dpDataEntrada.getValue();
         LocalDate dataSaida = dpDataSaida.getValue();
 
@@ -111,7 +112,6 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
 
                 //------> criando de fato a Reserva
 
-                String pagamento = null; ///////////// temporario
                 String idHospedagem = controladorHospedagens.reservarHospedagem(quarto, dataEntrada, dataSaida.atTime(12, 0), new ContaHospedagem("conta" + cpfResponsavel, responsavel, pagamento), hospedes);
                 System.out.println("Reserva confirmada!");
 

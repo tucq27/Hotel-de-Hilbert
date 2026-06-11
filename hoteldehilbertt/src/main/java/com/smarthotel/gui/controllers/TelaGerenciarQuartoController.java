@@ -2,6 +2,8 @@ package com.smarthotel.gui.controllers;
 
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.models.Quarto;
+import com.smarthotel.models.StatusQuarto;
+import com.smarthotel.models.TipoQuarto;
 import com.smarthotel.negocios.ControladorQuartos;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -72,42 +74,44 @@ public class TelaGerenciarQuartoController {
             String id = quartoSelecionado.getId();
 
             int novoNumero = txtNovoNumero.getText().isBlank()
-                    ? quartoSelecionado.getNumero()
+                    ? -1
                     : Integer.parseInt(txtNovoNumero.getText());
 
             int novoAndar = txtNovoAndar.getText().isBlank()
-                    ? quartoSelecionado.getAndar()
+                    ? -1
                     : Integer.parseInt(txtNovoAndar.getText());
 
             int novaCapacidade = txtNovaCapacidade.getText().isBlank()
-                    ? quartoSelecionado.getCapacidade()
+                    ? -1
                     : Integer.parseInt(txtNovaCapacidade.getText());
 
-            String tipo = cbTipoQuarto.getValue();
+            StatusQuarto status = quartoSelecionado.getStatus();
 
-            if (tipo == null || tipo.isBlank()) {
-                tipo = descobrirTipo(quartoSelecionado);
+            TipoQuarto tipo = null;
+
+            if (cbTipoQuarto.getValue() != null) {
+                if (cbTipoQuarto.getValue().equals("Padrão")) {
+                    tipo = TipoQuarto.PADRAO;
+                } else if (cbTipoQuarto.getValue().equals("Suíte")) {
+                    tipo = TipoQuarto.SUITE;
+                } else if (cbTipoQuarto.getValue().equals("Presidencial")) {
+                    tipo = TipoQuarto.PRESIDENCIAL;
+                }
             }
 
-            Quarto novoQuarto;
+            ControladorQuartos controladorQuartos = ControladorQuartos.getInstance();
 
-            if (tipo.equals("Padrão")) {
-                novoQuarto = new QuartoPadrao(novoNumero, novoAndar, novaCapacidade);
-            } else if (tipo.equals("Suíte")) {
-                novoQuarto = new QuartoSuite(novoNumero, novoAndar, novaCapacidade);
-            } else {
-                novoQuarto = new QuartoPresidencial(novoNumero, novoAndar, novaCapacidade);
-            }
+            controladorQuartos.atualizarQuarto(
+                    id,
+                    novoNumero,
+                    novoAndar,
+                    novaCapacidade,
+                    status,
+                    tipo
+            );
 
-            novoQuarto.setId(id);
-            novoQuarto.setStatus(quartoSelecionado.getStatus());
-            novoQuarto.setFrigobar(quartoSelecionado.getFrigobar());
-
-            ControladorQuartos controladorQuartos = new ControladorQuartos();
-            controladorQuartos.atualizarQuarto(id, novoQuarto);
-
-            quartoSelecionado = novoQuarto;
-            TelaBuscarQuartoController.quartoSelecionado = novoQuarto;
+            quartoSelecionado = controladorQuartos.buscarQuarto(id);
+            TelaBuscarQuartoController.quartoSelecionado = quartoSelecionado;
 
             preencherTela();
 
@@ -133,7 +137,7 @@ public class TelaGerenciarQuartoController {
                 return;
             }
 
-            ControladorQuartos controladorQuartos = new ControladorQuartos();
+            ControladorQuartos controladorQuartos = ControladorQuartos.getInstance();
             controladorQuartos.removerQuarto(quartoSelecionado.getId());
 
             TelaBuscarQuartoController.quartoSelecionado = null;
@@ -160,17 +164,7 @@ public class TelaGerenciarQuartoController {
         lblAndarQuarto.setText(String.valueOf(quartoSelecionado.getAndar()));
         lblCapacidadeQuarto.setText(String.valueOf(quartoSelecionado.getCapacidade()));
         lblStatusQuarto.setText(String.valueOf(quartoSelecionado.getStatus()));
-        lblTipoQuarto.setText(descobrirTipo(quartoSelecionado));
-    }
-
-    private String descobrirTipo(Quarto quarto) {
-        if (quarto instanceof QuartoPresidencial) {
-            return "Presidencial";
-        } else if (quarto instanceof QuartoSuite) {
-            return "Suíte";
-        } else {
-            return "Padrão";
-        }
+        lblTipoQuarto.setText(String.valueOf(quartoSelecionado.getTipo()));
     }
 
     private void mostrarErro(String mensagem) {

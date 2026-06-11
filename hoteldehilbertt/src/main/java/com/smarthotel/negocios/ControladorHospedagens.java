@@ -169,6 +169,7 @@ public class ControladorHospedagens implements IContHospedagens {
         }
         if (hospedagem.getQuarto() != null) {
             hospedagem.setStatus(StatusHospedagem.CANCELADA);
+            
 
             // Limpa os dados da reserva
             hospedagem.setHorarioReserva(null);
