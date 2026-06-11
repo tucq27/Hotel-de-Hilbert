@@ -22,6 +22,8 @@ public interface IContQuartos {
 
     ArrayList<Quarto> listarQuartos();
     ArrayList<Quarto> listarQuartosDisponiveis();
+    void alterarTaxaQuarto(TipoQuarto tipo, double taxa);
+    void alterarTaxaTemporada(double taxa);
 
     // Gerenciamento do frigobar
     void pegarItemFrigobar(Hospedagem hosp, String idQuarto, String idItem) throws ONEException;

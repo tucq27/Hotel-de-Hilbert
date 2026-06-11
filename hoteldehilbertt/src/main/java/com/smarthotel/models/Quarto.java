@@ -9,19 +9,19 @@ public class Quarto implements IIdentificavel {
 
     private static final List<Month> MESESPADRAO = List.of(Month.JANUARY, Month.DECEMBER, Month.JULY, Month.JUNE);
 
-    protected String id;
-    protected int numero;
-    protected static int definirId = 1;
-    protected int andar;
-    protected StatusQuarto status= StatusQuarto.DISPONIVEL;
+    private String id;
+    private int numero;
+    private static int definirId = 1;
+    private int andar;
+    private StatusQuarto status= StatusQuarto.DISPONIVEL;
     private TipoQuarto tipo;
     private static double taxaPadrao =1;
     private static double taxaSuite = 2;
     private static double taxaPresidencial = 5;
-    protected static double multTemporada;
-    protected static ArrayList<Month> altaTemporada = new ArrayList<>(MESESPADRAO);
-    protected int capacidade;
-    protected Frigobar frigobar;
+    private static double taxaTemporada = 1.5;
+    private static ArrayList<Month> altaTemporada = new ArrayList<>(MESESPADRAO);
+    private int capacidade;
+    private Frigobar frigobar;
 
     // construtor sem frigobar
     public Quarto(TipoQuarto tipo, int numero, int andar, int capacidade) {
@@ -47,8 +47,8 @@ public class Quarto implements IIdentificavel {
     public int getAndar() {
         return andar;
     }
-    public static double getMultTemporada() {
-        return multTemporada;
+    public static double getTaxaTemporada() {
+        return taxaTemporada;
     }
     public int getCapacidade() {
         return capacidade;
@@ -78,8 +78,8 @@ public class Quarto implements IIdentificavel {
     public void setAndar(int andar) {
         this.andar = andar;
     }
-    public static void setMultTemporada(double multTemporada) {
-        Quarto.multTemporada = multTemporada;
+    public static void setTaxaTemporada(double taxaTemporada) {
+        Quarto.taxaTemporada = taxaTemporada;
     }
     public void setCapacidade(int capacidade) {
         this.capacidade = capacidade;

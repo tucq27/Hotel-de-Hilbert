@@ -75,6 +75,20 @@ public class Main extends Application {
                     LocalDateTime.of(2026, 6, 5, 12, 0),
                     conta1,
                     hospedes);
+            IContPagamentos contPagamentos = ControladorPagamentos.getInstance();
+
+            Hospedagem hospedagem = contHospedagens.buscarHospedagem(h1);
+
+            Recibo reciboDiaria =
+                    contPagamentos.gerarReciboDiaria(hospedagem);
+
+            contPagamentos.adicionarRecibo(
+                    hospedagem.getConta(),
+                    reciboDiaria);
+
+            GeradorPDF geradorPDF = new GeradorPDF();
+
+            geradorPDF.gerarFaturaPDF(hospedagem);
 
             System.out.println("id da hospedagem automatica: " + h1);
 
@@ -83,6 +97,7 @@ public class Main extends Application {
         }
 
         // abre a tela principal do sistema
+        System.out.println("ANTES DO LAUNCH");
         launch();
     }
 }

@@ -38,12 +38,16 @@ public class ControladorPagamentos implements IContPagamentos {
         LocalDate entrada = hosp.getDataEntrada();
         int dias = Period.between(entrada, LocalDate.now()).getDays();
 
+        System.out.println("Entrada: " + entrada);
+        System.out.println("Hoje: " + LocalDate.now());
+        System.out.println("Dias: " + dias);
+
         double taxaQuarto = hosp.getQuarto().getMultTaxa();
         double taxaTemp = 1;
         Month mesAtual = LocalDate.now().getMonth();
 
         if (estaEmAltaTemporada(mesAtual)) {
-            taxaTemp = Quarto.getMultTemporada();
+            taxaTemp = Quarto.getTaxaTemporada();
         }
 
         double valor = dias * taxaQuarto * taxaTemp;
@@ -101,12 +105,6 @@ public class ControladorPagamentos implements IContPagamentos {
         double dividaTotal = conta.getDividaTotal();
         dividaTotal -= recibo.getValor();
         conta.setDividaTotal(dividaTotal);
-    }
-
-    public void alterarTaxaTemporada(double novaTaxa) {
-        if (novaTaxa >= 1) {
-            Quarto.setMultTemporada(novaTaxa);
-        }
     }
 
     private boolean estaEmAltaTemporada(Month mes) {

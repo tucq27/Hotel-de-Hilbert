@@ -92,6 +92,22 @@ public class ControladorQuartos implements IContQuartos {
         }
     }
 
+    public void alterarTaxaQuarto(TipoQuarto tipo, double taxa) {
+        if (tipo == TipoQuarto.PADRAO) {
+            Quarto.setTaxaPadrao(taxa);
+        }
+        if (tipo == TipoQuarto.PRESIDENCIAL) {
+            Quarto.setTaxaPresidencial(taxa);
+        }
+        if (tipo == TipoQuarto.SUITE) {
+            Quarto.setTaxaSuite(taxa);
+        }
+    }
+
+    public void alterarTaxaTemporada(double taxa) {
+        Quarto.setTaxaTemporada(taxa);
+    }
+
     public boolean estaDisponivel(Quarto quarto) {
         if (quarto == null) {
             return false;
