@@ -84,7 +84,12 @@ public class GeradorPDF {
         File pasta = new File("relatorios");
         pasta.mkdirs();
 
-        PdfWriter writer = new PdfWriter("relatorios/fatura.pdf");
+        String nomeArquivo =
+        "relatorios/fatura_" + hospedagem.getId() + ".pdf";
+
+        System.out.println("Gerando PDF em: " + nomeArquivo);
+
+        PdfWriter writer = new PdfWriter(nomeArquivo);
         PdfDocument pdf = new PdfDocument(writer);
         Document document = new Document(pdf);
 

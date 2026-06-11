@@ -59,25 +59,29 @@ public class TesteFatura {
                     conta,
                     diaria);
 
-            Recibo servico =
-                    new Recibo(
-                            TipoRecibo.SERVICO,
-                            80.0,
-                            "Lavanderia");
+                Recibo servico =
+                new Recibo(
+                        TipoRecibo.SERVICO,
+                        80.0,
+                        "Lavanderia");
 
-            pagamentos.adicionarRecibo(
-                    conta,
-                    servico);
+                servico.setId("2SERVICO");
 
-            Recibo frigobar =
-                    new Recibo(
-                            TipoRecibo.FRIGOBAR,
-                            25.0,
-                            "Coca-Cola");
+                pagamentos.adicionarRecibo(
+                        conta,
+                        servico);
 
-            pagamentos.adicionarRecibo(
-                    conta,
-                    frigobar);
+                Recibo frigobar =
+                        new Recibo(
+                                TipoRecibo.FRIGOBAR,
+                                25.0,
+                                "Coca-Cola");
+
+                frigobar.setId("3FRIGOBAR");
+
+                pagamentos.adicionarRecibo(
+                        conta,
+                        frigobar);
 
             GeradorPDF gerador =
                     new GeradorPDF();
