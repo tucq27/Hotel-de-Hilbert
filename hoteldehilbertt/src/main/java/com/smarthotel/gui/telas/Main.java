@@ -23,8 +23,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
+        // abre a tela principal (admin) por hora
+        // substituir por outra tela, que vai abrir tela de seleção: (admin) ou (usuario)
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("TelaPrincipal.fxml")));
-
         stage.setScene(scene);
         stage.setTitle("SmartHotel");
         stage.show();

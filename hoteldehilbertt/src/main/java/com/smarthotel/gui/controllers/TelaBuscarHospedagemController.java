@@ -62,7 +62,7 @@ public class TelaBuscarHospedagemController {
             String idHospedagem = txtIdHospedagem.getText();
             hospedagemSelecionada = controladorHospedagens.buscarHospedagem(idHospedagem);
             
-            abrirTela("/com/smarthotel/gui/telas/TelaGerenciamento.fxml", "Gerenciar Hospedagem");
+            abrirTela("/com/smarthotel/gui/telas/TelaGerenciarHospedagem.fxml", "Gerenciar Hospedagem");
         } catch (ONEException e) {
             hospedagemSelecionada = null;
             System.out.println(" - - - - Erro: " + e.getMessage());
