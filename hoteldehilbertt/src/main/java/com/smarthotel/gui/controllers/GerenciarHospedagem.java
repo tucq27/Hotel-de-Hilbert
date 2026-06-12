@@ -1,15 +1,21 @@
 package com.smarthotel.gui.controllers;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.smarthotel.dados.exceptions.ONEException;
+import com.smarthotel.models.Funcionario;
 import com.smarthotel.models.Hospedagem;
 import com.smarthotel.models.Hospede;
+import com.smarthotel.models.Pessoa;
+import com.smarthotel.models.Recibo;
 import com.smarthotel.negocios.ControladorHospedagens;
+import com.smarthotel.negocios.ControladorPagamentos;
 import com.smarthotel.negocios.ControladorQuartos;
 import com.smarthotel.negocios.GeradorPDF;
 import com.smarthotel.negocios.IContHospedagens;
+import com.smarthotel.negocios.IContPagamentos;
 import com.smarthotel.negocios.IContQuartos;
 import com.smarthotel.negocios.exceptions.CINRException;
 import com.smarthotel.negocios.exceptions.COJRException;
@@ -41,12 +47,16 @@ public class GerenciarHospedagem extends Transitavel {
 
     @FXML
     private Label lblResponsavel;
+
     @FXML
     private Label lblQuarto;
+
     @FXML
     private Label lblStatus;
+
     @FXML
     private Label lblEntrada;
+
     @FXML
     private Label lblSaida;
 
@@ -64,112 +74,74 @@ public class GerenciarHospedagem extends Transitavel {
         setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
 
         if (cbTipoServico != null) {
+            cbTipoServico.getItems().clear();
             cbTipoServico.getItems().add("Limpar Quarto");
             cbTipoServico.getItems().add("Levar Comida");
             cbTipoServico.getItems().add("Lavar Roupa");
         }
 
+        if (hospedagemSelecionada == null) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Nenhuma hospedagem foi selecionada.");
+            return;
+        }
+
         ArrayList<String> nomesHospedes = new ArrayList<>();
+
         for (Hospede hospede : hospedagemSelecionada.getHospedes()) {
             nomesHospedes.add(hospede.getNome());
         }
-        DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
-        DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        DateTimeFormatter formatoDataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         lblResponsavel.setText(hospedagemSelecionada.getConta().getResponsavel().getNome());
         listHospedes.setItems(FXCollections.observableArrayList(nomesHospedes));
         lblQuarto.setText(hospedagemSelecionada.getQuarto().getId());
         lblStatus.setText(hospedagemSelecionada.getStatus().toString());
-        lblEntrada.setText(hospedagemSelecionada.getDataEntrada().format(formato2));
-        lblSaida.setText(hospedagemSelecionada.getHorarioSaida().format(formato1));
+        lblEntrada.setText(hospedagemSelecionada.getDataEntrada().format(formatoData));
+        lblSaida.setText(hospedagemSelecionada.getHorarioSaida().format(formatoDataHora));
     }
 
     @FXML
     private void checkIn() {
         if (hospedagemSelecionada.getHorarioCheckIn() != null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setContentText("Checkin já realizado");
-            alert.showAndWait();
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Check-in já realizado.");
         } else {
-            abrirTela("/com/smarthotel/gui/telas/TelaConfirmarCheckin.fxml", "Confirmar Checkin");
+            abrirTela("/com/smarthotel/gui/telas/TelaConfirmarCheckin.fxml", "Confirmar Check-in");
         }
     }
 
     @FXML
     private void gerarFatura() {
-
         try {
-
             GeradorPDF gerador = new GeradorPDF();
-
             gerador.gerarFaturaPDF(hospedagemSelecionada);
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Fatura Gerada");
-            alert.setHeaderText(null);
-            alert.setContentText(
-                "A fatura PDF foi gerada com sucesso."
-            );
-            alert.showAndWait();
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Fatura Gerada", "A fatura PDF foi gerada com sucesso.");
 
         } catch (Exception e) {
-
             e.printStackTrace();
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText(null);
-            alert.setContentText(
-                "Erro ao gerar a fatura."
-            );
-            alert.showAndWait();
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao gerar a fatura.");
         }
     }
 
     @FXML
     private void gerarRelatorioHospedagem() {
-
         try {
-
             GeradorPDF gerador = new GeradorPDF();
+            gerador.gerarRelatorioHospedagemPDF(hospedagemSelecionada);
 
-            gerador.gerarRelatorioHospedagemPDF(
-                    hospedagemSelecionada);
-
-            Alert alert = new Alert(
-                    Alert.AlertType.INFORMATION);
-
-            alert.setTitle("Relatório Gerado");
-            alert.setHeaderText(null);
-
-            alert.setContentText(
-                    "Relatório da hospedagem gerado com sucesso."
-            );
-
-            alert.showAndWait();
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Relatório Gerado",
+                    "Relatório da hospedagem gerado com sucesso.");
 
         } catch (Exception e) {
-
             e.printStackTrace();
-
-            Alert alert = new Alert(
-                    Alert.AlertType.ERROR);
-
-            alert.setTitle("Erro");
-            alert.setHeaderText(null);
-
-            alert.setContentText(
-                    "Erro ao gerar relatório da hospedagem."
-            );
-
-            alert.showAndWait();
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao gerar relatório da hospedagem.");
         }
     }
 
     @FXML
     private void checkOut() {
-
         try {
             IContHospedagens contHosp = ControladorHospedagens.getInstance();
             contHosp.checkOut(hospedagemSelecionada);
@@ -177,39 +149,15 @@ public class GerenciarHospedagem extends Transitavel {
             GeradorPDF gerador = new GeradorPDF();
             gerador.gerarFaturaPDF(hospedagemSelecionada);
 
-            System.out.println("Check-out");
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Check-out Realizado",
+                    "Check-out realizado com sucesso.\nA fatura em PDF foi gerada na pasta relatórios.");
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Check-out Realizado");
-            alert.setContentText(
-                "Check-out realizado com sucesso para a hospedagem selecionada.\n" +
-                "A fatura em PDF foi gerada na pasta relatorios."
-            );
-            alert.showAndWait();
-
-        } catch (CINRException e) {
-            System.out.println(" - - - - Erro: " + e.getMessage());
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-
-        } catch (COJRException e) {
-            System.out.println(" - - - - Erro: " + e.getMessage());
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+        } catch (CINRException | COJRException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", e.getMessage());
 
         } catch (Exception e) {
             e.printStackTrace();
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setContentText("Erro ao gerar a fatura PDF.");
-            alert.showAndWait();
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao realizar check-out ou gerar fatura PDF.");
         }
     }
 
@@ -225,13 +173,13 @@ public class GerenciarHospedagem extends Transitavel {
 
     @FXML
     private void excluir() {
-
         IContHospedagens contH = ControladorHospedagens.getInstance();
+
         try {
             contH.removerHospedagem(hospedagemSelecionada.getId());
-        }
-        catch (ONEException e) { 
-            System.out.println("hospedagem nao encontrada");
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Hospedagem excluída com sucesso.");
+        } catch (ONEException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Hospedagem não encontrada.");
         }
     }
 
@@ -244,17 +192,10 @@ public class GerenciarHospedagem extends Transitavel {
 
         try {
             contQ.pegarItemFrigobar(hospedagemSelecionada, idHosp, idItem);
-        } catch(ONEException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setContentText("Item não encontrado no frigobar");
-            alert.showAndWait();
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Item removido do frigobar.");
+        } catch (ONEException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Item não encontrado no frigobar.");
         }
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Erro");
-            alert.setContentText("item removido");
-            alert.showAndWait();
     }
 
     @FXML
@@ -263,29 +204,63 @@ public class GerenciarHospedagem extends Transitavel {
 
         String idHosp = hospedagemSelecionada.getQuarto().getId();
         String idItem = txtIdItem.getText();
+
         try {
             contQ.reporItemFrigobar(idHosp, idItem);
-        } catch(ONEException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setContentText("Item não registrado");
-            alert.showAndWait();
-        } catch (LFException l) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setContentText("Erro: " + l);
-            alert.showAndWait();
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Item adicionado ao frigobar.");
+        } catch (ONEException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Item não registrado.");
+        } catch (LFException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro: " + e.getMessage());
         }
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Erro");
-            alert.setContentText("item adicionado");
-            alert.showAndWait();
     }
 
     @FXML
     private void pedirServico() {
         String servico = cbTipoServico.getValue();
-        System.out.println("Serviço escolhido: " + servico);
+
+        if (servico == null || servico.isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Atenção", "Selecione um tipo de serviço.");
+            return;
+        }
+
+        Pessoa pessoaServico = new Pessoa(
+                "Funcionário Serviço",
+                "00000000000",
+                LocalDate.now(),
+                "00000000000",
+                "servico@hotel.com"
+        );
+
+        Funcionario funcionario = new Funcionario(
+                pessoaServico,
+                "Serviço de Quarto"
+        );
+
+        IContPagamentos contPag = ControladorPagamentos.getInstance();
+
+        Recibo recibo = contPag.gerarReciboServico(
+                hospedagemSelecionada,
+                funcionario,
+                servico
+        );
+
+        contPag.adicionarRecibo(
+                hospedagemSelecionada.getConta(),
+                recibo
+        );
+
+        mostrarAlerta(Alert.AlertType.INFORMATION, "Serviço solicitado",
+                "Serviço solicitado com sucesso!\n" +
+                        "Serviço: " + servico + "\n" +
+                        "Valor adicionado: R$ " + String.format("%.2f", recibo.getValor()));
+    }
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 }
