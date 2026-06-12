@@ -2,15 +2,30 @@ package com.smarthotel.gui.controllers;
 
 import java.util.ArrayList;
 
+import com.smarthotel.models.Hospedagem;
 import com.smarthotel.models.Recibo;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
-public class VerRecibos extends GerenciarHospedagem{
+public class VerRecibos extends Transitavel {
     
+    private static Hospedagem hospedagemSelecionada;
+
+    public static Hospedagem getHospedagemSelecionada() {
+        return hospedagemSelecionada;
+    }
+
+    public static void setHospedagemSelecionada(Hospedagem hospedagemSelecionada) {
+        VerRecibos.hospedagemSelecionada = hospedagemSelecionada;
+    }
+
+    @FXML
+    private Button btnVoltar;
+
     @FXML
     protected Label lblResponsavel;
     @FXML
@@ -22,6 +37,8 @@ public class VerRecibos extends GerenciarHospedagem{
 
     @FXML
     public void initialize() {
+        setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
+
         double divida = hospedagemSelecionada.getConta().getDividaTotal();
         ArrayList<String> recibos = new ArrayList<>(); 
 

@@ -2,6 +2,7 @@ package com.smarthotel.gui.controllers;
 
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.models.Hospede;
+import com.smarthotel.models.Pessoa;
 import com.smarthotel.models.RestricaoHospede;
 import com.smarthotel.negocios.ControladorPessoas;
 
@@ -16,7 +17,17 @@ import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
 
-public class GerenciarHospede {
+public class GerenciarHospede extends Transitavel {
+
+    private static Hospede hospedeSelecionado;
+
+    public static Pessoa getHospedeSelecionado() {
+        return hospedeSelecionado;
+    }
+
+    public static void setHospedeSelecionado(Hospede hospedeSelecionado) {
+        GerenciarHospede.hospedeSelecionado = hospedeSelecionado;
+    }
 
     @FXML
     private Label lblNome;
@@ -57,15 +68,13 @@ public class GerenciarHospede {
     @FXML
     private Button btnVoltar;
 
-    private Hospede hospedeSelecionado;
-
     @FXML
     public void initialize() {
         cbRestricao.getItems().add("DISPONIVEL");
         cbRestricao.getItems().add("PROIBIDO");
 
-        if (BuscarPessoa.pessoaSelecionada instanceof Hospede) {
-            hospedeSelecionado = (Hospede) BuscarPessoa.pessoaSelecionada;
+        if (BuscarPessoa.getPessoaSelecionada() instanceof Hospede) {
+            hospedeSelecionado = (Hospede) BuscarPessoa.getPessoaSelecionada();
             preencherTela();
         }
     }
@@ -96,7 +105,7 @@ public class GerenciarHospede {
             controlador.atualizarHospede(cpf, novaPreferencia, null, novaRestricao);
 
             hospedeSelecionado = (Hospede) controlador.buscarPessoa(cpf);
-            BuscarPessoa.pessoaSelecionada = hospedeSelecionado;
+            BuscarPessoa.setPessoaSelecionada(hospedeSelecionado);
 
             preencherTela();
             limparCampos();
@@ -119,7 +128,7 @@ public class GerenciarHospede {
             ControladorPessoas controlador = ControladorPessoas.getInstance();
             controlador.removerPessoa(hospedeSelecionado.getCpf());
 
-            BuscarPessoa.pessoaSelecionada = null;
+            BuscarPessoa.setPessoaSelecionada(null);
 
             mostrarInfo("Hóspede excluído com sucesso!");
 
@@ -129,12 +138,6 @@ public class GerenciarHospede {
         } catch (ONEException e) {
             mostrarErro(e.getMessage());
         }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
     }
 
     private void preencherTela() {

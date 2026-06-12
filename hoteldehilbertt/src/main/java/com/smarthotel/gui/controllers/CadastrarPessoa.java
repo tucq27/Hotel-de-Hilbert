@@ -9,9 +9,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-public class CadastrarPessoa {
+public class CadastrarPessoa extends Transitavel {
 
     @FXML
     private Button btnVoltar;
@@ -60,12 +59,6 @@ public class CadastrarPessoa {
         } catch (ORException e) {
             mostrarErro(e.getMessage());
         }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
     }
 
     private void limparCampos() {

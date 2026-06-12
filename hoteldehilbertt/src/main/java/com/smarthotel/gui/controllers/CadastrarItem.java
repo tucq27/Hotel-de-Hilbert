@@ -7,11 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
 import java.time.LocalDate;
 
-public class CadastrarItem {
+public class CadastrarItem extends Transitavel {
 
     @FXML
     private TextField txtNome;
@@ -49,12 +47,6 @@ public class CadastrarItem {
         } catch (ORException e) {
             mostrarErro(e.getMessage());
         }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
     }
 
     private void mostrarErro(String mensagem) {

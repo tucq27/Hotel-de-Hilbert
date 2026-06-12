@@ -8,20 +8,25 @@ import com.smarthotel.negocios.ControladorPessoas;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class BuscarPessoa {
+public class BuscarPessoa extends Transitavel {
 
-    protected static Pessoa pessoaSelecionada;
+    private static Pessoa pessoaSelecionada;
+
+    public static Pessoa getPessoaSelecionada() {
+        return pessoaSelecionada;
+    }
+
+    public static void setPessoaSelecionada(Pessoa pessoaSelecionada) {
+        BuscarPessoa.pessoaSelecionada = pessoaSelecionada;
+    }
 
     @FXML
     private TextField txtCpfPessoa;
@@ -98,27 +103,6 @@ public class BuscarPessoa {
         } catch (ONEException e) {
             pessoaSelecionada = null;
             mostrarErro("Pessoa não encontrada.");
-        }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
-    }
-
-    private void abrirTela(String caminhoFXML, String titulo) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
-            Scene scene = new Scene(loader.load());
-
-            Stage stage = new Stage();
-            stage.setTitle(titulo);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

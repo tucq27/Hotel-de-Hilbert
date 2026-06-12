@@ -5,7 +5,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import com.smarthotel.negocios.exceptions.*;
 import com.smarthotel.dados.exceptions.*;
 import com.smarthotel.models.*;
 
-public class RealizarHospedagem {
+public class RealizarHospedagem extends Transitavel {
 
     @FXML
     protected TextField txtCpfResponsavel;
@@ -138,11 +137,5 @@ public class RealizarHospedagem {
             alert.setContentText("Erro ao realizar hospedagem: " + e.getMessage());
             alert.showAndWait();
         }
-    }
-
-    @FXML
-    protected void voltar() {
-        Stage stage = (Stage) listHospedes.getScene().getWindow();
-        stage.close();
     }
 }

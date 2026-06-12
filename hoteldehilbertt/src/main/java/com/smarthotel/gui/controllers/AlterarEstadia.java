@@ -2,6 +2,7 @@ package com.smarthotel.gui.controllers;
 
 import java.time.format.DateTimeFormatter;
 
+import com.smarthotel.models.Hospedagem;
 import com.smarthotel.negocios.ControladorHospedagens;
 import com.smarthotel.negocios.IContHospedagens;
 
@@ -11,7 +12,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 
-public class AlterarEstadia extends GerenciarHospedagem{
+public class AlterarEstadia extends Transitavel {
+
+    private static Hospedagem hospedagemSelecionada;
+
+    public static Hospedagem getHospedagemSelecionada() {
+        return hospedagemSelecionada;
+    }
+
+    public static void setHospedagemSelecionada(Hospedagem hospedagemSelecionada) {
+        AlterarEstadia.hospedagemSelecionada = hospedagemSelecionada;
+    }
+
     @FXML
     private Label lblDataEntrada;
     @FXML
@@ -30,6 +42,8 @@ public class AlterarEstadia extends GerenciarHospedagem{
 
     @FXML
     public void initialize() {
+        setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
+
         SpinnerValueFactory<Integer> valores = 
             new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 24, 1);
         spnHoras.setValueFactory(valores);

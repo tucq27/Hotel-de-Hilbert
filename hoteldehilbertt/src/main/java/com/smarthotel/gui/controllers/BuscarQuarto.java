@@ -7,19 +7,24 @@ import com.smarthotel.negocios.ControladorQuartos;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class BuscarQuarto {
+public class BuscarQuarto extends Transitavel {
 
-    protected static Quarto quartoSelecionado;
+    private static Quarto quartoSelecionado;
+
+    public static Quarto getQuartoSelecionado() {
+        return quartoSelecionado;
+    }
+
+    public static void setQuartoSelecionado(Quarto quartoSelecionado) {
+        BuscarQuarto.quartoSelecionado = quartoSelecionado;
+    }
 
     @FXML
     private TextField txtIdQuartos;
@@ -87,27 +92,6 @@ public class BuscarQuarto {
         } catch (ONEException e) {
             quartoSelecionado = null;
             mostrarErro("Quarto de id " + txtIdQuartos.getText() + " não encontrado.");
-        }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
-    }
-
-    private void abrirTela(String caminhoFXML, String titulo) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
-            Scene scene = new Scene(loader.load());
-
-            Stage stage = new Stage();
-            stage.setTitle(titulo);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

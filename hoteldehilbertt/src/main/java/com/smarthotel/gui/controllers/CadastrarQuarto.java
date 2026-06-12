@@ -11,9 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.stage.Stage;
 
-public class CadastrarQuarto {
+public class CadastrarQuarto extends Transitavel{
 
     @FXML
     private Button btnVoltar;
@@ -84,12 +83,6 @@ public class CadastrarQuarto {
             e.printStackTrace();
             mostrarErro("Erro ao cadastrar quarto: " + e.getMessage());
         }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
     }
 
     private int gerarNumeroAutomatico() {

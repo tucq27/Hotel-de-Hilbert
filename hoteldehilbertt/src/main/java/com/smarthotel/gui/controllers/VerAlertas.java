@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import com.smarthotel.models.Hospedagem;
 import com.smarthotel.negocios.*;
 
 
-public class VerAlertas {
+public class VerAlertas extends Transitavel {
 
     @FXML
     private ListView<String> listCheckPen;
@@ -50,11 +49,5 @@ public class VerAlertas {
         
         listCheckPen.setItems(FXCollections.observableArrayList(pendente));
         listCheckRe.setItems(FXCollections.observableArrayList(saidasRealizadas));
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
     }
 }

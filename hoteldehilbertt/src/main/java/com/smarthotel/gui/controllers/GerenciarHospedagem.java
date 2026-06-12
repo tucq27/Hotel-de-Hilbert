@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.smarthotel.dados.exceptions.ONEException;
+import com.smarthotel.models.Hospedagem;
 import com.smarthotel.models.Hospede;
 import com.smarthotel.negocios.ControladorHospedagens;
 import com.smarthotel.negocios.ControladorQuartos;
@@ -23,7 +24,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-public class GerenciarHospedagem extends BuscarHospedagem{
+public class GerenciarHospedagem extends Transitavel {
+
+    private static Hospedagem hospedagemSelecionada;
+
+    public static Hospedagem getHospedagemSelecionada() {
+        return hospedagemSelecionada;
+    }
+
+    public static void setHospedagemSelecionada(Hospedagem hospedagemSelecionada) {
+        GerenciarHospedagem.hospedagemSelecionada = hospedagemSelecionada;
+    }
 
     @FXML
     private Button btnVoltar;
@@ -50,6 +61,8 @@ public class GerenciarHospedagem extends BuscarHospedagem{
 
     @FXML
     public void initialize() {
+        setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
+
         if (cbTipoServico != null) {
             cbTipoServico.getItems().add("Limpar Quarto");
             cbTipoServico.getItems().add("Levar Comida");
@@ -64,9 +77,7 @@ public class GerenciarHospedagem extends BuscarHospedagem{
         DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         lblResponsavel.setText(hospedagemSelecionada.getConta().getResponsavel().getNome());
-        if (nomesHospedes != null) {
-            listHospedes.setItems(FXCollections.observableArrayList(nomesHospedes));
-        }
+        listHospedes.setItems(FXCollections.observableArrayList(nomesHospedes));
         lblQuarto.setText(hospedagemSelecionada.getQuarto().getId());
         lblStatus.setText(hospedagemSelecionada.getStatus().toString());
         lblEntrada.setText(hospedagemSelecionada.getDataEntrada().format(formato2));

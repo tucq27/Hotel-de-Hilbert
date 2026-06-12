@@ -13,7 +13,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class GerenciarQuarto {
+public class GerenciarQuarto extends Transitavel {
+
+    private static Quarto quartoSelecionado;
+
+    public static Quarto getQuartoSelecionado() {
+        return quartoSelecionado;
+    }
+
+    public static void setQuartoSelecionado(Quarto quartoSelecionado) {
+        GerenciarQuarto.quartoSelecionado = quartoSelecionado;
+    }
 
     @FXML
     private Label lblIdQuarto;
@@ -48,15 +58,13 @@ public class GerenciarQuarto {
     @FXML
     private Button btnVoltar;
 
-    private Quarto quartoSelecionado;
-
     @FXML
     public void initialize() {
         cbTipoQuarto.getItems().add("Padrão");
         cbTipoQuarto.getItems().add("Suíte");
         cbTipoQuarto.getItems().add("Presidencial");
 
-        quartoSelecionado = BuscarQuarto.quartoSelecionado;
+        quartoSelecionado = BuscarQuarto.getQuartoSelecionado();
 
         if (quartoSelecionado != null) {
             preencherTela();
@@ -111,7 +119,8 @@ public class GerenciarQuarto {
             );
 
             quartoSelecionado = controladorQuartos.buscarQuarto(id);
-            BuscarQuarto.quartoSelecionado = quartoSelecionado;
+            BuscarQuarto.setQuartoSelecionado(quartoSelecionado);
+            // equivale a: BuscarQuarto.quartoSelecionado = quartoSelecionado;
 
             preencherTela();
 
@@ -140,7 +149,7 @@ public class GerenciarQuarto {
             ControladorQuartos controladorQuartos = ControladorQuartos.getInstance();
             controladorQuartos.removerQuarto(quartoSelecionado.getId());
 
-            BuscarQuarto.quartoSelecionado = null;
+            BuscarQuarto.setQuartoSelecionado(null);
 
             mostrarInfo("Quarto excluído com sucesso!");
 
@@ -150,12 +159,6 @@ public class GerenciarQuarto {
         } catch (ONEException e) {
             mostrarErro(e.getMessage());
         }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
     }
 
     private void preencherTela() {

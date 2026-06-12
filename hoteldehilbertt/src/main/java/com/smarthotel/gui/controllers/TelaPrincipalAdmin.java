@@ -1,11 +1,8 @@
 package com.smarthotel.gui.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
-public class TelaPrincipalAdmin {
+public class TelaPrincipalAdmin extends Transitavel {
 
     @FXML
     private void abrirAdministrarHospedagens() {
@@ -47,22 +44,4 @@ public class TelaPrincipalAdmin {
         );
     }
 
-    private void abrirTela(String caminhoFXML, String titulo) {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(caminhoFXML)
-            );
-
-            Scene scene = new Scene(loader.load());
-
-            Stage stage = new Stage();
-            stage.setTitle(titulo);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

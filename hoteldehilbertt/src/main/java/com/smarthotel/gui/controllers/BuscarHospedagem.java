@@ -10,17 +10,22 @@ import com.smarthotel.negocios.IContHospedagens;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-public class BuscarHospedagem {
+public class BuscarHospedagem extends Transitavel {
 
-    protected static Hospedagem hospedagemSelecionada;
+    private static Hospedagem hospedagemSelecionada;
+
+    public static Hospedagem getHospedagemSelecionada() {
+        return hospedagemSelecionada;
+    }
+
+    public static void setHospedagemSelecionada(Hospedagem hospedagemSelecionada) {
+        BuscarHospedagem.hospedagemSelecionada = hospedagemSelecionada;
+    }
 
     @FXML
     private Button btnVoltar;
@@ -75,28 +80,5 @@ public class BuscarHospedagem {
         }
         
         System.out.println("Buscando hospedagem...");
-    }
-
-    @FXML
-    protected void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
-    }
-
-    // metodo de auxilio
-    protected void abrirTela(String caminho, String titulo) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(caminho)
-            );
-
-            Stage stage = new Stage();
-            stage.setTitle(titulo);
-            stage.setScene(new Scene(loader.load()));
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

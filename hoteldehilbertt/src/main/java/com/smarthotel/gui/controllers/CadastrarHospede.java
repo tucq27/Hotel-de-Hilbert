@@ -11,9 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-public class CadastrarHospede {
+public class CadastrarHospede extends Transitavel {
 
     @FXML
     private TextField txtCpf;
@@ -93,12 +92,6 @@ public class CadastrarHospede {
         } catch (ORException e) {
             mostrarErro(e.getMessage());
         }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
     }
 
     private void limparCampos() {

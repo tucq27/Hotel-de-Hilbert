@@ -2,6 +2,7 @@ package com.smarthotel.gui.controllers;
 
 import java.time.LocalDate;
 
+import com.smarthotel.models.Hospedagem;
 import com.smarthotel.negocios.ControladorHospedagens;
 import com.smarthotel.negocios.IContHospedagens;
 import com.smarthotel.negocios.exceptions.CIFException;
@@ -15,37 +16,44 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ConfirmarCheckin extends GerenciarHospedagem {
+public class ConfirmarCheckin extends Transitavel {
     
+    private static Hospedagem hospedagemSelecionada;
+
+    public static Hospedagem getHospedagemSelecionada() {
+        return hospedagemSelecionada;
+    }
+
+    public static void setHospedagemSelecionada(Hospedagem hospedagemSelecionada) {
+        ConfirmarCheckin.hospedagemSelecionada = hospedagemSelecionada;
+    }
+
+
     @FXML
     private Label lblResponsavel;
-
     @FXML
     private Label lblId;
-
     @FXML
     private Label lblDataNascimento;
 
     @FXML
     private TextField txtNome; 
-
     @FXML
     private TextField txtCpf;
-    
     @FXML
     private DatePicker dpDataNascimento; 
 
     @FXML
     private Button btnVerificarHospede; 
-
     @FXML
     private Button btnCancelarReserva; 
-
     @FXML
     private Button btnConfirmar;
 
     @FXML
     public void initialize() {
+        setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
+        
         lblResponsavel.setText(hospedagemSelecionada.getConta().getResponsavel().getNome());
         lblId.setText(hospedagemSelecionada.getId());
     }

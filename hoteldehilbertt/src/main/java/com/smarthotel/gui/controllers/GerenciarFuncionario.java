@@ -2,6 +2,7 @@ package com.smarthotel.gui.controllers;
 
 import com.smarthotel.dados.exceptions.ONEException;
 import com.smarthotel.models.Funcionario;
+import com.smarthotel.models.Pessoa;
 import com.smarthotel.negocios.ControladorPessoas;
 
 import javafx.fxml.FXML;
@@ -14,7 +15,17 @@ import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
 
-public class GerenciarFuncionario {
+public class GerenciarFuncionario extends Transitavel {
+
+    private static Funcionario funcionarioSelecionado;
+
+    public static Pessoa getFuncionarioSelecionado() {
+        return funcionarioSelecionado;
+    }
+
+    public static void setFuncionarioSelecionado(Funcionario funcionarioSelecionado) {
+        GerenciarFuncionario.funcionarioSelecionado = funcionarioSelecionado;
+    }
 
     @FXML
     private Label lblNome;
@@ -55,15 +66,13 @@ public class GerenciarFuncionario {
     @FXML
     private Button btnVoltar;
 
-    private Funcionario funcionarioSelecionado;
-
     @FXML
     public void initialize() {
         cbOcupado.getItems().add("SIM");
         cbOcupado.getItems().add("NAO");
 
-        if (BuscarPessoa.pessoaSelecionada instanceof Funcionario) {
-            funcionarioSelecionado = (Funcionario) BuscarPessoa.pessoaSelecionada;
+        if (BuscarPessoa.getPessoaSelecionada() instanceof Funcionario) {
+            funcionarioSelecionado = (Funcionario) BuscarPessoa.getPessoaSelecionada();
             preencherTela();
         }
     }
@@ -94,7 +103,7 @@ public class GerenciarFuncionario {
             controlador.atualizarFuncionario(cpf, novoCargo, ocupado);
 
             funcionarioSelecionado = (Funcionario) controlador.buscarPessoa(cpf);
-            BuscarPessoa.pessoaSelecionada = funcionarioSelecionado;
+            BuscarPessoa.setPessoaSelecionada(funcionarioSelecionado);
 
             preencherTela();
             limparCampos();
@@ -117,7 +126,7 @@ public class GerenciarFuncionario {
             ControladorPessoas controlador = ControladorPessoas.getInstance();
             controlador.removerPessoa(funcionarioSelecionado.getCpf());
 
-            BuscarPessoa.pessoaSelecionada = null;
+            BuscarPessoa.setPessoaSelecionada(null);
 
             mostrarInfo("Funcionário excluído com sucesso!");
 
@@ -127,12 +136,6 @@ public class GerenciarFuncionario {
         } catch (ONEException e) {
             mostrarErro(e.getMessage());
         }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
     }
 
     private void preencherTela() {

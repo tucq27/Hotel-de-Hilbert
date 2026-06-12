@@ -10,7 +10,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class GerenciarItem {
+public class GerenciarItem extends Transitavel {
+
+    private static Item itemSelecionado;
+
+    public static Item getItemSelecionado() {
+        return itemSelecionado;
+    }
+
+    public static void setItemSelecionado(Item itemSelecionado) {
+        GerenciarItem.itemSelecionado = itemSelecionado;
+    }
 
     @FXML
     private Label lblIdItem;
@@ -30,11 +40,9 @@ public class GerenciarItem {
     @FXML
     private Button btnVoltar;
 
-    private Item itemSelecionado;
-
     @FXML
     public void initialize() {
-        itemSelecionado = BuscarItem.itemSelecionado;
+        setItemSelecionado(BuscarItem.getItemSelecionado());
 
         if (itemSelecionado != null) {
             atualizarLabels();
@@ -71,7 +79,6 @@ public class GerenciarItem {
             );
 
             itemSelecionado = controladorItens.buscarItem(itemSelecionado.getId());
-            BuscarItem.itemSelecionado = itemSelecionado;
 
             atualizarLabels();
 
@@ -100,7 +107,7 @@ public class GerenciarItem {
 
             mostrarInfo("Item excluído com sucesso!");
 
-            BuscarItem.itemSelecionado = null;
+            BuscarItem.setItemSelecionado(null);
 
             Stage stage = (Stage) btnVoltar.getScene().getWindow();
             stage.close();
@@ -108,12 +115,6 @@ public class GerenciarItem {
         } catch (ONEException e) {
             mostrarErro(e.getMessage());
         }
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
     }
 
     private void atualizarLabels() {
