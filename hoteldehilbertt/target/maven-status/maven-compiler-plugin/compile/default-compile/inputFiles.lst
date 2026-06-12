@@ -7,7 +7,8 @@ C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbe
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\dados\RepoPessoas.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\dados\RepoQuartos.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\dados\Repositorio.java
-C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaAdministrarHospedagensController.java
+C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\ContAdminHospedagens.java
+C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\ContTelaPrincipalAdmin.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaAdmItensController.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaAdmPessoasController.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaAdmQuartoController.java
@@ -27,7 +28,6 @@ C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbe
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaGerenciarHospedeController.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaGerenciarItemController.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaGerenciarQuartoController.java
-C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaPrincipalController.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaRealizarHospedagemController.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaRealizarReservaController.java
 C:\Users\marin\Desktop\Projetos Java\Projeto IP2\HOTEL_DE_HILBERT\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaVerAlertasController.java

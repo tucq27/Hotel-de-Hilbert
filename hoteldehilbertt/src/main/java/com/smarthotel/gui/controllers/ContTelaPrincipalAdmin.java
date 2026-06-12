@@ -10,7 +10,7 @@ public class ContTelaPrincipalAdmin {
     @FXML
     private void abrirAdministrarHospedagens() {
         abrirTela(
-                "/com/smarthotel/gui/telas/TelaAdministrarHospedagens.fxml",
+                "/com/smarthotel/gui/telas/TelaAdmHospedagens.fxml",
                 "Administrar Hospedagens"
         );
     }

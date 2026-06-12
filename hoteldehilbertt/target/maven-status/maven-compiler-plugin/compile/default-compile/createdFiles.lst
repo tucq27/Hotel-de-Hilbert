@@ -35,10 +35,8 @@ com\smarthotel\negocios\exceptions\CIJRException.class
 com\smarthotel\dados\exceptions\ORException.class
 com\smarthotel\negocios\exceptions\CIFException.class
 com\smarthotel\gui\telas\Main.class
-com\smarthotel\gui\controllers\TelaPrincipalController.class
 com\smarthotel\negocios\exceptions\HPException.class
 com\smarthotel\negocios\IContPessoas.class
-com\smarthotel\gui\controllers\TelaAdministrarHospedagensController.class
 com\smarthotel\dados\RepoQuartos.class
 com\smarthotel\negocios\IContQuartos.class
 com\smarthotel\negocios\exceptions\QIException.class
