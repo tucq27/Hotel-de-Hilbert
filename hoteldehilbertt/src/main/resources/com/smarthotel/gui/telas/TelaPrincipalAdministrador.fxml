@@ -10,7 +10,7 @@
             prefHeight="523.0" prefWidth="766.0"
             xmlns="http://javafx.com/javafx/26"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.smarthotel.gui.controllers.TelaPrincipalController">
+            fx:controller="com.smarthotel.gui.controllers.ContTelaPrincipalAdmin">
 
    <children>
 
@@ -71,7 +71,7 @@
               layoutX="287.0"
               layoutY="347.0"
               mnemonicParsing="false"
-              onAction="#abrirAdministracao"
+              onAction="#abrirAdministrarHospedagens"
               prefHeight="34.0"
               prefWidth="192.0"
               text="Administrar Hospedagens">

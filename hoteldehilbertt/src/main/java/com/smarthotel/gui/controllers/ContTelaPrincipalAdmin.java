@@ -5,10 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class TelaPrincipalController {
+public class ContTelaPrincipalAdmin {
 
     @FXML
-    private void abrirAdministracao() {
+    private void abrirAdministrarHospedagens() {
         abrirTela(
                 "/com/smarthotel/gui/telas/TelaAdministrarHospedagens.fxml",
                 "Administrar Hospedagens"

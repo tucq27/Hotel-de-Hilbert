@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class TelaAdministrarHospedagensController {
+public class ContAdminHospedagens {
 
     @FXML
     private Button btnVoltar;
