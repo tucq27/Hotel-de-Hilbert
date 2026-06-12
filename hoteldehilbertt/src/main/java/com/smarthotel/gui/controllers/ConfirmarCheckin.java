@@ -15,7 +15,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class TelaConfirmarCheckinController extends TelaGerenciarHospedagemController {
+public class ConfirmarCheckin extends GerenciarHospedagem {
     
     @FXML
     private Label lblResponsavel;

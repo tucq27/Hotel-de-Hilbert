@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class TelaBuscarQuartoController {
+public class BuscarQuarto {
 
     protected static Quarto quartoSelecionado;
 

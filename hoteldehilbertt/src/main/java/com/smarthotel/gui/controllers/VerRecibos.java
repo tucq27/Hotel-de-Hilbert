@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
-public class TelaVerRecibosController extends TelaGerenciarHospedagemController{
+public class VerRecibos extends GerenciarHospedagem{
     
     @FXML
     protected Label lblResponsavel;

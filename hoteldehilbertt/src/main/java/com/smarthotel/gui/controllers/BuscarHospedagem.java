@@ -18,7 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class TelaBuscarHospedagemController {
+public class BuscarHospedagem {
 
     protected static Hospedagem hospedagemSelecionada;
 

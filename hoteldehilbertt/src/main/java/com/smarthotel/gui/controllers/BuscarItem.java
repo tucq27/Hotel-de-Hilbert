@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class TelaBuscarItemController {
+public class BuscarItem {
 
     protected static Item itemSelecionado;
 

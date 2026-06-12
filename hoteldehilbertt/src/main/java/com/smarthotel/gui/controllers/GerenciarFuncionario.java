@@ -1,8 +1,7 @@
 package com.smarthotel.gui.controllers;
 
 import com.smarthotel.dados.exceptions.ONEException;
-import com.smarthotel.models.Hospede;
-import com.smarthotel.models.RestricaoHospede;
+import com.smarthotel.models.Funcionario;
 import com.smarthotel.negocios.ControladorPessoas;
 
 import javafx.fxml.FXML;
@@ -10,13 +9,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
 
-public class TelaGerenciarHospedeController {
+public class GerenciarFuncionario {
 
     @FXML
     private Label lblNome;
@@ -34,10 +32,10 @@ public class TelaGerenciarHospedeController {
     private Label lblEmail;
 
     @FXML
-    private Label lblRestricao;
+    private Label lblCargo;
 
     @FXML
-    private TextArea txtPreferenciasAtual;
+    private Label lblOcupado;
 
     @FXML
     private TextField txtNovoNome;
@@ -49,59 +47,59 @@ public class TelaGerenciarHospedeController {
     private TextField txtNovoEmail;
 
     @FXML
-    private TextArea txtNovaPreferencia;
+    private TextField txtNovoCargo;
 
     @FXML
-    private ComboBox<String> cbRestricao;
+    private ComboBox<String> cbOcupado;
 
     @FXML
     private Button btnVoltar;
 
-    private Hospede hospedeSelecionado;
+    private Funcionario funcionarioSelecionado;
 
     @FXML
     public void initialize() {
-        cbRestricao.getItems().add("DISPONIVEL");
-        cbRestricao.getItems().add("PROIBIDO");
+        cbOcupado.getItems().add("SIM");
+        cbOcupado.getItems().add("NAO");
 
-        if (TelaBuscarPessoaController.pessoaSelecionada instanceof Hospede) {
-            hospedeSelecionado = (Hospede) TelaBuscarPessoaController.pessoaSelecionada;
+        if (BuscarPessoa.pessoaSelecionada instanceof Funcionario) {
+            funcionarioSelecionado = (Funcionario) BuscarPessoa.pessoaSelecionada;
             preencherTela();
         }
     }
 
     @FXML
-    private void atualizarHospede() {
+    private void atualizarFuncionario() {
         try {
-            if (hospedeSelecionado == null) {
-                mostrarErro("Nenhum hóspede selecionado.");
+            if (funcionarioSelecionado == null) {
+                mostrarErro("Nenhum funcionário selecionado.");
                 return;
             }
 
-            String cpf = hospedeSelecionado.getCpf();
+            String cpf = funcionarioSelecionado.getCpf();
 
             String novoNome = txtNovoNome.getText().isBlank() ? null : txtNovoNome.getText();
             String novoTelefone = txtNovoTelefone.getText().isBlank() ? null : txtNovoTelefone.getText();
             String novoEmail = txtNovoEmail.getText().isBlank() ? null : txtNovoEmail.getText();
-            String novaPreferencia = txtNovaPreferencia.getText().isBlank() ? null : txtNovaPreferencia.getText();
+            String novoCargo = txtNovoCargo.getText().isBlank() ? null : txtNovoCargo.getText();
 
-            RestricaoHospede novaRestricao = null;
-            if (cbRestricao.getValue() != null) {
-                novaRestricao = RestricaoHospede.valueOf(cbRestricao.getValue());
+            Boolean ocupado = null;
+            if (cbOcupado.getValue() != null) {
+                ocupado = cbOcupado.getValue().equals("SIM");
             }
 
             ControladorPessoas controlador = ControladorPessoas.getInstance();
 
             controlador.atualizarPessoa(cpf, novoNome, null, novoTelefone, novoEmail);
-            controlador.atualizarHospede(cpf, novaPreferencia, null, novaRestricao);
+            controlador.atualizarFuncionario(cpf, novoCargo, ocupado);
 
-            hospedeSelecionado = (Hospede) controlador.buscarPessoa(cpf);
-            TelaBuscarPessoaController.pessoaSelecionada = hospedeSelecionado;
+            funcionarioSelecionado = (Funcionario) controlador.buscarPessoa(cpf);
+            BuscarPessoa.pessoaSelecionada = funcionarioSelecionado;
 
             preencherTela();
             limparCampos();
 
-            mostrarInfo("Hóspede atualizado com sucesso!");
+            mostrarInfo("Funcionário atualizado com sucesso!");
 
         } catch (ONEException e) {
             mostrarErro(e.getMessage());
@@ -109,19 +107,19 @@ public class TelaGerenciarHospedeController {
     }
 
     @FXML
-    private void excluirHospede() {
+    private void excluirFuncionario() {
         try {
-            if (hospedeSelecionado == null) {
-                mostrarErro("Nenhum hóspede selecionado.");
+            if (funcionarioSelecionado == null) {
+                mostrarErro("Nenhum funcionário selecionado.");
                 return;
             }
 
             ControladorPessoas controlador = ControladorPessoas.getInstance();
-            controlador.removerPessoa(hospedeSelecionado.getCpf());
+            controlador.removerPessoa(funcionarioSelecionado.getCpf());
 
-            TelaBuscarPessoaController.pessoaSelecionada = null;
+            BuscarPessoa.pessoaSelecionada = null;
 
-            mostrarInfo("Hóspede excluído com sucesso!");
+            mostrarInfo("Funcionário excluído com sucesso!");
 
             Stage stage = (Stage) btnVoltar.getScene().getWindow();
             stage.close();
@@ -140,26 +138,21 @@ public class TelaGerenciarHospedeController {
     private void preencherTela() {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        lblNome.setText(hospedeSelecionado.getNome());
-        lblCpf.setText(hospedeSelecionado.getCpf());
-        lblNascimento.setText(hospedeSelecionado.getDataNascimento().format(formato));
-        lblTelefone.setText(String.valueOf(hospedeSelecionado.getTelefone()));
-        lblEmail.setText(String.valueOf(hospedeSelecionado.getEmail()));
-        lblRestricao.setText(String.valueOf(hospedeSelecionado.getRestricao()));
-
-        if (hospedeSelecionado.getPreferencias() == null || hospedeSelecionado.getPreferencias().isBlank()) {
-            txtPreferenciasAtual.setText("-");
-        } else {
-            txtPreferenciasAtual.setText(hospedeSelecionado.getPreferencias());
-        }
+        lblNome.setText(funcionarioSelecionado.getNome());
+        lblCpf.setText(funcionarioSelecionado.getCpf());
+        lblNascimento.setText(funcionarioSelecionado.getDataNascimento().format(formato));
+        lblTelefone.setText(String.valueOf(funcionarioSelecionado.getTelefone()));
+        lblEmail.setText(String.valueOf(funcionarioSelecionado.getEmail()));
+        lblCargo.setText(funcionarioSelecionado.getCargo());
+        lblOcupado.setText(funcionarioSelecionado.isOcupado() ? "SIM" : "NÃO");
     }
 
     private void limparCampos() {
         txtNovoNome.clear();
         txtNovoTelefone.clear();
         txtNovoEmail.clear();
-        txtNovaPreferencia.clear();
-        cbRestricao.setValue(null);
+        txtNovoCargo.clear();
+        cbOcupado.setValue(null);
     }
 
     private void mostrarErro(String mensagem) {

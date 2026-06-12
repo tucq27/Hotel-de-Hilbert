@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class TelaGerenciarQuartoController {
+public class GerenciarQuarto {
 
     @FXML
     private Label lblIdQuarto;
@@ -56,7 +56,7 @@ public class TelaGerenciarQuartoController {
         cbTipoQuarto.getItems().add("Suíte");
         cbTipoQuarto.getItems().add("Presidencial");
 
-        quartoSelecionado = TelaBuscarQuartoController.quartoSelecionado;
+        quartoSelecionado = BuscarQuarto.quartoSelecionado;
 
         if (quartoSelecionado != null) {
             preencherTela();
@@ -111,7 +111,7 @@ public class TelaGerenciarQuartoController {
             );
 
             quartoSelecionado = controladorQuartos.buscarQuarto(id);
-            TelaBuscarQuartoController.quartoSelecionado = quartoSelecionado;
+            BuscarQuarto.quartoSelecionado = quartoSelecionado;
 
             preencherTela();
 
@@ -140,7 +140,7 @@ public class TelaGerenciarQuartoController {
             ControladorQuartos controladorQuartos = ControladorQuartos.getInstance();
             controladorQuartos.removerQuarto(quartoSelecionado.getId());
 
-            TelaBuscarQuartoController.quartoSelecionado = null;
+            BuscarQuarto.quartoSelecionado = null;
 
             mostrarInfo("Quarto excluído com sucesso!");
 

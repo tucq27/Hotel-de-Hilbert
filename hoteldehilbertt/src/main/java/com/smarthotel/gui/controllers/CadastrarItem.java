@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
-public class TelaCadastrarItemController {
+public class CadastrarItem {
 
     @FXML
     private TextField txtNome;

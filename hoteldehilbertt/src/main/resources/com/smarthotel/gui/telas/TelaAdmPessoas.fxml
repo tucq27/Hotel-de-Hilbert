@@ -10,7 +10,7 @@
             prefHeight="450.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/26"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.smarthotel.gui.controllers.TelaAdmPessoasController">
+            fx:controller="com.smarthotel.gui.controllers.AdminPessoas">
 
    <children>
 

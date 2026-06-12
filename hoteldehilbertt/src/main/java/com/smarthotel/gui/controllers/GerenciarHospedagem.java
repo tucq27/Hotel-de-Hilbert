@@ -23,7 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemController{
+public class GerenciarHospedagem extends BuscarHospedagem{
 
     @FXML
     private Button btnVoltar;

@@ -6,52 +6,30 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class TelaAdmPessoasController {
+public class AdminQuarto {
 
     @FXML
-    private Button btnCadastrarHospede;
+    private Button btnCadastrarQuarto;
 
     @FXML
-    private Button btnCadastrarFuncionario;
-
-    @FXML
-    private Button btnCadastrarPessoa;
-
-    @FXML
-    private Button btnBuscarPessoa;
+    private Button btnBuscarQuarto;
 
     @FXML
     private Button btnVoltar;
 
     @FXML
-    private void abrirCadastrarHospede() {
+    private void abrirCadastrarQuarto() {
         abrirTela(
-                "/com/smarthotel/gui/telas/TelaCadastrarHospede.fxml",
-                "Cadastrar Hóspede"
+                "/com/smarthotel/gui/telas/TelaCadastrarQuarto.fxml",
+                "Cadastrar Quarto"
         );
     }
 
     @FXML
-    private void abrirCadastrarFuncionario() {
+    private void abrirBuscarQuarto() {
         abrirTela(
-                "/com/smarthotel/gui/telas/TelaCadastrarFuncionario.fxml",
-                "Cadastrar Funcionário"
-        );
-    }
-
-    @FXML
-    private void abrirCadastrarPessoa() {
-        abrirTela(
-                "/com/smarthotel/gui/telas/TelaCadastrarPessoa.fxml",
-                "Cadastrar Pessoa"
-        );
-    }
-
-    @FXML
-    private void abrirBuscarPessoa() {
-        abrirTela(
-                "/com/smarthotel/gui/telas/TelaBuscarPessoa.fxml",
-                "Buscar Pessoa"
+                "/com/smarthotel/gui/telas/TelaBuscarQuarto.fxml",
+                "Buscar Quarto"
         );
     }
 

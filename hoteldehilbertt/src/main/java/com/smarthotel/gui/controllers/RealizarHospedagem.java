@@ -1,30 +1,42 @@
 package com.smarthotel.gui.controllers;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import com.smarthotel.negocios.*;
 import com.smarthotel.negocios.exceptions.*;
 import com.smarthotel.dados.exceptions.*;
 import com.smarthotel.models.*;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-
-public class TelaRealizarReservaController extends TelaRealizarHospedagemController {
-    /* 
-    @FXML
-    private TextField txtCpfHospede;
+public class RealizarHospedagem {
 
     @FXML
-    private ListView<String> listHospedes;
+    protected TextField txtCpfResponsavel;
 
     @FXML
-    private Button btnVoltar;
+    protected TextField txtCpfHospede;
 
     @FXML
-    private void adicionarHospede() {
+    protected ListView<String> listHospedes;
+
+    @FXML
+    protected TextField txtIdQuarto;
+
+    @FXML
+    protected TextField txtPagamento;
+
+    @FXML
+    protected DatePicker dpDataSaida;
+
+
+    @FXML
+    protected void adicionarHospede() {
         String cpf = txtCpfHospede.getText();
 
         if (cpf != null && !cpf.trim().isEmpty()) {
@@ -34,27 +46,11 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
     }
 
     @FXML
-    private void confirmarReserva() {
-        System.out.println("Reserva confirmada!");
-    }
-
-    @FXML
-    private void voltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
-    }
-    */
-
-    @FXML
-    private DatePicker dpDataEntrada;
-
-    @FXML
-    private void confirmarReserva() {
+    private void confirmarHospedagem() {
         String cpfResponsavel = txtCpfResponsavel.getText();
         ArrayList<String> cpfsHospedes = new ArrayList<>(listHospedes.getItems());
         String idQuarto = txtIdQuarto.getText();
         String pagamento = txtPagamento.getText();
-        LocalDate dataEntrada = dpDataEntrada.getValue();
         LocalDate dataSaida = dpDataSaida.getValue();
 
         IContPessoas controladorPessoas = ControladorPessoas.getInstance();
@@ -74,9 +70,6 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
                 }
             }
 
-            Quarto quarto = controladorQuartos.buscarQuarto(idQuarto);
-
-            
             if (pagamento == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erro");
@@ -95,6 +88,8 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
                 return;
             }
 
+            Quarto quarto = controladorQuartos.buscarQuarto(idQuarto);
+
             if (dataSaida == null || dataSaida.isBefore(LocalDate.now().plusDays(1))) {
                 System.out.println(" - - - - Erro: Data de saída invalida.");
 
@@ -105,28 +100,17 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
                 return;
             }
 
-            if (dataEntrada == null || dataEntrada.isBefore(LocalDate.now())) {
-                System.out.println(" - - - - Erro: Data de entrada invalida.");
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erro");
-                alert.setContentText("Data de entrada inválida.");
-                alert.showAndWait();
-                return;
-            }
-
             boolean hospedagemExiste = controladorHospedagens.hospedagmJaExiste(dataSaida, quarto);
 
+            // criando de fato a hospedagem, utilizando o método de check-in imediato
             if (!hospedagemExiste){
 
-                //------> criando de fato a Reserva
-
-                String idHospedagem = controladorHospedagens.reservarHospedagem(quarto, dataEntrada, dataSaida.atTime(12, 0), new ContaHospedagem("conta" + cpfResponsavel, responsavel, pagamento), hospedes);
-                System.out.println("Reserva confirmada!");
+                String idHospedagem = controladorHospedagens.hospedarAgora(quarto, dataSaida.atTime(12, 0), new ContaHospedagem("conta" + cpfResponsavel, responsavel, pagamento), hospedes);
+                System.out.println("Hospedagem confirmada!");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Reserva Confirmada");
-                alert.setContentText("O id da reserva é: " + idHospedagem);
+                alert.setTitle("Hospedagem Confirmada");
+                alert.setContentText("O id da hospedagem é: " + idHospedagem);
                 alert.showAndWait();
             } else {
                 System.out.println(" - - - - Erro: Já existe uma hospedagem para esse quarto na data de saída.");
@@ -137,7 +121,7 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
                 alert.showAndWait();
                 return;
             }
-
+            
         } catch (ONEException ne) {
             System.out.println(" - - - - Erro: " + ne.getMessage());
 
@@ -147,12 +131,18 @@ public class TelaRealizarReservaController extends TelaRealizarHospedagemControl
             alert.showAndWait();
 
         } catch (QIException | CIFException | CIJRException | HPException | QLException | ORException e) {
-            System.out.println(" - - - - Erro ao realizar reserva: " + e.getMessage());
+            System.out.println(" - - - - Erro ao realizar hospedagem: " + e.getMessage());
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
-            alert.setContentText("Erro ao realizar reserva: " + e.getMessage());
+            alert.setContentText("Erro ao realizar hospedagem: " + e.getMessage());
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    protected void voltar() {
+        Stage stage = (Stage) listHospedes.getScene().getWindow();
+        stage.close();
     }
 }

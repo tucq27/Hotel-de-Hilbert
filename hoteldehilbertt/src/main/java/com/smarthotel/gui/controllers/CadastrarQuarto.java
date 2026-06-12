@@ -13,7 +13,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 
-public class TelaCadastrarQuartoController {
+public class CadastrarQuarto {
 
     @FXML
     private Button btnVoltar;

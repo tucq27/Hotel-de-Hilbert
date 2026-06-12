@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ContTelaPrincipalAdmin {
+public class TelaPrincipalAdmin {
 
     @FXML
     private void abrirAdministrarHospedagens() {

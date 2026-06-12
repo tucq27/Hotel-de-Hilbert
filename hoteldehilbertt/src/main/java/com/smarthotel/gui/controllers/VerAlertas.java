@@ -13,7 +13,7 @@ import com.smarthotel.models.Hospedagem;
 import com.smarthotel.negocios.*;
 
 
-public class TelaVerAlertasController {
+public class VerAlertas {
 
     @FXML
     private ListView<String> listCheckPen;

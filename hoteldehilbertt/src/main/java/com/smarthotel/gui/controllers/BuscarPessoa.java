@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class TelaBuscarPessoaController {
+public class BuscarPessoa {
 
     protected static Pessoa pessoaSelecionada;
 

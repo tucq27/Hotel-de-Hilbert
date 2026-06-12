@@ -13,7 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class TelaCadastrarFuncionarioController {
+public class CadastrarFuncionario {
 
     @FXML
     private TextField txtCpf;

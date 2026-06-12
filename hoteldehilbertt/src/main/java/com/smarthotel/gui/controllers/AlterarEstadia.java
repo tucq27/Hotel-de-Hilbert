@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 
-public class TelaAlterarEstadiaController extends TelaGerenciarHospedagemController{
+public class AlterarEstadia extends GerenciarHospedagem{
     @FXML
     private Label lblDataEntrada;
     @FXML

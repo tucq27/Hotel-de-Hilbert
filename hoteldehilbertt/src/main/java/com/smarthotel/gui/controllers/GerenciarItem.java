@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class TelaGerenciarItemController {
+public class GerenciarItem {
 
     @FXML
     private Label lblIdItem;
@@ -34,7 +34,7 @@ public class TelaGerenciarItemController {
 
     @FXML
     public void initialize() {
-        itemSelecionado = TelaBuscarItemController.itemSelecionado;
+        itemSelecionado = BuscarItem.itemSelecionado;
 
         if (itemSelecionado != null) {
             atualizarLabels();
@@ -71,7 +71,7 @@ public class TelaGerenciarItemController {
             );
 
             itemSelecionado = controladorItens.buscarItem(itemSelecionado.getId());
-            TelaBuscarItemController.itemSelecionado = itemSelecionado;
+            BuscarItem.itemSelecionado = itemSelecionado;
 
             atualizarLabels();
 
@@ -100,7 +100,7 @@ public class TelaGerenciarItemController {
 
             mostrarInfo("Item excluído com sucesso!");
 
-            TelaBuscarItemController.itemSelecionado = null;
+            BuscarItem.itemSelecionado = null;
 
             Stage stage = (Stage) btnVoltar.getScene().getWindow();
             stage.close();
