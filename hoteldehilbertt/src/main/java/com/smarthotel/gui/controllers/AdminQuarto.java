@@ -7,9 +7,10 @@ public class AdminQuarto extends Transitavel {
 
     @FXML
     private Button btnCadastrarQuarto;
-
     @FXML
     private Button btnBuscarQuarto;
+    @FXML
+    private Button btnAlterarTaxa;
 
     @FXML
     private Button btnVoltar;
@@ -27,6 +28,14 @@ public class AdminQuarto extends Transitavel {
         abrirTela(
                 "/com/smarthotel/gui/telas/TelaBuscarQuarto.fxml",
                 "Buscar Quarto"
+        );
+    }
+
+    @FXML
+    private void abrirAlterarTaxa() {
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaAlterarTaxa.fxml",
+                "Alterar Taxas"
         );
     }
 }

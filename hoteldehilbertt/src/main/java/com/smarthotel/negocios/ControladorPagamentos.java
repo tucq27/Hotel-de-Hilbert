@@ -37,32 +37,10 @@ public class ControladorPagamentos implements IContPagamentos {
     public Recibo gerarReciboDiaria(Hospedagem hosp) {
 
     LocalDate entrada = hosp.getDataEntrada();
-    int dias = Period.between(entrada, LocalDate.now()).getDays();
-
-    if (dias <= 0) {
-        dias = 1;
-    }
-
+    LocalDate saida = LocalDate.now();
     double taxaQuarto = hosp.getQuarto().getMultTaxa();
-    double taxaTemp = 1;
 
-    Month mesAtual = LocalDate.now().getMonth();
-
-    if (estaEmAltaTemporada(mesAtual)) {
-        taxaTemp = Quarto.getTaxaTemporada();
-    }
-
-    double valor = dias * taxaQuarto * taxaTemp;
-
-    System.out.println("=================================");
-    System.out.println("GERANDO RECIBO DE DIARIA");
-    System.out.println("Entrada: " + entrada);
-    System.out.println("Hoje: " + LocalDate.now());
-    System.out.println("Dias: " + dias);
-    System.out.println("Taxa do quarto: " + taxaQuarto);
-    System.out.println("Taxa temporada: " + taxaTemp);
-    System.out.println("Valor calculado: " + valor);
-    System.out.println("=================================");
+    double valor = calcularValor(entrada, saida, taxaQuarto);
 
     Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
 
@@ -80,10 +58,10 @@ public class ControladorPagamentos implements IContPagamentos {
         LocalTime noiteInicio = LocalTime.of(22, 0);
         LocalTime noiteFim = LocalTime.of(5, 0);
         double taxaNoturna = 1;
-        double valor = 5;
+        double valor = Quarto.getValorServico();
 
         if (agora.isAfter(noiteInicio) || agora.isBefore(noiteFim)) {
-            taxaNoturna = 2;
+            taxaNoturna = Quarto.getTaxaNoturna();
         }
 
         valor = valor * taxaNoturna;
@@ -104,7 +82,6 @@ public class ControladorPagamentos implements IContPagamentos {
         recibo.setId(reciboId);
         return recibo;
     }
-
     
     public void adicionarRecibo(ContaHospedagem conta, Recibo recibo) {
         ArrayList<Recibo> recibos = conta.getRecibos();
@@ -122,6 +99,54 @@ public class ControladorPagamentos implements IContPagamentos {
         double dividaTotal = conta.getDividaTotal();
         dividaTotal -= recibo.getValor();
         conta.setDividaTotal(dividaTotal);
+    }
+
+    public void alterarValores(double diaria, double servico) {
+        if (diaria >= 1) {
+            Quarto.setValorDiaria(diaria);
+        }
+        if (servico >= 1) {
+            Quarto.setValorServico(servico);
+        }
+    }
+
+    public void alterarTaxas(double padrao, double suite, double presidencial, double temporada, double servNoturno) {
+        if (padrao >= 1) {
+            Quarto.setTaxaPadrao(padrao);
+        }
+        if (suite >= 1) {
+            Quarto.setTaxaSuite(suite);
+        }
+        if (presidencial >= 1) {
+            Quarto.setTaxaPresidencial(presidencial);
+        }
+        if (temporada >= 1) {
+            Quarto.setTaxaTemporada(temporada);
+        }
+        if (servNoturno >= 1) {
+            Quarto.setTaxaNoturna(servNoturno);
+        }
+    }
+
+    public double calcularValor(LocalDate entrada, LocalDate saida, double taxaQuarto) {
+        int dias = Period.between(entrada, saida).getDays();
+
+        if (dias <= 0) {
+            dias = 1;
+        }
+
+        double valorDiaria = Quarto.getValorDiaria();
+        double taxaTemp = 1;
+
+        Month mesAtual = LocalDate.now().getMonth();
+
+        if (estaEmAltaTemporada(mesAtual)) {
+            taxaTemp = Quarto.getTaxaTemporada();
+        }
+
+        double valor = valorDiaria * dias * taxaQuarto * taxaTemp;
+
+        return valor;
     }
 
     private boolean estaEmAltaTemporada(Month mes) {
