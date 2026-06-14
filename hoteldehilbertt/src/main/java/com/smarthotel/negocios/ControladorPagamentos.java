@@ -87,18 +87,18 @@ public class ControladorPagamentos implements IContPagamentos {
         ArrayList<Recibo> recibos = conta.getRecibos();
         recibos.add(recibo);
 
-        double dividaTotal = conta.getDividaTotal();
+        double dividaTotal = conta.getSaldoPendente();
         dividaTotal += recibo.getValor();
-        conta.setDividaTotal(dividaTotal);
+        conta.setSaldoPendente(dividaTotal);
     }
 
     public void removerRecibo(ContaHospedagem conta, Recibo recibo) {
         ArrayList<Recibo> recibos = conta.getRecibos();
         recibos.remove(recibo);
 
-        double dividaTotal = conta.getDividaTotal();
+        double dividaTotal = conta.getSaldoPendente();
         dividaTotal -= recibo.getValor();
-        conta.setDividaTotal(dividaTotal);
+        conta.setSaldoPendente(dividaTotal);
     }
 
     public void alterarValores(double diaria, double servico) {

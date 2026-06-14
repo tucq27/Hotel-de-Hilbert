@@ -33,7 +33,7 @@ public class GeradorCSV {
                     hosp.getStatus() + "," +
                     hosp.getDataEntrada() + "," +
                     hosp.getHorarioSaida() + "," +
-                    hosp.getConta().CalcularDivida() +
+                    hosp.getConta().getSaldoPendente() +
                     "\n"
             );
         }

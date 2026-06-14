@@ -39,7 +39,7 @@ public class VerRecibos extends Transitavel {
     public void initialize() {
         setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
 
-        double divida = hospedagemSelecionada.getConta().getDividaTotal();
+        double divida = hospedagemSelecionada.getConta().getSaldoPendente();
         ArrayList<String> recibos = new ArrayList<>(); 
 
         for (Recibo r : hospedagemSelecionada.getConta().getRecibos()) {

@@ -262,10 +262,10 @@ public class ControladorHospedagens implements IContHospedagens {
     public void trocarConta(Hospedagem hospedagem, ContaHospedagem novaConta) {
         if (novaConta != null) {
             // passando divida e recibos da conta antiga para a nova conta
-            novaConta.setDividaTotal(hospedagem.getConta().getDividaTotal());
+            novaConta.setSaldoPendente(hospedagem.getConta().getSaldoPendente());
             novaConta.setRecibos(hospedagem.getConta().getRecibos());
             // deletando as dividas da conta antiga
-            hospedagem.getConta().setDividaTotal(0);
+            hospedagem.getConta().setSaldoPendente(0);
             hospedagem.getConta().setRecibos(null);
 
             hospedagem.setConta(novaConta);
