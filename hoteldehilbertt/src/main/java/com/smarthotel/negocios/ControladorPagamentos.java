@@ -27,11 +27,14 @@ public class ControladorPagamentos implements IContPagamentos {
         return instance;
     }
 
-    private int gerarId() {
+    private String gerarId(TipoRecibo tipo) {
         int idAtual = Recibo.getDefinirId();
-        int novoId = idAtual + 1;
-        Recibo.setDefinirId(novoId);
-        return idAtual;
+        
+        String id = String.valueOf(idAtual) + tipo.name().substring(0, 1);
+
+        Recibo.setDefinirId(idAtual+1);
+
+        return id;
     }
 
     public Recibo gerarReciboDiaria(Hospedagem hosp) {
@@ -44,10 +47,7 @@ public class ControladorPagamentos implements IContPagamentos {
 
     Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
 
-    String reciboId =
-            String.valueOf(gerarId()) +
-            recibo.getTipo().name();
-
+    String reciboId = gerarId(TipoRecibo.DIARIA);
     recibo.setId(reciboId);
 
     return recibo;
@@ -68,7 +68,7 @@ public class ControladorPagamentos implements IContPagamentos {
         String mensagem = f.getNome() + " | " + f.getCargo() + " | " + descricao;
 
         Recibo recibo = new Recibo(TipoRecibo.SERVICO, valor, mensagem);
-        String reciboId = String.valueOf(gerarId()) + recibo.getTipo().name(); 
+        String reciboId = gerarId(TipoRecibo.SERVICO);
         recibo.setId(reciboId);
         return recibo;
     }
@@ -78,7 +78,7 @@ public class ControladorPagamentos implements IContPagamentos {
         String idHospedagem = hosp.getId();
 
         Recibo recibo = new Recibo(TipoRecibo.FRIGOBAR, valor, idHospedagem);
-        String reciboId = String.valueOf(gerarId()) + recibo.getTipo().name(); 
+        String reciboId = gerarId(TipoRecibo.FRIGOBAR);
         recibo.setId(reciboId);
         return recibo;
     }
