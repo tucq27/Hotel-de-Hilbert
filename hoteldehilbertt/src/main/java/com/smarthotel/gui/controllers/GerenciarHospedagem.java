@@ -19,7 +19,9 @@ import com.smarthotel.negocios.IContPagamentos;
 import com.smarthotel.negocios.IContQuartos;
 import com.smarthotel.negocios.exceptions.CINRException;
 import com.smarthotel.negocios.exceptions.COJRException;
+import com.smarthotel.negocios.exceptions.DNPException;
 import com.smarthotel.negocios.exceptions.LFException;
+import com.smarthotel.negocios.exceptions.SPException;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -153,6 +155,9 @@ public class GerenciarHospedagem extends Transitavel {
                     "Check-out realizado com sucesso.\nA fatura em PDF foi gerada na pasta relatórios.");
 
         } catch (CINRException | COJRException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", e.getMessage());
+
+        } catch (DNPException | SPException e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro", e.getMessage());
 
         } catch (Exception e) {
