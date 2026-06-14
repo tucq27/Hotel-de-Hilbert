@@ -1,6 +1,7 @@
 package com.smarthotel.negocios;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.Period;
@@ -39,19 +40,34 @@ public class ControladorPagamentos implements IContPagamentos {
 
     public Recibo gerarReciboDiaria(Hospedagem hosp) {
 
-    LocalDate entrada = hosp.getDataEntrada();
-    LocalDate saida = LocalDate.now();
-    double taxaQuarto = hosp.getQuarto().getMultTaxa();
+        LocalDate entrada = hosp.getDataEntrada();
+        LocalDate saida = LocalDate.now();
+        double taxaQuarto = hosp.getQuarto().getMultTaxa();
 
-    double valor = calcularValor(entrada, saida, taxaQuarto);
+        double valor = calcularValor(entrada, saida, taxaQuarto);
 
-    Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
+        Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
 
-    String reciboId = gerarId(TipoRecibo.DIARIA);
-    recibo.setId(reciboId);
+        String reciboId = gerarId(TipoRecibo.DIARIA);
+        recibo.setId(reciboId);
 
-    return recibo;
-}
+        return recibo;
+    }
+
+    // sobrecarrega o metodo anterior, pois serve para gerar diarias extras (saida atrasada)
+    public Recibo gerarReciboDiaria(Hospedagem hosp, LocalDate entrada) {
+        LocalDate saida = LocalDate.now();
+        double taxaQuarto = hosp.getQuarto().getMultTaxa();
+
+        double valor = calcularValor(entrada, saida, taxaQuarto);
+
+        Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
+
+        String reciboId = gerarId(TipoRecibo.DIARIA);
+        recibo.setId(reciboId);
+
+        return recibo;
+    }
 
     public Recibo gerarReciboServico(Hospedagem hosp, Funcionario f, String descricao) {
         LocalTime agora = LocalTime.now();
@@ -147,6 +163,20 @@ public class ControladorPagamentos implements IContPagamentos {
         double valor = valorDiaria * dias * taxaQuarto * taxaTemp;
 
         return valor;
+    }
+
+    public void pagarDiaria(Hospedagem hosp) {
+        hosp.setDiariaPaga(true);
+    }
+
+    public void verificarDiariaAtrasada(Hospedagem hosp) {
+        LocalDateTime agora = LocalDateTime.now();
+        LocalDateTime horarioSaida = hosp.getHorarioSaida();
+        LocalDateTime checkout = hosp.getHorarioCheckOut();
+
+        if (agora.isAfter(horarioSaida) && checkout == null) {
+            hosp.setDiariaPaga(false);
+        }
     }
 
     private boolean estaEmAltaTemporada(Month mes) {

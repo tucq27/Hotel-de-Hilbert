@@ -12,12 +12,17 @@ public class Hospedagem implements IIdentificavel {
     private String id;
     private static int definirId = 1; 
     private StatusHospedagem status; // status da hospedagem (reservada, ativa, encerrada, cancelada)
+    
     private LocalDateTime horarioCheckIn; // Horários de entrada e saída do hospede no hotel
     private LocalDateTime horarioCheckOut;
+
     private LocalDateTime horarioReserva; // horario que a reserva foi feita (se for NULL, a hospedagem não tem rserva previa)
     private LocalDate dataEntrada; // data prevista pra Entrada (reserva)
     private LocalDateTime horarioSaida; // hora prevista pra Saída (reserva)
+
     private ContaHospedagem conta; // associação com a conta de hospedagem
+    private boolean diariaPaga = false;
+
     private ArrayList<Hospede> hospedes;
     private Quarto quarto;
 
@@ -76,6 +81,9 @@ public class Hospedagem implements IIdentificavel {
     public static int getDefinirId() {
         return definirId;
     }
+    public boolean isDiariaPaga() {
+        return diariaPaga;
+    }
 
     // Setters
     public static void setDefinirId(int novo) {
@@ -120,6 +128,10 @@ public class Hospedagem implements IIdentificavel {
 
     public void setQuarto(Quarto quarto) {
         this.quarto = quarto;
+    }
+
+    public void setDiariaPaga(boolean diariaPaga) {
+        this.diariaPaga = diariaPaga;
     }
     // Método exigido pela interface
     public String getChave() {
