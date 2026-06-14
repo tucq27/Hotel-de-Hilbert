@@ -165,7 +165,14 @@ public class ControladorPagamentos implements IContPagamentos {
         return valor;
     }
 
-    public void pagarDiaria(Hospedagem hosp) {
+    public void pagarDivida(Hospedagem hosp) {
+
+        ContaHospedagem conta = hosp.getConta();
+        double divida = conta.getSaldoPendente();
+        
+        conta.setSaldoPendente(0);
+        conta.setSaldoPago(divida);
+        
         hosp.setDiariaPaga(true);
     }
 

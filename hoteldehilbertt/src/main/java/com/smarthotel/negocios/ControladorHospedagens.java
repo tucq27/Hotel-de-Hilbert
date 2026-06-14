@@ -129,7 +129,18 @@ public class ControladorHospedagens implements IContHospedagens {
 
     }
 
-    public void checkOut(Hospedagem hospedagem) throws CINRException, COJRException {
+    public void checkOut(Hospedagem hospedagem) throws CINRException, COJRException, DNPException, SPException {
+    
+    // verifica se a diaria foi paga
+    if (hospedagem.isDiariaPaga() == false) {
+        throw new DNPException();
+    }
+
+    // verifica se a conta responsavel tem saldo pendente
+    double saldoPendente = hospedagem.getConta().getSaldoPendente();
+    if (saldoPendente > 0) {
+        throw new SPException(saldoPendente);
+    }
 
     // Só permite check-out se houver check-in
     if (hospedagem.getHorarioCheckIn() == null) {
