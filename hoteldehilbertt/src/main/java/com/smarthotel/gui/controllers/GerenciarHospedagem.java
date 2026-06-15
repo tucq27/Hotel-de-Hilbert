@@ -68,7 +68,11 @@ public class GerenciarHospedagem extends Transitavel {
 
     @FXML
     public void initialize() {
-        setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
+        Hospedagem hospedagemDaBusca = BuscarHospedagem.getHospedagemSelecionada();
+
+        if (hospedagemDaBusca != null) {
+            setHospedagemSelecionada(hospedagemDaBusca);
+        }
 
         if (cbTipoServico != null) {
             cbTipoServico.getItems().clear();
@@ -109,6 +113,8 @@ public class GerenciarHospedagem extends Transitavel {
         if (hospedagemSelecionada.getHorarioCheckIn() != null) {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Check-in já realizado.");
         } else {
+            ConfirmarCheckin.setHospedagemSelecionada(hospedagemSelecionada);
+
             abrirTela("/com/smarthotel/gui/telas/TelaConfirmarCheckin.fxml", "Confirmar Check-in");
         }
     }
@@ -140,12 +146,23 @@ public class GerenciarHospedagem extends Transitavel {
 
     @FXML
     private void alterarEstadia() {
-        abrirTela("/com/smarthotel/gui/telas/TelaAlterarEstadia.fxml", "Alterar Estadia");
+        AlterarEstadia.setHospedagemSelecionada(hospedagemSelecionada);
+
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaAlterarEstadia.fxml",
+                "Alterar Estadia"
+        );
     }
 
     @FXML
     private void verRecibos() {
-        abrirTela("/com/smarthotel/gui/telas/TelaVerRecibos.fxml", "Ver Recibos");
+
+        VerRecibos.setHospedagemSelecionada(hospedagemSelecionada);
+
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaVerRecibos.fxml",
+                "Ver Recibos"
+        );
     }
 
     @FXML
