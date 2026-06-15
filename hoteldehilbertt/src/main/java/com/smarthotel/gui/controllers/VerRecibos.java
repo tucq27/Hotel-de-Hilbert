@@ -1,5 +1,6 @@
 package com.smarthotel.gui.controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.smarthotel.models.Hospedagem;
@@ -12,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.stage.FileChooser;
 
 public class VerRecibos extends Transitavel {
     
@@ -49,6 +51,9 @@ public class VerRecibos extends Transitavel {
 
     @FXML
     public void initialize() {
+
+        System.out.println("ENTROU NO INITIALIZE DE VER RECIBOS");
+
         setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
 
         double dividaPendente = hospedagemSelecionada.getConta().getSaldoPendente();
@@ -73,15 +78,59 @@ public class VerRecibos extends Transitavel {
 
     @FXML
     private void gerarFatura() {
-        try {
-            GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarFaturaPDF( hospedagemSelecionada, "relatorios/fatura.pdf");
 
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Fatura Gerada", "A fatura PDF foi gerada com sucesso.");
+        try {
+
+            FileChooser fileChooser = new FileChooser();
+
+            fileChooser.setTitle("Salvar Fatura");
+
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter(
+                            "Arquivos PDF",
+                            "*.pdf"));
+
+            fileChooser.setInitialFileName(
+                    "fatura_" +
+                    hospedagemSelecionada.getId() +
+                    ".pdf");
+
+            File arquivo = fileChooser.showSaveDialog(
+                    btnVoltar.getScene().getWindow());
+
+            if (arquivo == null) {
+                return;
+            }
+
+            GeradorPDF gerador = new GeradorPDF();
+
+            gerador.gerarFaturaPDF(
+                    hospedagemSelecionada,
+                    arquivo.getAbsolutePath());
+
+            mostrarAlerta(
+                    Alert.AlertType.INFORMATION,
+                    "Fatura Gerada",
+                    "A fatura PDF foi gerada com sucesso.");
 
         } catch (Exception e) {
+
             e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao gerar a fatura.");
+
+            mostrarAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro",
+                    "Erro ao gerar a fatura.");
         }
+    }
+
+    @FXML
+    private void gerarRecibo() {
+
+        mostrarAlerta(
+                Alert.AlertType.INFORMATION,
+                "Aviso",
+                "Função ainda não implementada."
+        );
     }
 }

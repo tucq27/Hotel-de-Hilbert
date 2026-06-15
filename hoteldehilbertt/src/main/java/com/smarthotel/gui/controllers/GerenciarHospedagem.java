@@ -130,6 +130,9 @@ public class GerenciarHospedagem extends Transitavel {
 
     @FXML
     private void verRecibos() {
+
+        System.out.println("CLICOU EM VER RECIBOS");
+
         abrirTela("/com/smarthotel/gui/telas/TelaVerRecibos.fxml", "Ver Recibos");
     }
 
