@@ -298,12 +298,36 @@ public class ControladorHospedagens implements IContHospedagens {
         }
     }
 
-    public void trocarConta(Hospedagem hospedagem, ContaHospedagem novaConta) {
+    public void trocarContaPorId(Hospedagem hospOrigem, String idConta) throws ONEException{
+        if (hospOrigem == null || idConta == null) {
+            return;
+        }
+
+        for (Hospedagem hosp : getRepositorioHospedagens().getObjetos()) {
+
+            if (hosp != hospOrigem && hosp.getConta() != null && hosp.getConta().getId().equals(idConta)) {
+
+                trocarConta(hospOrigem, hosp.getConta());
+                return;
+            }
+        }
+
+        IContPessoas contPessoas = ControladorPessoas.getInstance();
+        Pessoa p = contPessoas.buscarPessoa(idConta);
+
+        ContaHospedagem novaConta = new ContaHospedagem("conta" + p.getCpf(), p, null);
+        trocarConta(hospOrigem, novaConta);
+    }
+
+    private void trocarConta(Hospedagem hospedagem, ContaHospedagem novaConta) {
         if (novaConta != null) {
             // passando divida e recibos da conta antiga para a nova conta
             novaConta.setSaldoPendente(hospedagem.getConta().getSaldoPendente());
+            novaConta.setSaldoPago(hospedagem.getConta().getSaldoPago());
             novaConta.setRecibos(hospedagem.getConta().getRecibos());
+            novaConta.setDadosPagamento(hospedagem.getConta().getDadosPagamento());
             // deletando as dividas da conta antiga
+            hospedagem.getConta().setSaldoPago(0);
             hospedagem.getConta().setSaldoPendente(0);
             hospedagem.getConta().setRecibos(null);
 

@@ -120,7 +120,8 @@ public class GerenciarHospedagem extends Transitavel {
             contHosp.checkOut(hospedagemSelecionada);
 
             GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarFaturaPDF(hospedagemSelecionada, "relatorios/fatura.pdf");
+            String caminho = "relatorios/fatura_" + hospedagemSelecionada.getId() + ".pdf";
+            gerador.gerarFaturaPDF(hospedagemSelecionada, caminho);
 
             mostrarAlerta(
                     Alert.AlertType.INFORMATION,
@@ -232,8 +233,7 @@ public class GerenciarHospedagem extends Transitavel {
 
     @FXML
     private void atualizar() {
-        initialize();
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Atualizado", "Dados da hospedagem atualizados.");
+        abrirTela("/com/smarthotel/gui/telas/TelaAtualizarHospedagem.fxml", "Atualizar Hospedagem");
     }
 
     @FXML

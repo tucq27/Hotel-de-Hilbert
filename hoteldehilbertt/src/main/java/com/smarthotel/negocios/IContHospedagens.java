@@ -33,7 +33,7 @@ public interface IContHospedagens {
     void adicionarHospede(Hospedagem hospedagem, Hospede hospede) throws QLException;
     void removerHospede(Hospedagem hospedagem, Hospede hospede) throws HNEException;
     void trocarQuarto(Hospedagem hospedagem, Quarto novoQuarto) throws QIException, QLException;
-    void trocarConta(Hospedagem hospedagem, ContaHospedagem novaConta);
+    void trocarContaPorId(Hospedagem hospOrigem, String idConta) throws ONEException;
 
     void removerHospedagem(String id) throws ONEException;
     Hospedagem buscarHospedagem(String id) throws ONEException;
