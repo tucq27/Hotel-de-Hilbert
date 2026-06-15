@@ -77,7 +77,7 @@ public class RealizarReserva extends RealizarHospedagem {
             Quarto quarto = controladorQuartos.buscarQuarto(idQuarto);
 
             
-            if (pagamento == null) {
+            if (pagamento == null || pagamento.trim().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erro");
                 alert.setContentText("Insira dados de pagamento.");

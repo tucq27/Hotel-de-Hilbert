@@ -3,12 +3,12 @@ package com.smarthotel.gui.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+// classe de auxilio
 public class Transitavel {
-
-    // classe de auxilio
 
     @FXML
     protected Button btnVoltar;
@@ -19,7 +19,8 @@ public class Transitavel {
         stage.close();
     }
 
-    // metodo de auxilio
+    // metodos de auxilio
+
     protected void abrirTela(String caminho, String titulo) {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -36,23 +37,11 @@ public class Transitavel {
         }
     }
 
-    /*
-    private void abrirTela(String caminhoFXML, String titulo) {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(caminhoFXML)
-            );
-
-            Scene scene = new Scene(loader.load());
-
-            Stage stage = new Stage();
-            stage.setTitle(titulo);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
+    protected void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
 }

@@ -147,7 +147,7 @@ public class GeradorPDF {
 
         document.add(new Paragraph(" "));
         document.add(new Paragraph(
-            "TOTAL FATURADO: R$ " + conta.CalcularDivida()
+            "TOTAL FATURADO: R$ " + conta.getSaldoPendente()
         ));
 
         document.close();
@@ -262,7 +262,7 @@ public class GeradorPDF {
 
     document.add(new Paragraph(" "));
     document.add(new Paragraph(
-        "TOTAL DA HOSPEDAGEM: R$ " + conta.CalcularDivida()
+        "TOTAL DA HOSPEDAGEM: R$ " + conta.getSaldoPendente()
     ));
 
     document.close();

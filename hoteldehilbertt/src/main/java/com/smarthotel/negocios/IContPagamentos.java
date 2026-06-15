@@ -1,5 +1,7 @@
 package com.smarthotel.negocios;
 
+import java.time.LocalDate;
+
 import com.smarthotel.models.ContaHospedagem;
 import com.smarthotel.models.Funcionario;
 import com.smarthotel.models.Hospedagem;
@@ -13,4 +15,8 @@ public interface IContPagamentos {
 
     void adicionarRecibo(ContaHospedagem conta, Recibo recibo);
     void removerRecibo(ContaHospedagem conta, Recibo recibo);
+
+    void alterarValores(double diaria, double servico);
+    void alterarTaxas(double padrao, double suite, double presidencial, double temporada, double servNoturno);
+    double calcularValor(LocalDate entrada, LocalDate saida, double taxaQuarto);
 }

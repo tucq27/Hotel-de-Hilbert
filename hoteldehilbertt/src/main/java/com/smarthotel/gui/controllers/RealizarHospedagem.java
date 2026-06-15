@@ -2,7 +2,9 @@ package com.smarthotel.gui.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -33,6 +35,11 @@ public class RealizarHospedagem extends Transitavel {
     @FXML
     protected DatePicker dpDataSaida;
 
+    @FXML
+    protected Label lblValorEstimado;
+
+    @FXML
+    protected Button btnCalcularValor;
 
     @FXML
     protected void adicionarHospede() {
@@ -42,6 +49,11 @@ public class RealizarHospedagem extends Transitavel {
             listHospedes.getItems().add(cpf);
             txtCpfHospede.clear();
         }
+    }
+
+    @FXML
+    protected void calcularValor() {
+        
     }
 
     @FXML
@@ -69,7 +81,7 @@ public class RealizarHospedagem extends Transitavel {
                 }
             }
 
-            if (pagamento == null) {
+            if (pagamento == null || pagamento.trim().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erro");
                 alert.setContentText("Insira dados de pagamento.");

@@ -6,14 +6,15 @@ public class ContaHospedagem {
     private String id;
     private Pessoa responsavel;
     private String dadosPagamento;
-    private double dividaTotal;
+    private double saldoPago= 0;
+    private double saldoPendente;
     private ArrayList<Recibo> recibos;
 
     public ContaHospedagem(String id, Pessoa responsavel, String dadosPagamento){
         this.id= id;
         this.responsavel= responsavel;
         this.dadosPagamento = dadosPagamento;
-        this.dividaTotal= 0;
+        this.saldoPendente= 0;
         this.recibos= new ArrayList<Recibo>(10);
     }
 
@@ -34,12 +35,20 @@ public class ContaHospedagem {
         this.dadosPagamento = dadosPagamento;
     }
 
-    public double getDividaTotal() {
-        return dividaTotal;
+    public double getSaldoPago() {
+        return saldoPago;
     }
 
-    public void setDividaTotal(double dividaTotal) {
-        this.dividaTotal = dividaTotal;
+    public void setSaldoPago(double saldoPago) {
+        this.saldoPago = saldoPago;
+    }
+
+    public double getSaldoPendente() {
+        return saldoPendente;
+    }
+
+    public void setSaldoPendente(double saldoPendente) {
+        this.saldoPendente = saldoPendente;
     }
 
     public ArrayList<Recibo> getRecibos() {
@@ -56,11 +65,6 @@ public class ContaHospedagem {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    // metodos adicionais
-    public double CalcularDivida(){
-        return dividaTotal;
     }
 
 }

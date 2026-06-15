@@ -1,6 +1,7 @@
 package com.smarthotel.negocios;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.Period;
@@ -27,70 +28,63 @@ public class ControladorPagamentos implements IContPagamentos {
         return instance;
     }
 
-    private int gerarId() {
+    private String gerarId(TipoRecibo tipo) {
         int idAtual = Recibo.getDefinirId();
-        int novoId = idAtual + 1;
-        Recibo.setDefinirId(novoId);
-        return idAtual;
+        
+        String id = String.valueOf(idAtual) + tipo.name().substring(0, 1);
+
+        Recibo.setDefinirId(idAtual+1);
+
+        return id;
     }
 
     public Recibo gerarReciboDiaria(Hospedagem hosp) {
 
-    LocalDate entrada = hosp.getDataEntrada();
-    int dias = Period.between(entrada, LocalDate.now()).getDays();
+        LocalDate entrada = hosp.getDataEntrada();
+        LocalDate saida = LocalDate.now();
+        double taxaQuarto = hosp.getQuarto().getMultTaxa();
 
-    if (dias <= 0) {
-        dias = 1;
+        double valor = calcularValor(entrada, saida, taxaQuarto);
+
+        Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
+
+        String reciboId = gerarId(TipoRecibo.DIARIA);
+        recibo.setId(reciboId);
+
+        return recibo;
     }
 
-    double taxaQuarto = hosp.getQuarto().getMultTaxa();
-    double taxaTemp = 1;
+    // sobrecarrega o metodo anterior, pois serve para gerar diarias extras (saida atrasada)
+    public Recibo gerarReciboDiaria(Hospedagem hosp, LocalDate entrada) {
+        LocalDate saida = LocalDate.now();
+        double taxaQuarto = hosp.getQuarto().getMultTaxa();
 
-    Month mesAtual = LocalDate.now().getMonth();
+        double valor = calcularValor(entrada, saida, taxaQuarto);
 
-    if (estaEmAltaTemporada(mesAtual)) {
-        taxaTemp = Quarto.getTaxaTemporada();
+        Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
+
+        String reciboId = gerarId(TipoRecibo.DIARIA);
+        recibo.setId(reciboId);
+
+        return recibo;
     }
-
-    double valor = dias * taxaQuarto * taxaTemp;
-
-    System.out.println("=================================");
-    System.out.println("GERANDO RECIBO DE DIARIA");
-    System.out.println("Entrada: " + entrada);
-    System.out.println("Hoje: " + LocalDate.now());
-    System.out.println("Dias: " + dias);
-    System.out.println("Taxa do quarto: " + taxaQuarto);
-    System.out.println("Taxa temporada: " + taxaTemp);
-    System.out.println("Valor calculado: " + valor);
-    System.out.println("=================================");
-
-    Recibo recibo = new Recibo(TipoRecibo.DIARIA, valor);
-
-    String reciboId =
-            String.valueOf(gerarId()) +
-            recibo.getTipo().name();
-
-    recibo.setId(reciboId);
-
-    return recibo;
-}
 
     public Recibo gerarReciboServico(Hospedagem hosp, Funcionario f, String descricao) {
         LocalTime agora = LocalTime.now();
         LocalTime noiteInicio = LocalTime.of(22, 0);
         LocalTime noiteFim = LocalTime.of(5, 0);
         double taxaNoturna = 1;
-        double valor = 5;
+        double valor = Quarto.getValorServico();
 
         if (agora.isAfter(noiteInicio) || agora.isBefore(noiteFim)) {
-            taxaNoturna = 2;
+            taxaNoturna = Quarto.getTaxaNoturna();
         }
 
         valor = valor * taxaNoturna;
         String mensagem = f.getNome() + " | " + f.getCargo() + " | " + descricao;
 
         Recibo recibo = new Recibo(TipoRecibo.SERVICO, valor, mensagem);
-        String reciboId = String.valueOf(gerarId()) + recibo.getTipo().name(); 
+        String reciboId = gerarId(TipoRecibo.SERVICO);
         recibo.setId(reciboId);
         return recibo;
     }
@@ -100,28 +94,96 @@ public class ControladorPagamentos implements IContPagamentos {
         String idHospedagem = hosp.getId();
 
         Recibo recibo = new Recibo(TipoRecibo.FRIGOBAR, valor, idHospedagem);
-        String reciboId = String.valueOf(gerarId()) + recibo.getTipo().name(); 
+        String reciboId = gerarId(TipoRecibo.FRIGOBAR);
         recibo.setId(reciboId);
         return recibo;
     }
-
     
     public void adicionarRecibo(ContaHospedagem conta, Recibo recibo) {
         ArrayList<Recibo> recibos = conta.getRecibos();
         recibos.add(recibo);
 
-        double dividaTotal = conta.getDividaTotal();
+        double dividaTotal = conta.getSaldoPendente();
         dividaTotal += recibo.getValor();
-        conta.setDividaTotal(dividaTotal);
+        conta.setSaldoPendente(dividaTotal);
     }
 
     public void removerRecibo(ContaHospedagem conta, Recibo recibo) {
         ArrayList<Recibo> recibos = conta.getRecibos();
         recibos.remove(recibo);
 
-        double dividaTotal = conta.getDividaTotal();
+        double dividaTotal = conta.getSaldoPendente();
         dividaTotal -= recibo.getValor();
-        conta.setDividaTotal(dividaTotal);
+        conta.setSaldoPendente(dividaTotal);
+    }
+
+    public void alterarValores(double diaria, double servico) {
+        if (diaria >= 1) {
+            Quarto.setValorDiaria(diaria);
+        }
+        if (servico >= 1) {
+            Quarto.setValorServico(servico);
+        }
+    }
+
+    public void alterarTaxas(double padrao, double suite, double presidencial, double temporada, double servNoturno) {
+        if (padrao >= 1) {
+            Quarto.setTaxaPadrao(padrao);
+        }
+        if (suite >= 1) {
+            Quarto.setTaxaSuite(suite);
+        }
+        if (presidencial >= 1) {
+            Quarto.setTaxaPresidencial(presidencial);
+        }
+        if (temporada >= 1) {
+            Quarto.setTaxaTemporada(temporada);
+        }
+        if (servNoturno >= 1) {
+            Quarto.setTaxaNoturna(servNoturno);
+        }
+    }
+
+    public double calcularValor(LocalDate entrada, LocalDate saida, double taxaQuarto) {
+        int dias = Period.between(entrada, saida).getDays();
+
+        if (dias <= 0) {
+            dias = 1;
+        }
+
+        double valorDiaria = Quarto.getValorDiaria();
+        double taxaTemp = 1;
+
+        Month mesAtual = LocalDate.now().getMonth();
+
+        if (estaEmAltaTemporada(mesAtual)) {
+            taxaTemp = Quarto.getTaxaTemporada();
+        }
+
+        double valor = valorDiaria * dias * taxaQuarto * taxaTemp;
+
+        return valor;
+    }
+
+    public void pagarDivida(Hospedagem hosp) {
+
+        ContaHospedagem conta = hosp.getConta();
+        double divida = conta.getSaldoPendente();
+        
+        conta.setSaldoPendente(0);
+        conta.setSaldoPago(divida);
+        
+        hosp.setDiariaPaga(true);
+    }
+
+    public void verificarDiariaAtrasada(Hospedagem hosp) {
+        LocalDateTime agora = LocalDateTime.now();
+        LocalDateTime horarioSaida = hosp.getHorarioSaida();
+        LocalDateTime checkout = hosp.getHorarioCheckOut();
+
+        if (agora.isAfter(horarioSaida) && checkout == null) {
+            hosp.setDiariaPaga(false);
+        }
     }
 
     private boolean estaEmAltaTemporada(Month mes) {

@@ -129,7 +129,18 @@ public class ControladorHospedagens implements IContHospedagens {
 
     }
 
-    public void checkOut(Hospedagem hospedagem) throws CINRException, COJRException {
+    public void checkOut(Hospedagem hospedagem) throws CINRException, COJRException, DNPException, SPException {
+    
+    // verifica se a diaria foi paga
+    if (hospedagem.isDiariaPaga() == false) {
+        throw new DNPException();
+    }
+
+    // verifica se a conta responsavel tem saldo pendente
+    double saldoPendente = hospedagem.getConta().getSaldoPendente();
+    if (saldoPendente > 0) {
+        throw new SPException(saldoPendente);
+    }
 
     // Só permite check-out se houver check-in
     if (hospedagem.getHorarioCheckIn() == null) {
@@ -262,10 +273,10 @@ public class ControladorHospedagens implements IContHospedagens {
     public void trocarConta(Hospedagem hospedagem, ContaHospedagem novaConta) {
         if (novaConta != null) {
             // passando divida e recibos da conta antiga para a nova conta
-            novaConta.setDividaTotal(hospedagem.getConta().getDividaTotal());
+            novaConta.setSaldoPendente(hospedagem.getConta().getSaldoPendente());
             novaConta.setRecibos(hospedagem.getConta().getRecibos());
             // deletando as dividas da conta antiga
-            hospedagem.getConta().setDividaTotal(0);
+            hospedagem.getConta().setSaldoPendente(0);
             hospedagem.getConta().setRecibos(null);
 
             hospedagem.setConta(novaConta);

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import com.smarthotel.models.Hospedagem;
 import com.smarthotel.models.Recibo;
+import com.smarthotel.negocios.GeradorPDF;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -25,13 +27,23 @@ public class VerRecibos extends Transitavel {
 
     @FXML
     private Button btnVoltar;
+    @FXML
+    private Button btnGerarFatura;
+    @FXML
+    private Button btnPagamento;
+    @FXML
+    private Button btnGerarRecibo;
 
     @FXML
     protected Label lblResponsavel;
     @FXML
     protected Label lblDadosPagamento;
     @FXML
-    protected Label lblDivida;
+    protected Label lblSaldoPago;
+    @FXML
+    protected Label lblSaldoPendente;
+    @FXML
+    protected Label lblValorDiaria;
     @FXML
     protected ListView<String> listRecibos;
 
@@ -39,7 +51,7 @@ public class VerRecibos extends Transitavel {
     public void initialize() {
         setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
 
-        double divida = hospedagemSelecionada.getConta().getDividaTotal();
+        double dividaPendente = hospedagemSelecionada.getConta().getSaldoPendente();
         ArrayList<String> recibos = new ArrayList<>(); 
 
         for (Recibo r : hospedagemSelecionada.getConta().getRecibos()) {
@@ -48,7 +60,8 @@ public class VerRecibos extends Transitavel {
         }
 
         lblResponsavel.setText( hospedagemSelecionada.getConta().getResponsavel().getNome() );
-        lblDivida.setText(String.format("RS %.2f", divida));
+        lblSaldoPendente.setText(String.format("RS %.2f", dividaPendente));
+        //lblSaldoPago
         listRecibos.setItems(FXCollections.observableArrayList(recibos));
         lblDadosPagamento.setText("Não informados");
         
@@ -58,4 +71,17 @@ public class VerRecibos extends Transitavel {
         }
     }
 
+    @FXML
+    private void gerarFatura() {
+        try {
+            GeradorPDF gerador = new GeradorPDF();
+            gerador.gerarFaturaPDF(hospedagemSelecionada);
+
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Fatura Gerada", "A fatura PDF foi gerada com sucesso.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao gerar a fatura.");
+        }
+    }
 }
