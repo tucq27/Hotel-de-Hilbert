@@ -13,6 +13,7 @@ import com.smarthotel.models.Hospedagem;
 import com.smarthotel.models.Item;
 import com.smarthotel.models.Quarto;
 import com.smarthotel.models.Recibo;
+import com.smarthotel.models.StatusHospedagem;
 import com.smarthotel.models.TipoRecibo;
 
 public class ControladorPagamentos implements IContPagamentos {
@@ -174,6 +175,27 @@ public class ControladorPagamentos implements IContPagamentos {
         conta.setSaldoPago(divida);
         
         hosp.setDiariaPaga(true);
+    }
+
+    public void pagarDividaGrupo(Hospedagem hosp) {
+        pagarDivida(hosp);
+        ContaHospedagem conta = hosp.getConta();
+        IContHospedagens hospedagens = ControladorHospedagens.getInstance();
+
+        for (Hospedagem h : hospedagens.getRepositorioHospedagens().getObjetos()) {
+
+            // se existir outra hospedagem ativa, conectada à mesma conta e que ainda não foi paga:
+            if ((h.getConta().equals(conta)) && (h.getStatus() == StatusHospedagem.ATIVA) && (h.isDiariaPaga() == false)) {
+                ContaHospedagem conta2 = h.getConta();
+
+                double divida = conta2.getSaldoPendente();
+        
+                conta2.setSaldoPendente(0);
+                conta2.setSaldoPago(divida);
+        
+                h.setDiariaPaga(true);
+            }
+        }
     }
 
     public void verificarDiariaAtrasada(Hospedagem hosp) {
