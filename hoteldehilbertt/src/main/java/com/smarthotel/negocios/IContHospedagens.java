@@ -15,12 +15,12 @@ public interface IContHospedagens {
         throws QIException, CIFException, CIJRException, HPException, QLException, ORException;
 
     String reservarHospedagem(Quarto quarto, LocalDate dataEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
-        throws QIException, CIFException, CIJRException, HPException, QLException, ORException;
+        throws QJRException, CIFException, CIJRException, HPException, QLException, ORException;
 
     void checkIn(Hospedagem hospedagem) throws QIException, CIFException, CIJRException;
     void checkOut(Hospedagem hospedagem) throws CINRException, COJRException, DNPException, SPException;
 
-    void cancelarReserva(Hospedagem hospedagem);
+    void cancelarReserva(Hospedagem hospedagem) throws RNCException;
     boolean verificarHospede(Hospedagem hospedagem, String nome, String cpf, LocalDate dataNascimento);
     boolean hospedagmJaExiste(LocalDate dataSaida, Quarto quarto);
 

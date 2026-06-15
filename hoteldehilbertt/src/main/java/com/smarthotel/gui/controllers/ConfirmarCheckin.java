@@ -3,11 +3,16 @@ package com.smarthotel.gui.controllers;
 import java.time.LocalDate;
 
 import com.smarthotel.models.Hospedagem;
+import com.smarthotel.models.Recibo;
+import com.smarthotel.models.StatusHospedagem;
 import com.smarthotel.negocios.ControladorHospedagens;
+import com.smarthotel.negocios.ControladorPagamentos;
 import com.smarthotel.negocios.IContHospedagens;
+import com.smarthotel.negocios.IContPagamentos;
 import com.smarthotel.negocios.exceptions.CIFException;
 import com.smarthotel.negocios.exceptions.CIJRException;
 import com.smarthotel.negocios.exceptions.QIException;
+import com.smarthotel.negocios.exceptions.RNCException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -15,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class ConfirmarCheckin extends Transitavel {
     
@@ -95,12 +101,21 @@ public class ConfirmarCheckin extends Transitavel {
 
     @FXML
     public void cancelarReserva(){
-        IContHospedagens contH = ControladorHospedagens.getInstance();
-        contH.cancelarReserva(hospedagemSelecionada);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("OK");
-        alert.setContentText("Reserva cancelada.");
-        alert.showAndWait();
+        // se a hospedagem estiver reservada:
+        if (hospedagemSelecionada.getStatus() == StatusHospedagem.RESERVADA) {
+            try{
+                IContHospedagens contH = ControladorHospedagens.getInstance();
+                contH.cancelarReserva(hospedagemSelecionada);
+                mostrarAlerta(AlertType.INFORMATION, "OK", "Reserva cancelada.");
+            } catch (RNCException e) {
+                mostrarAlerta(AlertType.ERROR, null, e.getMessage());
+                
+                IContPagamentos contP = ControladorPagamentos.getInstance();
+                Recibo recibo = contP.gerarReciboMulta(hospedagemSelecionada);
+                contP.adicionarRecibo(hospedagemSelecionada.getConta(), recibo);
+            }
+        }
+
     }
 
     @FXML

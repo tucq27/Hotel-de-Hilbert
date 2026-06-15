@@ -2,9 +2,13 @@ package com.smarthotel.gui.controllers;
 
 import java.util.ArrayList;
 
+import com.smarthotel.models.ContaHospedagem;
 import com.smarthotel.models.Hospedagem;
 import com.smarthotel.models.Recibo;
+import com.smarthotel.models.TipoRecibo;
+import com.smarthotel.negocios.ControladorPagamentos;
 import com.smarthotel.negocios.GeradorPDF;
+import com.smarthotel.negocios.IContPagamentos;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -12,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
 
 public class VerRecibos extends Transitavel {
     
@@ -31,6 +36,8 @@ public class VerRecibos extends Transitavel {
     private Button btnGerarFatura;
     @FXML
     private Button btnPagamento;
+    @FXML
+    private Button btnPagarGrupo;
     @FXML
     private Button btnGerarRecibo;
     @FXML
@@ -58,6 +65,7 @@ public class VerRecibos extends Transitavel {
         }
 
         double dividaPendente = hospedagemSelecionada.getConta().getSaldoPendente();
+        double saldoPago = hospedagemSelecionada.getConta().getSaldoPago();
         ArrayList<String> recibos = new ArrayList<>(); 
 
         for (Recibo r : hospedagemSelecionada.getConta().getRecibos()) {
@@ -67,7 +75,7 @@ public class VerRecibos extends Transitavel {
 
         lblResponsavel.setText( hospedagemSelecionada.getConta().getResponsavel().getNome() );
         lblSaldoPendente.setText(String.format("RS %.2f", dividaPendente));
-        //lblSaldoPago
+        lblSaldoPago.setText(String.format("RS %.2f", saldoPago));
         listRecibos.setItems(FXCollections.observableArrayList(recibos));
         lblDadosPagamento.setText("Não informados");
         
@@ -107,12 +115,50 @@ public class VerRecibos extends Transitavel {
     }
 
     @FXML
-    private void realizarPagamento() {
+    private void pagarGrupo() {
+        if (hospedagemSelecionada.getConta().getSaldoPendente() > 0) {
+            IContPagamentos contP = ControladorPagamentos.getInstance();
+            contP.pagarDividaGrupo(hospedagemSelecionada);
+            mostrarAlerta(AlertType.CONFIRMATION, null, "Pagamento de grupo bem sucedido");
+        } else if (hospedagemSelecionada.isDiariaPaga() == false) {
+            mostrarAlerta(AlertType.INFORMATION, null, "Diaria não paga para atual Hospedagem");
+        } else {
+            mostrarAlerta(AlertType.INFORMATION, null, "Dívida paga para atual Hospedagem");
+        }
+        initialize();
+    }
 
+    @FXML
+    private void realizarPagamento() {
+        if (hospedagemSelecionada.getConta().getSaldoPendente() > 0) {
+            IContPagamentos contP = ControladorPagamentos.getInstance();
+            contP.pagarDivida(hospedagemSelecionada);
+            mostrarAlerta(AlertType.CONFIRMATION, null, "Pagamento bem sucedido");
+        } else if (hospedagemSelecionada.isDiariaPaga() == false) {
+            mostrarAlerta(AlertType.INFORMATION, null, "Diaria não paga");
+        } else {
+            mostrarAlerta(AlertType.INFORMATION, null, "Dívida já paga");
+        }
+        initialize();
     }
 
     @FXML
     private void gerarRecibo() {
-        
+
+        ContaHospedagem conta = hospedagemSelecionada.getConta();
+
+        for (Recibo r : conta.getRecibos()) {
+            if (r.getTipo() == TipoRecibo.DIARIA) {
+                mostrarAlerta(AlertType.ERROR,null, "Recibo de diária já foi gerado.");
+                return;
+            }
+        }
+
+        IContPagamentos contP = ControladorPagamentos.getInstance();
+
+        Recibo diaria = contP.gerarReciboDiaria(hospedagemSelecionada);
+        contP.adicionarRecibo(conta, diaria);
+
+        initialize();
     }
 }

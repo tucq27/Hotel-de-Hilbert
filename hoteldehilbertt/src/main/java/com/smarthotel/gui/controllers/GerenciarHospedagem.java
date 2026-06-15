@@ -88,6 +88,9 @@ public class GerenciarHospedagem extends Transitavel {
             return;
         }
 
+        IContPagamentos contP = ControladorPagamentos.getInstance();
+        contP.verificarDiariaAtrasada(hospedagemSelecionada);
+
         ArrayList<String> nomesHospedes = new ArrayList<>();
 
         for (Hospede hospede : hospedagemSelecionada.getHospedes()) {
