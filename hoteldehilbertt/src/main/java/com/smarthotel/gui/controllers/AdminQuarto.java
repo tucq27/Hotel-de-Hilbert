@@ -1,8 +1,8 @@
 package com.smarthotel.gui.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 
 public class AdminQuarto extends Transitavel {
 
@@ -44,18 +44,8 @@ public class AdminQuarto extends Transitavel {
 
     @FXML
     private void gerarRelatorioFaturamento() {
-        /* 
-        try {
-            GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarRelatorioHospedagemPDF(hospedagemSelecionada);
-
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Relatório Gerado",
-                    "Relatório da hospedagem gerado com sucesso.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao gerar relatório da hospedagem.");
-        } */
+        // aviso, ainda implementando
+       mostrarAlerta(AlertType.WARNING, "Implementar", "Gerar Relatorio CSV");
     } 
         
 }
