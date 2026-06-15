@@ -199,12 +199,14 @@ public class ControladorPagamentos implements IContPagamentos {
     }
 
     public void verificarDiariaAtrasada(Hospedagem hosp) {
-        LocalDateTime agora = LocalDateTime.now();
-        LocalDateTime horarioSaida = hosp.getHorarioSaida();
-        LocalDateTime checkout = hosp.getHorarioCheckOut();
+        if (hosp != null) {
+            LocalDateTime agora = LocalDateTime.now();
+            LocalDateTime horarioSaida = hosp.getHorarioSaida();
+            LocalDateTime checkout = hosp.getHorarioCheckOut();
 
-        if (agora.isAfter(horarioSaida) && checkout == null) {
-            hosp.setDiariaPaga(false);
+            if (agora.isAfter(horarioSaida) && checkout == null) {
+                hosp.setDiariaPaga(false);
+            }
         }
     }
 
