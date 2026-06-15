@@ -75,7 +75,7 @@ public class VerRecibos extends Transitavel {
     private void gerarFatura() {
         try {
             GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarFaturaPDF(hospedagemSelecionada);
+            gerador.gerarFaturaPDF( hospedagemSelecionada, "relatorios/fatura.pdf");
 
             mostrarAlerta(Alert.AlertType.INFORMATION, "Fatura Gerada", "A fatura PDF foi gerada com sucesso.");
 

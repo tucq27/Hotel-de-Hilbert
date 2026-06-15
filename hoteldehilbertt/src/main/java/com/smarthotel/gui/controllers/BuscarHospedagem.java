@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 
 public class BuscarHospedagem extends Transitavel {
 
-    private static Hospedagem hospedagemSelecionada;
+    protected static Hospedagem hospedagemSelecionada;
 
     public static Hospedagem getHospedagemSelecionada() {
         return hospedagemSelecionada;

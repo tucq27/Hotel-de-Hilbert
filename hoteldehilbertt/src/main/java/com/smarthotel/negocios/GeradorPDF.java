@@ -260,7 +260,7 @@ public class GeradorPDF {
 
         document.add(new Paragraph(" "));
         document.add(new Paragraph(
-            "TOTAL DA HOSPEDAGEM: R$ " + conta.CalcularDivida()
+            "TOTAL DA HOSPEDAGEM: R$ " + conta.getSaldoPendente()
         ));
 
         document.close();
@@ -269,49 +269,4 @@ public class GeradorPDF {
             "Relatório gerado em: " + caminhoArquivo
         );
     }
-<<<<<<< HEAD
-=======
-
-    document.add(new Paragraph(" "));
-    document.add(new Paragraph("RECIBOS"));
-
-    for (Recibo recibo : conta.getRecibos()) {
-
-        document.add(new Paragraph(
-            "ID: " + recibo.getId()
-        ));
-
-        document.add(new Paragraph(
-            "Tipo: " + recibo.getTipo()
-        ));
-
-        document.add(new Paragraph(
-            "Valor: R$ " + recibo.getValor()
-        ));
-
-        document.add(new Paragraph(
-            "Descrição: " + recibo.getDesricaoAdicional()
-        ));
-
-        document.add(new Paragraph(
-            "Data: " + recibo.getHorario()
-        ));
-
-        document.add(new Paragraph(
-            "----------------------------------------"
-        ));
-    }
-
-    document.add(new Paragraph(" "));
-    document.add(new Paragraph(
-        "TOTAL DA HOSPEDAGEM: R$ " + conta.getSaldoPendente()
-    ));
-
-    document.close();
-
-    System.out.println(
-        "Relatório gerado em: " + nomeArquivo
-    );
-}
->>>>>>> 2cf50a481d49f88a23f20a9d2e27964c179f4be3
 }

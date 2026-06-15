@@ -23,10 +23,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+import static com.smarthotel.gui.controllers.BuscarHospedagem.hospedagemSelecionada;
+
 import java.io.File;
 import javafx.stage.FileChooser;
 
-public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemController{
+public class TelaGerenciarHospedagemController extends BuscarHospedagem{
 
     @FXML
     private Button btnVoltar;
@@ -238,7 +240,7 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
             contHosp.checkOut(hospedagemSelecionada);
 
             GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarFaturaPDF( hospedagemSelecionada, "relatorios/fatura_" + hospedagemSelecionada.getId() + ".pdf");
+            gerador.gerarFaturaPDF(hospedagemSelecionada, "relatorios/fatura_" + hospedagemSelecionada.getId() + ".pdf");
 
             System.out.println("Check-out");
 

@@ -106,7 +106,7 @@ public class GerenciarHospedagem extends Transitavel {
             contHosp.checkOut(hospedagemSelecionada);
 
             GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarFaturaPDF(hospedagemSelecionada);
+            gerador.gerarFaturaPDF( hospedagemSelecionada, "relatorios/fatura.pdf");
 
             mostrarAlerta(Alert.AlertType.INFORMATION, "Check-out Realizado",
                     "Check-out realizado com sucesso.\nA fatura em PDF foi gerada na pasta relatórios.");
