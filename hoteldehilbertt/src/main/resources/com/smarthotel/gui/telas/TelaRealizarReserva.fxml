@@ -90,7 +90,7 @@
                  prefHeight="26.0"
                  prefWidth="68.0" /> -->
 
-      <Button fx:id="btnConfirmarReserva" layoutX="457.0" layoutY="470.0" mnemonicParsing="false" onAction="#confirmarReserva" text="Confirmar Reserva">
+      <Button fx:id="btnConfirmarReserva" layoutX="456.0" layoutY="446.0" mnemonicParsing="false" onAction="#confirmarReserva" text="Confirmar Reserva">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -123,6 +123,32 @@
          </font>
       </Label>
       <Label layoutX="82.0" layoutY="439.0" prefHeight="20.0" prefWidth="272.0" text="(itens e serviços em horário noturno não inclusos)" />
+      <Label text="Label" />
+      <Label layoutX="80.0" layoutY="470.0" text="Para pagar antecipadamente acesse: ">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="95.0" layoutY="486.0" text="&gt; Buscar Hospedagem">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="95.0" layoutY="503.0" prefHeight="17.0" prefWidth="80.0" text="&gt; Ver Recibos">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="520.0" prefHeight="17.0" prefWidth="81.0" text="&gt; Gerar Recibo">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="540.0" prefHeight="17.0" prefWidth="124.0" text="&gt; Realizar Pagamento">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
 
    </children>
 </AnchorPane>
