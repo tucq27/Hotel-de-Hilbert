@@ -43,5 +43,4 @@ public class TelaPrincipalAdmin extends Transitavel {
                 "Ver Alertas"
         );
     }
-
 }
