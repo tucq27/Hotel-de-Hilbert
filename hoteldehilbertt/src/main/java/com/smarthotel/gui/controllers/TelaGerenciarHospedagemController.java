@@ -23,6 +23,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+import java.io.File;
+import javafx.stage.FileChooser;
+
 public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemController{
 
     @FXML
@@ -90,28 +93,67 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
 
         try {
 
+            FileChooser fileChooser = new FileChooser();
+
+            fileChooser.setTitle("Salvar Fatura");
+
+            fileChooser.setInitialFileName(
+                    "fatura_" +
+                    hospedagemSelecionada.getId() +
+                    ".pdf"
+            );
+
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter(
+                            "Arquivos PDF",
+                            "*.pdf"
+                    )
+            );
+
+            File arquivo =
+                    fileChooser.showSaveDialog(
+                            btnVoltar.getScene().getWindow()
+                    );
+
+            if (arquivo == null) {
+                return;
+            }
+
             GeradorPDF gerador = new GeradorPDF();
 
-            gerador.gerarFaturaPDF(hospedagemSelecionada);
+            gerador.gerarFaturaPDF(
+                    hospedagemSelecionada,
+                    arquivo.getAbsolutePath()
+            );
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(
+                    Alert.AlertType.INFORMATION
+            );
+
             alert.setTitle("Fatura Gerada");
             alert.setHeaderText(null);
+
             alert.setContentText(
-                "A fatura PDF foi gerada com sucesso."
+                    "A fatura PDF foi gerada com sucesso."
             );
+
             alert.showAndWait();
 
         } catch (Exception e) {
 
             e.printStackTrace();
 
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(
+                    Alert.AlertType.ERROR
+            );
+
             alert.setTitle("Erro");
             alert.setHeaderText(null);
+
             alert.setContentText(
-                "Erro ao gerar a fatura."
+                    "Erro ao gerar a fatura."
             );
+
             alert.showAndWait();
         }
     }
@@ -121,13 +163,44 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
 
         try {
 
+            FileChooser fileChooser = new FileChooser();
+
+            fileChooser.setTitle(
+                    "Salvar Relatório da Hospedagem"
+            );
+
+            fileChooser.setInitialFileName(
+                    "relatorio_hospedagem_" +
+                    hospedagemSelecionada.getId() +
+                    ".pdf"
+            );
+
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter(
+                            "Arquivos PDF",
+                            "*.pdf"
+                    )
+            );
+
+            File arquivo =
+                    fileChooser.showSaveDialog(
+                            btnVoltar.getScene().getWindow()
+                    );
+
+            if (arquivo == null) {
+                return;
+            }
+
             GeradorPDF gerador = new GeradorPDF();
 
             gerador.gerarRelatorioHospedagemPDF(
-                    hospedagemSelecionada);
+                    hospedagemSelecionada,
+                    arquivo.getAbsolutePath()
+            );
 
             Alert alert = new Alert(
-                    Alert.AlertType.INFORMATION);
+                    Alert.AlertType.INFORMATION
+            );
 
             alert.setTitle("Relatório Gerado");
             alert.setHeaderText(null);
@@ -143,7 +216,8 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
             e.printStackTrace();
 
             Alert alert = new Alert(
-                    Alert.AlertType.ERROR);
+                    Alert.AlertType.ERROR
+            );
 
             alert.setTitle("Erro");
             alert.setHeaderText(null);
@@ -164,7 +238,7 @@ public class TelaGerenciarHospedagemController extends TelaBuscarHospedagemContr
             contHosp.checkOut(hospedagemSelecionada);
 
             GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarFaturaPDF(hospedagemSelecionada);
+            gerador.gerarFaturaPDF( hospedagemSelecionada, "relatorios/fatura_" + hospedagemSelecionada.getId() + ".pdf");
 
             System.out.println("Check-out");
 

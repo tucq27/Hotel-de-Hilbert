@@ -77,19 +77,17 @@ public class GeradorPDF {
         document.close();
     }
 
-    public void gerarFaturaPDF(Hospedagem hospedagem) throws Exception {
+    public void gerarFaturaPDF(
+            Hospedagem hospedagem,
+            String caminhoArquivo) throws Exception {
 
         System.out.println("GERANDO FATURA...");
 
-        File pasta = new File("relatorios");
-        pasta.mkdirs();
+        System.out.println(
+            "Gerando PDF em: " + caminhoArquivo
+        );
 
-        String nomeArquivo =
-        "relatorios/fatura_" + hospedagem.getId() + ".pdf";
-
-        System.out.println("Gerando PDF em: " + nomeArquivo);
-
-        PdfWriter writer = new PdfWriter(nomeArquivo);
+        PdfWriter writer = new PdfWriter(caminhoArquivo);
         PdfDocument pdf = new PdfDocument(writer);
         Document document = new Document(pdf);
 
@@ -153,122 +151,122 @@ public class GeradorPDF {
         document.close();
     }
 
-    public void gerarRelatorioHospedagemPDF(Hospedagem hospedagem) throws Exception {
+    public void gerarRelatorioHospedagemPDF(
+            Hospedagem hospedagem,
+            String caminhoArquivo) throws Exception {
 
-    System.out.println("GERANDO RELATÓRIO DA HOSPEDAGEM...");
+        System.out.println("GERANDO RELATÓRIO DA HOSPEDAGEM...");
 
-    File pasta = new File("relatorios");
-    pasta.mkdirs();
+        System.out.println(
+            "Gerando PDF em: " + caminhoArquivo
+        );
 
-    String nomeArquivo =
-        "relatorios/relatorio_hospedagem_" + hospedagem.getId() + ".pdf";
+        PdfWriter writer = new PdfWriter(caminhoArquivo);
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf);
 
-    PdfWriter writer = new PdfWriter(nomeArquivo);
-    PdfDocument pdf = new PdfDocument(writer);
-    Document document = new Document(pdf);
+        ContaHospedagem conta = hospedagem.getConta();
 
-    ContaHospedagem conta = hospedagem.getConta();
+        document.add(new Paragraph("RELATÓRIO DA HOSPEDAGEM"));
+        document.add(new Paragraph(" "));
 
-    document.add(new Paragraph("RELATÓRIO DA HOSPEDAGEM"));
-    document.add(new Paragraph(" "));
+        document.add(new Paragraph("ID: " + hospedagem.getId()));
+        document.add(new Paragraph("Status: " + hospedagem.getStatus()));
 
-    document.add(new Paragraph("ID: " + hospedagem.getId()));
-    document.add(new Paragraph("Status: " + hospedagem.getStatus()));
-
-    document.add(new Paragraph(" "));
-    document.add(new Paragraph("RESPONSÁVEL"));
-
-    document.add(new Paragraph(
-        "Nome: " + conta.getResponsavel().getNome()
-    ));
-
-    document.add(new Paragraph(
-        "CPF: " + conta.getResponsavel().getCpf()
-    ));
-
-    document.add(new Paragraph(" "));
-    document.add(new Paragraph("QUARTO"));
-
-    document.add(new Paragraph(
-        "Número: " + hospedagem.getQuarto().getNumero()
-    ));
-
-    document.add(new Paragraph(
-        "Tipo: " + hospedagem.getQuarto().getTipo()
-    ));
-
-    document.add(new Paragraph(
-        "Status do quarto: " + hospedagem.getQuarto().getStatus()
-    ));
-
-    document.add(new Paragraph(" "));
-    document.add(new Paragraph("DATAS"));
-
-    document.add(new Paragraph(
-        "Entrada: " + hospedagem.getDataEntrada()
-    ));
-
-    document.add(new Paragraph(
-        "Check-in: " + hospedagem.getHorarioCheckIn()
-    ));
-
-    document.add(new Paragraph(
-        "Check-out: " + hospedagem.getHorarioCheckOut()
-    ));
-
-    document.add(new Paragraph(
-        "Saída prevista: " + hospedagem.getHorarioSaida()
-    ));
-
-    document.add(new Paragraph(" "));
-    document.add(new Paragraph("HÓSPEDES"));
-
-    for (var hospede : hospedagem.getHospedes()) {
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("RESPONSÁVEL"));
 
         document.add(new Paragraph(
-            "- " + hospede.getNome()
+            "Nome: " + conta.getResponsavel().getNome()
         ));
+
+        document.add(new Paragraph(
+            "CPF: " + conta.getResponsavel().getCpf()
+        ));
+
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("QUARTO"));
+
+        document.add(new Paragraph(
+            "Número: " + hospedagem.getQuarto().getNumero()
+        ));
+
+        document.add(new Paragraph(
+            "Tipo: " + hospedagem.getQuarto().getTipo()
+        ));
+
+        document.add(new Paragraph(
+            "Status do quarto: " + hospedagem.getQuarto().getStatus()
+        ));
+
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("DATAS"));
+
+        document.add(new Paragraph(
+            "Entrada: " + hospedagem.getDataEntrada()
+        ));
+
+        document.add(new Paragraph(
+            "Check-in: " + hospedagem.getHorarioCheckIn()
+        ));
+
+        document.add(new Paragraph(
+            "Check-out: " + hospedagem.getHorarioCheckOut()
+        ));
+
+        document.add(new Paragraph(
+            "Saída prevista: " + hospedagem.getHorarioSaida()
+        ));
+
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("HÓSPEDES"));
+
+        for (var hospede : hospedagem.getHospedes()) {
+
+            document.add(new Paragraph(
+                "- " + hospede.getNome()
+            ));
+        }
+
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("RECIBOS"));
+
+        for (Recibo recibo : conta.getRecibos()) {
+
+            document.add(new Paragraph(
+                "ID: " + recibo.getId()
+            ));
+
+            document.add(new Paragraph(
+                "Tipo: " + recibo.getTipo()
+            ));
+
+            document.add(new Paragraph(
+                "Valor: R$ " + recibo.getValor()
+            ));
+
+            document.add(new Paragraph(
+                "Descrição: " + recibo.getDesricaoAdicional()
+            ));
+
+            document.add(new Paragraph(
+                "Data: " + recibo.getHorario()
+            ));
+
+            document.add(new Paragraph(
+                "----------------------------------------"
+            ));
+        }
+
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph(
+            "TOTAL DA HOSPEDAGEM: R$ " + conta.CalcularDivida()
+        ));
+
+        document.close();
+
+        System.out.println(
+            "Relatório gerado em: " + caminhoArquivo
+        );
     }
-
-    document.add(new Paragraph(" "));
-    document.add(new Paragraph("RECIBOS"));
-
-    for (Recibo recibo : conta.getRecibos()) {
-
-        document.add(new Paragraph(
-            "ID: " + recibo.getId()
-        ));
-
-        document.add(new Paragraph(
-            "Tipo: " + recibo.getTipo()
-        ));
-
-        document.add(new Paragraph(
-            "Valor: R$ " + recibo.getValor()
-        ));
-
-        document.add(new Paragraph(
-            "Descrição: " + recibo.getDesricaoAdicional()
-        ));
-
-        document.add(new Paragraph(
-            "Data: " + recibo.getHorario()
-        ));
-
-        document.add(new Paragraph(
-            "----------------------------------------"
-        ));
-    }
-
-    document.add(new Paragraph(" "));
-    document.add(new Paragraph(
-        "TOTAL DA HOSPEDAGEM: R$ " + conta.CalcularDivida()
-    ));
-
-    document.close();
-
-    System.out.println(
-        "Relatório gerado em: " + nomeArquivo
-    );
-}
 }
