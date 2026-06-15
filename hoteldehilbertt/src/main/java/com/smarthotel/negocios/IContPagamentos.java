@@ -21,4 +21,7 @@ public interface IContPagamentos {
     void alterarTaxas(double padrao, double suite, double presidencial, double temporada, double servNoturno);
     double calcularValor(LocalDate entrada, LocalDate saida, double taxaQuarto);
     void verificarDiariaAtrasada(Hospedagem hosp);
+
+    void pagarDivida(Hospedagem hosp);
+    void pagarDividaGrupo(Hospedagem hosp);
 }

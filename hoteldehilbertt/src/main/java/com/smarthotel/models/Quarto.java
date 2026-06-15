@@ -17,8 +17,8 @@ public class Quarto implements IIdentificavel {
     private TipoQuarto tipo;
 
     private static double valorDiaria = 30;
-    private static double valorServico = 0;
-    private static double taxaNoturna = 9;
+    private static double valorMulta = 60;
+    private static double valorServicoNoturno = 9;
     private static double taxaPadrao =1;
     private static double taxaSuite = 2;
     private static double taxaPresidencial = 5;
@@ -141,20 +141,20 @@ public class Quarto implements IIdentificavel {
         Quarto.valorDiaria = valorDiaria;
     }
 
-    public static double getValorServico() {
-        return valorServico;
+    public static double getValorMulta() {
+        return valorMulta;
     }
 
-    public static void setValorServico(double valorServico) {
-        Quarto.valorServico = valorServico;
+    public static void setValorMulta(double valorMulta) {
+        Quarto.valorMulta = valorMulta;
     }
 
-    public static double getTaxaNoturna() {
-        return taxaNoturna;
+    public static double getValorServicoNoturno() {
+        return valorServicoNoturno;
     }
 
-    public static void setTaxaNoturna(double taxaNoturna) {
-        Quarto.taxaNoturna = taxaNoturna;
+    public static void setValorServicoNoturno(double valor) {
+        Quarto.valorServicoNoturno = valor;
     }
 
     // retorna a taxa especifica de um quarto

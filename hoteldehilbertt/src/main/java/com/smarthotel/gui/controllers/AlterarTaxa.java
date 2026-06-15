@@ -25,7 +25,7 @@ public class AlterarTaxa extends Transitavel{
     @FXML
     private Label lblDiaria;
     @FXML
-    private Label lblServico;
+    private Label lblMulta;
     @FXML
     private Label lblServicoNoturno;
 
@@ -40,7 +40,7 @@ public class AlterarTaxa extends Transitavel{
     @FXML
     private TextField txtNovaDiaria;
     @FXML
-    private TextField txtNovoServico;
+    private TextField txtNovaMulta;
     @FXML
     private TextField txtNovoServicoNoturno;
 
@@ -52,8 +52,8 @@ public class AlterarTaxa extends Transitavel{
         lblTaxaTemp.setText(String.valueOf(Quarto.getTaxaTemporada()));
         lblDiaria.setText(String.valueOf(Quarto.getValorDiaria()));
 
-        lblServico.setText(String.valueOf(Quarto.getValorServico()));
-        lblServicoNoturno.setText(String.valueOf(Quarto.getTaxaNoturna()));
+        lblMulta.setText(String.valueOf(Quarto.getValorMulta()));
+        lblServicoNoturno.setText(String.valueOf(Quarto.getValorServicoNoturno()));
     }
 
     @FXML
@@ -67,9 +67,9 @@ public class AlterarTaxa extends Transitavel{
         double noturna = converter(txtNovoServicoNoturno.getText());
 
         double diaria = converter(txtNovaDiaria.getText());
-        double servico = converter(txtNovoServico.getText());
+        double multa = converter(txtNovaMulta.getText());
 
-        contP.alterarValores(diaria, servico);
+        contP.alterarValores(diaria, multa);
         contP.alterarTaxas(padrao, suite, presidencial, temporada, noturna);
         initialize();
     }
