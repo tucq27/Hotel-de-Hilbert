@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="580.0" prefWidth="780.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.smarthotel.gui.controllers.FrigobarAdmin">
+
+    <children>
+
+        <Label layoutX="294.0" layoutY="45.0" text="SMART HOTEL">
+            <font>
+                <Font name="System Bold" size="28.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="321.0" layoutY="85.0" text="Gerenciar Frigobar">
+            <font>
+                <Font name="System Bold Italic" size="14.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="95.0" layoutY="130.0" text="ITENS NO FRIGOBAR">
+            <font>
+                <Font name="System Bold Italic" size="13.0" />
+            </font>
+        </Label>
+
+        <ListView fx:id="listItensFrigobar"
+                  layoutX="50.0" layoutY="160.0"
+                  prefHeight="220.0" prefWidth="280.0" />
+
+        <Label layoutX="50.0" layoutY="400.0" text="Selecionar item para pegar:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+
+        <ComboBox fx:id="cbItensFrigobar"
+                  layoutX="50.0" layoutY="425.0"
+                  prefHeight="30.0" prefWidth="180.0" />
+
+        <Button fx:id="btnPegarItem"
+                layoutX="240.0" layoutY="425.0"
+                mnemonicParsing="false"
+                onAction="#pegarItem"
+                prefHeight="30.0" prefWidth="90.0"
+                text="Pegar Item">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Label layoutX="500.0" layoutY="130.0" text="ITENS REGISTRADOS">
+            <font>
+                <Font name="System Bold Italic" size="13.0" />
+            </font>
+        </Label>
+
+        <ListView fx:id="listItensRegistrados"
+                  layoutX="450.0" layoutY="160.0"
+                  prefHeight="220.0" prefWidth="280.0" />
+
+        <Label layoutX="450.0" layoutY="400.0" text="ID do item para repor:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+
+        <TextField fx:id="txtIdItem"
+                   layoutX="450.0" layoutY="425.0"
+                   prefHeight="30.0" prefWidth="180.0" />
+
+        <Button fx:id="btnReporItem"
+                layoutX="640.0" layoutY="425.0"
+                mnemonicParsing="false"
+                onAction="#reporItem"
+                prefHeight="30.0" prefWidth="90.0"
+                text="Repor Item">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="btnVoltar"
+                layoutX="340.0" layoutY="515.0"
+                mnemonicParsing="false"
+                onAction="#voltar"
+                prefHeight="30.0" prefWidth="100.0"
+                text="Voltar">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+    </children>
+</AnchorPane>

@@ -7,113 +7,209 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smarthotel.gui.controllers.GerenciarHospedagem">
-   <children>
-      <Label layoutX="253.0" layoutY="55.0" text="SMART HOTEL">
-         <font>
-            <Font name="System Bold" size="28.0" />
-         </font>
-      </Label>
-      <Label layoutX="283.0" layoutY="95.0" text=" Gerenciar Hospedagem">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblIdHospedagem" layoutX="37.0" layoutY="138.0" text="Responsável:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblStatus" layoutX="66.0" layoutY="187.0" text="Status:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblQuarto" layoutX="64.0" layoutY="163.0" text="Quarto:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnCheckIn" layoutX="428.0" layoutY="183.0" mnemonicParsing="false" onAction="#checkIn" prefHeight="26.0" prefWidth="140.0" text="Fazer Check-in">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnCheckOut" layoutX="428.0" layoutY="220.0" mnemonicParsing="false" onAction="#checkOut" prefHeight="26.0" prefWidth="140.0" text="Fazer Check-out">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnPedirServico" layoutX="135.0" layoutY="495.0" mnemonicParsing="false" onAction="#pedirServico" prefHeight="25.0" prefWidth="97.0" text="Pedir Serviço">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <ComboBox fx:id="cbTipoServico" layoutX="17.0" layoutY="495.0" prefHeight="18.0" prefWidth="114.0" />
-      <Button fx:id="btnVoltar" layoutX="325.0" layoutY="537.0" mnemonicParsing="false" onAction="#voltar" text="Voltar">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Label layoutX="62.0" layoutY="216.0" text="Entrada:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="69.0" layoutY="242.0" text="Saída:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <ListView fx:id="listHospedes" layoutX="35.0" layoutY="300.0" prefHeight="84.0" prefWidth="200.0" />
-      <Label layoutX="35.0" layoutY="278.0" text="Hóspedes:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnVerRecibos" layoutX="428.0" layoutY="274.0" mnemonicParsing="false" onAction="#verRecibos" prefHeight="25.0" prefWidth="140.0" text="Ver Recibos">
-    <font>
-        <Font name="System Bold" size="12.0" />
-    </font>
-</Button>
-      <Label layoutX="460.0" layoutY="431.0" text="REPOSITÓRIO">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnExcluir" layoutX="426.0" layoutY="495.0" mnemonicParsing="false" onAction="#excluir" prefHeight="26.0" prefWidth="146.0" text="Excluir Hospedagem">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <!-- 
-      <Button fx:id="btnAtualizar" layoutX="439.0" layoutY="483.0" mnemonicParsing="false" onAction="#atualizar" prefHeight="26.0" prefWidth="150.0" text="Atualizar Hospedagem">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      -->
-      <Label layoutX="100.0" layoutY="112.0" />
-      <Label fx:id="lblResponsavel" layoutX="114.0" layoutY="138.0" text="Label" />
-      <Label fx:id="lblStatus" layoutX="114.0" layoutY="187.0" text="Label" />
-      <Label fx:id="lblQuarto" layoutX="114.0" layoutY="163.0" text="Label" />
-      <Label fx:id="lblSaida" layoutX="114.0" layoutY="242.0" text="Label" />
-      <Label fx:id="lblEntrada" layoutX="114.0" layoutY="216.0" text="Label" />
-      <Button fx:id="btnAlterarEstadia" layoutX="419.0" layoutY="323.0" mnemonicParsing="false" onAction="#alterarEstadia" text="Alterar Tempo de Estadia">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnAbrirFrigobarAdm" layoutX="58.0" layoutY="427.0" mnemonicParsing="false" onAction="#abrirFrigobarAdm" prefHeight="26.0" prefWidth="140.0" text="Acessar Frigobar">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Label layoutX="100.0" layoutY="456.0" />
-      <Button fx:id="btnAtualizar" layoutX="426.0" layoutY="460.0" mnemonicParsing="false" onAction="#atualizar" prefHeight="25.0" prefWidth="146.0" text="Atualizar Hospedagem">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="700.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.smarthotel.gui.controllers.GerenciarHospedagem">
+
+    <children>
+
+        <Label layoutX="253.0" layoutY="55.0" text="SMART HOTEL">
+            <font>
+                <Font name="System Bold" size="28.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="283.0" layoutY="95.0" text=" Gerenciar Hospedagem">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="37.0" layoutY="138.0" text="Responsável:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="64.0" layoutY="163.0" text="Quarto:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="66.0" layoutY="187.0" text="Status:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="62.0" layoutY="216.0" text="Entrada:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="69.0" layoutY="242.0" text="Saída:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+
+        <Label fx:id="lblResponsavel" layoutX="114.0" layoutY="138.0" text="Label" />
+        <Label fx:id="lblQuarto" layoutX="114.0" layoutY="163.0" text="Label" />
+        <Label fx:id="lblStatus" layoutX="114.0" layoutY="187.0" text="Label" />
+        <Label fx:id="lblEntrada" layoutX="114.0" layoutY="216.0" text="Label" />
+        <Label fx:id="lblSaida" layoutX="114.0" layoutY="242.0" text="Label" />
+
+        <Label layoutX="35.0" layoutY="278.0" text="Hóspedes:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+
+        <ListView fx:id="listHospedes"
+                  layoutX="35.0" layoutY="300.0"
+                  prefHeight="84.0" prefWidth="200.0" />
+
+        <Button fx:id="btnAbrirFrigobarAdm"
+                layoutX="58.0" layoutY="427.0"
+                mnemonicParsing="false"
+                onAction="#abrirFrigobarAdm"
+                prefHeight="26.0"
+                prefWidth="140.0"
+                text="Acessar Frigobar">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <ComboBox fx:id="cbTipoServico"
+                  layoutX="17.0"
+                  layoutY="495.0"
+                  prefHeight="25.0"
+                  prefWidth="114.0" />
+
+        <Button fx:id="btnPedirServico"
+                layoutX="135.0"
+                layoutY="495.0"
+                mnemonicParsing="false"
+                onAction="#pedirServico"
+                prefHeight="25.0"
+                prefWidth="97.0"
+                text="Pedir Serviço">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="btnCheckIn"
+                layoutX="428.0"
+                layoutY="183.0"
+                mnemonicParsing="false"
+                onAction="#checkIn"
+                prefHeight="26.0"
+                prefWidth="140.0"
+                text="Fazer Check-in">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="btnCheckOut"
+                layoutX="428.0"
+                layoutY="220.0"
+                mnemonicParsing="false"
+                onAction="#checkOut"
+                prefHeight="26.0"
+                prefWidth="140.0"
+                text="Fazer Check-out">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="btnVerRecibos"
+                layoutX="428.0"
+                layoutY="274.0"
+                mnemonicParsing="false"
+                onAction="#verRecibos"
+                prefHeight="25.0"
+                prefWidth="140.0"
+                text="Ver Recibos">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="btnAlterarEstadia"
+                layoutX="419.0"
+                layoutY="323.0"
+                mnemonicParsing="false"
+                onAction="#alterarEstadia"
+                text="Alterar Tempo de Estadia">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Label layoutX="460.0" layoutY="431.0" text="REPOSITÓRIO">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Label>
+
+        <Button fx:id="btnAtualizar"
+                layoutX="426.0"
+                layoutY="460.0"
+                mnemonicParsing="false"
+                onAction="#atualizar"
+                prefHeight="25.0"
+                prefWidth="146.0"
+                text="Atualizar Hospedagem">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="btnExcluir"
+                layoutX="426.0"
+                layoutY="495.0"
+                mnemonicParsing="false"
+                onAction="#excluir"
+                prefHeight="26.0"
+                prefWidth="146.0"
+                text="Excluir Hospedagem">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="btnCancelarReserva"
+                layoutX="426.0"
+                layoutY="530.0"
+                mnemonicParsing="false"
+                onAction="#cancelarReserva"
+                prefHeight="26.0"
+                prefWidth="146.0"
+                text="Cancelar Reserva">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="btnVoltar"
+                layoutX="325.0"
+                layoutY="537.0"
+                mnemonicParsing="false"
+                onAction="#voltar"
+                text="Voltar">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+    </children>
 </AnchorPane>

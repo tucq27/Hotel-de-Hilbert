@@ -19,11 +19,11 @@ import com.smarthotel.negocios.exceptions.CINRException;
 import com.smarthotel.negocios.exceptions.COJRException;
 import com.smarthotel.negocios.exceptions.DNPException;
 import com.smarthotel.negocios.exceptions.SPException;
+import com.smarthotel.models.StatusHospedagem;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -41,19 +41,23 @@ public class GerenciarHospedagem extends Transitavel {
     }
 
     @FXML
-    private Button btnVoltar;
-    @FXML
     private Label lblResponsavel;
+
     @FXML
     private Label lblQuarto;
+
     @FXML
     private Label lblStatus;
+
     @FXML
     private Label lblEntrada;
+
     @FXML
     private Label lblSaida;
+
     @FXML
     private ListView<String> listHospedes;
+
     @FXML
     private ComboBox<String> cbTipoServico;
 
@@ -63,9 +67,11 @@ public class GerenciarHospedagem extends Transitavel {
 
         if (cbTipoServico != null) {
             cbTipoServico.getItems().clear();
-            cbTipoServico.getItems().add("Limpar Quarto");
-            cbTipoServico.getItems().add("Levar Comida");
-            cbTipoServico.getItems().add("Lavar Roupa");
+            cbTipoServico.getItems().addAll(
+                    "Limpar Quarto",
+                    "Levar Comida",
+                    "Lavar Roupa"
+            );
         }
 
         if (hospedagemSelecionada == null) {
@@ -108,13 +114,13 @@ public class GerenciarHospedagem extends Transitavel {
             GeradorPDF gerador = new GeradorPDF();
             gerador.gerarFaturaPDF( hospedagemSelecionada, "relatorios/fatura.pdf");
 
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Check-out Realizado",
-                    "Check-out realizado com sucesso.\nA fatura em PDF foi gerada na pasta relatórios.");
+            mostrarAlerta(
+                    Alert.AlertType.INFORMATION,
+                    "Check-out Realizado",
+                    "Check-out realizado com sucesso.\nA fatura em PDF foi gerada na pasta relatórios."
+            );
 
-        } catch (CINRException | COJRException e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro", e.getMessage());
-
-        } catch (DNPException | SPException e) {
+        } catch (CINRException | COJRException | DNPException | SPException e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro", e.getMessage());
 
         } catch (Exception e) {
@@ -180,19 +186,57 @@ public class GerenciarHospedagem extends Transitavel {
                 recibo
         );
 
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Serviço solicitado",
+        mostrarAlerta(
+                Alert.AlertType.INFORMATION,
+                "Serviço solicitado",
                 "Serviço solicitado com sucesso!\n" +
                         "Serviço: " + servico + "\n" +
-                        "Valor adicionado: R$ " + String.format("%.2f", recibo.getValor()));
+                        "Valor adicionado: R$ " + String.format("%.2f", recibo.getValor())
+        );
     }
 
     @FXML
     private void abrirFrigobarAdm() {
-
+        System.out.println("Botão clicado");
+        abrirTela(
+                "/com/smarthotel/gui/telas/TelaFrigobarAdmin.fxml",
+                "Gerenciar Frigobar"
+        );
     }
 
     @FXML
     private void atualizar() {
+        initialize();
+        mostrarAlerta(Alert.AlertType.INFORMATION, "Atualizado", "Dados da hospedagem atualizados.");
+    }
 
+    @FXML
+    private void cancelarReserva() {
+        if (hospedagemSelecionada == null) {
+            mostrarAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro",
+                    "Nenhuma hospedagem foi selecionada."
+            );
+            return;
+        }
+
+        if (hospedagemSelecionada.getStatus() != StatusHospedagem.RESERVADA) {
+            mostrarAlerta(
+                    Alert.AlertType.WARNING,
+                    "Cancelar Reserva",
+                    "Essa ação só funciona para hospedagens com status RESERVADA."
+            );
+            return;
+        }
+
+        hospedagemSelecionada.setStatus(StatusHospedagem.CANCELADA);
+        lblStatus.setText(hospedagemSelecionada.getStatus().toString());
+
+        mostrarAlerta(
+                Alert.AlertType.INFORMATION,
+                "Reserva Cancelada",
+                "A reserva foi cancelada com sucesso."
+        );
     }
 }
