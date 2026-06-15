@@ -12,7 +12,7 @@
             prefHeight="500.0" prefWidth="700.0"
             xmlns="http://javafx.com/javafx/26"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.smarthotel.gui.controllers.TelaBuscarItemController">
+            fx:controller="com.smarthotel.gui.controllers.BuscarItem">
 
     <children>
 

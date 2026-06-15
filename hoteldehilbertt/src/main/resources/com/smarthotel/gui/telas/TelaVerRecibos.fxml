@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smarthotel.gui.controllers.TelaVerRecibosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smarthotel.gui.controllers.VerRecibos">
    <children>
       <Label layoutX="144.0" layoutY="25.0" text="Smart Hotel">
          <font>
@@ -18,35 +18,62 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="btnVoltar" layoutX="199.0" layoutY="353.0" mnemonicParsing="false" onAction="#voltar" text="Voltar">
+      <Button fx:id="btnVoltar" layoutX="224.0" layoutY="446.0" mnemonicParsing="false" onAction="#voltar" text="Voltar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label layoutX="56.0" layoutY="142.0" text="Dívida Total:">
+      <Label layoutX="60.0" layoutY="209.0" text="Saldo Pendente:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
       <Label layoutX="391.0" layoutY="108.0" />
-      <Label layoutX="55.0" layoutY="90.0" text="Responsável:">
+      <Label layoutX="80.0" layoutY="125.0" text="Responsável:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="55.0" layoutY="116.0" text="Dados de Pagamento:">
+      <Label layoutX="30.0" layoutY="146.0" text="Dados de Pagamento:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <ListView fx:id="listRecibos" layoutX="35.0" layoutY="200.0" prefHeight="144.0" prefWidth="379.0" />
-      <Label layoutX="56.0" layoutY="182.0" text="Histórico de Recibos: ">
+      <ListView fx:id="listRecibos" layoutX="41.0" layoutY="289.0" prefHeight="144.0" prefWidth="418.0" />
+      <Label layoutX="45.0" layoutY="261.0" text="Histórico de Recibos: ">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="lblDivida" layoutX="130.0" layoutY="142.0" text="Label" />
-      <Label fx:id="lblDadosPagamento" layoutX="185.0" layoutY="116.0" text="Label" />
-      <Label fx:id="lblResponsavel" layoutX="130.0" layoutY="90.0" text="Label" />
+      <Label fx:id="lblSaldoPendente" layoutX="165.0" layoutY="209.0" text="Label" />
+      <Label fx:id="lblDadosPagamento" layoutX="165.0" layoutY="146.0" text="Label" />
+      <Label fx:id="lblResponsavel" layoutX="165.0" layoutY="125.0" text="Label" />
+      <Button fx:id="btnGerarFatura" layoutX="280.0" layoutY="237.0" mnemonicParsing="false" onAction="#gerarFatura" prefHeight="25.0" prefWidth="125.0" text="Gerar Fatura PDF">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnGerarRecibo" layoutX="281.0" layoutY="142.0" mnemonicParsing="false" onAction="#gerarRecibo" text="Gerar Recibo Diária">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="84.0" layoutY="184.0" text="Saldo Pago:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSaldoPago" layoutX="165.0" layoutY="184.0" text="Label" />
+      <Button fx:id="btnPagamento" layoutX="279.0" layoutY="188.0" mnemonicParsing="false" onAction="#realizarPagamento" text="Realizar Pagamento">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="248.0" layoutY="108.0" text="Valor Estimado da Diária:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblValorDiaria" layoutX="404.0" layoutY="108.0" text="Label" />
    </children>
 </AnchorPane>

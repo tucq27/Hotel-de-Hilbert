@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.smarthotel.gui.controllers.TelaInicial">
+
+    <children>
+        <Label layoutX="193.0" layoutY="75.0" text="SMART HOTEL">
+            <font>
+                <Font name="System Bold" size="30.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="263.0" layoutY="120.0" text="Tela Inicial">
+            <font>
+                <Font name="System Bold Italic" size="14.0" />
+            </font>
+        </Label>
+
+        <Button fx:id="btnAbrirAdministracao"
+                layoutX="207.0" layoutY="180.0"
+                mnemonicParsing="false"
+                onAction="#abrirAdministracao"
+                prefHeight="30.0" prefWidth="186.0"
+                text="Abrir Administração">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="btnAbrirUsuario"
+                layoutX="207.0" layoutY="245.0"
+                mnemonicParsing="false"
+                onAction="#abrirUsuario"
+                prefHeight="30.0" prefWidth="186.0"
+                text="Abrir Usuário">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

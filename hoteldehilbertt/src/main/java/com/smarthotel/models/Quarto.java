@@ -15,10 +15,15 @@ public class Quarto implements IIdentificavel {
     private int andar;
     private StatusQuarto status= StatusQuarto.DISPONIVEL;
     private TipoQuarto tipo;
+
+    private static double valorDiaria = 30;
+    private static double valorServico = 10;
+    private static double taxaNoturna = 2;
     private static double taxaPadrao =1;
     private static double taxaSuite = 2;
     private static double taxaPresidencial = 5;
     private static double taxaTemporada = 1.5;
+
     private static ArrayList<Month> altaTemporada = new ArrayList<>(MESESPADRAO);
     private int capacidade;
     private Frigobar frigobar;
@@ -127,8 +132,31 @@ public class Quarto implements IIdentificavel {
     public static void setTaxaPresidencial(double taxaPresidencial) {
         Quarto.taxaPresidencial = taxaPresidencial;
     }
+     public static double getValorDiaria() {
+        return valorDiaria;
+    }
 
-    // retorna a taxa de um quarto
+    public static void setValorDiaria(double valorDiaria) {
+        Quarto.valorDiaria = valorDiaria;
+    }
+
+    public static double getValorServico() {
+        return valorServico;
+    }
+
+    public static void setValorServico(double valorServico) {
+        Quarto.valorServico = valorServico;
+    }
+
+    public static double getTaxaNoturna() {
+        return taxaNoturna;
+    }
+
+    public static void setTaxaNoturna(double taxaNoturna) {
+        Quarto.taxaNoturna = taxaNoturna;
+    }
+
+    // retorna a taxa especifica de um quarto
     public double getMultTaxa(){
         double taxa = 1;
 
