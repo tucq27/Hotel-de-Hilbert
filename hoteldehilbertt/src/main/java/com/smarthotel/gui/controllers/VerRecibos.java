@@ -85,7 +85,8 @@ public class VerRecibos extends Transitavel {
     private void gerarFatura() {
         try {
             GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarFaturaPDF( hospedagemSelecionada, "relatorios/fatura.pdf");
+            String caminho = "relatorios/fatura_" + hospedagemSelecionada.getId() + ".pdf";
+            gerador.gerarFaturaPDF( hospedagemSelecionada, caminho);
 
             mostrarAlerta(Alert.AlertType.INFORMATION, "Fatura Gerada", "A fatura PDF foi gerada com sucesso.");
 
@@ -99,7 +100,8 @@ public class VerRecibos extends Transitavel {
     private void gerarRelatorio() {
          try {
             GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarRelatorioHospedagemPDF(hospedagemSelecionada, "relatorios/fatura.pdf");
+            String caminho = "relatorios/relatorioHospedagem_" + hospedagemSelecionada.getId() + ".pdf";
+            gerador.gerarRelatorioHospedagemPDF(hospedagemSelecionada, caminho);
 
             mostrarAlerta(Alert.AlertType.INFORMATION, "Relatório Gerado",
                     "Relatório da hospedagem gerado com sucesso.");
