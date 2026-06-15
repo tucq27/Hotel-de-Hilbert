@@ -12,15 +12,12 @@ import com.smarthotel.models.Pessoa;
 import com.smarthotel.models.Recibo;
 import com.smarthotel.negocios.ControladorHospedagens;
 import com.smarthotel.negocios.ControladorPagamentos;
-import com.smarthotel.negocios.ControladorQuartos;
 import com.smarthotel.negocios.GeradorPDF;
 import com.smarthotel.negocios.IContHospedagens;
 import com.smarthotel.negocios.IContPagamentos;
-import com.smarthotel.negocios.IContQuartos;
 import com.smarthotel.negocios.exceptions.CINRException;
 import com.smarthotel.negocios.exceptions.COJRException;
 import com.smarthotel.negocios.exceptions.DNPException;
-import com.smarthotel.negocios.exceptions.LFException;
 import com.smarthotel.negocios.exceptions.SPException;
 
 import javafx.collections.FXCollections;
@@ -30,7 +27,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 
 public class GerenciarHospedagem extends Transitavel {
 
@@ -46,28 +42,18 @@ public class GerenciarHospedagem extends Transitavel {
 
     @FXML
     private Button btnVoltar;
-
     @FXML
     private Label lblResponsavel;
-
     @FXML
     private Label lblQuarto;
-
     @FXML
     private Label lblStatus;
-
     @FXML
     private Label lblEntrada;
-
     @FXML
     private Label lblSaida;
-
-    @FXML
-    private TextField txtIdItem;
-
     @FXML
     private ListView<String> listHospedes;
-
     @FXML
     private ComboBox<String> cbTipoServico;
 
@@ -110,35 +96,6 @@ public class GerenciarHospedagem extends Transitavel {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Check-in já realizado.");
         } else {
             abrirTela("/com/smarthotel/gui/telas/TelaConfirmarCheckin.fxml", "Confirmar Check-in");
-        }
-    }
-
-    @FXML
-    private void gerarFatura() {
-        try {
-            GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarFaturaPDF(hospedagemSelecionada);
-
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Fatura Gerada", "A fatura PDF foi gerada com sucesso.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao gerar a fatura.");
-        }
-    }
-
-    @FXML
-    private void gerarRelatorioHospedagem() {
-        try {
-            GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarRelatorioHospedagemPDF(hospedagemSelecionada);
-
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Relatório Gerado",
-                    "Relatório da hospedagem gerado com sucesso.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao gerar relatório da hospedagem.");
         }
     }
 
@@ -189,38 +146,6 @@ public class GerenciarHospedagem extends Transitavel {
     }
 
     @FXML
-    private void pegarItem() {
-        IContQuartos contQ = ControladorQuartos.getInstance();
-
-        String idHosp = hospedagemSelecionada.getQuarto().getId();
-        String idItem = txtIdItem.getText();
-
-        try {
-            contQ.pegarItemFrigobar(hospedagemSelecionada, idHosp, idItem);
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Item removido do frigobar.");
-        } catch (ONEException e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Item não encontrado no frigobar.");
-        }
-    }
-
-    @FXML
-    private void reporItem() {
-        IContQuartos contQ = ControladorQuartos.getInstance();
-
-        String idHosp = hospedagemSelecionada.getQuarto().getId();
-        String idItem = txtIdItem.getText();
-
-        try {
-            contQ.reporItemFrigobar(idHosp, idItem);
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Item adicionado ao frigobar.");
-        } catch (ONEException e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Item não registrado.");
-        } catch (LFException e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro: " + e.getMessage());
-        }
-    }
-
-    @FXML
     private void pedirServico() {
         String servico = cbTipoServico.getValue();
 
@@ -259,6 +184,16 @@ public class GerenciarHospedagem extends Transitavel {
                 "Serviço solicitado com sucesso!\n" +
                         "Serviço: " + servico + "\n" +
                         "Valor adicionado: R$ " + String.format("%.2f", recibo.getValor()));
+    }
+
+    @FXML
+    private void abrirFrigobarAdm() {
+
+    }
+
+    @FXML
+    private void atualizar() {
+
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {

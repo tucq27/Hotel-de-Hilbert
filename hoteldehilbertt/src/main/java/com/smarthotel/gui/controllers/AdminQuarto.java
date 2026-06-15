@@ -1,6 +1,7 @@
 package com.smarthotel.gui.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 public class AdminQuarto extends Transitavel {
@@ -11,6 +12,8 @@ public class AdminQuarto extends Transitavel {
     private Button btnBuscarQuarto;
     @FXML
     private Button btnAlterarTaxa;
+    @FXML
+    private Button btnRelatorioFaturamento;
 
     @FXML
     private Button btnVoltar;
@@ -38,4 +41,29 @@ public class AdminQuarto extends Transitavel {
                 "Alterar Taxas"
         );
     }
+
+    @FXML
+    private void gerarRelatorioFaturamento() {
+        /* 
+        try {
+            GeradorPDF gerador = new GeradorPDF();
+            gerador.gerarRelatorioHospedagemPDF(hospedagemSelecionada);
+
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Relatório Gerado",
+                    "Relatório da hospedagem gerado com sucesso.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao gerar relatório da hospedagem.");
+        } */
+    } 
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+        
 }

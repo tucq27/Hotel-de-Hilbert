@@ -12,13 +12,13 @@
 
    <children>
 
-      <Label layoutX="283.0" layoutY="27.0" text="SMART HOTEL">
+      <Label layoutX="293.0" layoutY="27.0" text="SMART HOTEL">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
 
-      <Label layoutX="310.0" layoutY="67.0" text="Realizar Reserva">
+      <Label layoutX="326.0" layoutY="67.0" text="Realizar Reserva">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -52,31 +52,31 @@
          </font>
       </Label>
 
-      <ListView fx:id="listHospedes" layoutX="28.0" layoutY="291.0" prefHeight="70.0" prefWidth="150.0" />
+      <ListView fx:id="listHospedes" layoutX="28.0" layoutY="291.0" prefHeight="79.0" prefWidth="150.0" />
 
-      <Label layoutX="27.0" layoutY="371.0" text="ID do Quarto:">
+      <Label layoutX="394.0" layoutY="153.0" text="ID do Quarto:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
 
-      <TextField fx:id="txtIdQuarto" layoutX="26.0" layoutY="389.0" />
+      <TextField fx:id="txtIdQuarto" layoutX="394.0" layoutY="171.0" />
 
-      <Label layoutX="25.0" layoutY="434.0" text="Data de Entrada:">
+      <Label layoutX="394.0" layoutY="218.0" text="Data de Entrada:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
 
-      <DatePicker fx:id="dpDataEntrada" layoutX="27.0" layoutY="452.0" prefHeight="26.0" prefWidth="124.0" />
+      <DatePicker fx:id="dpDataEntrada" layoutX="394.0" layoutY="245.0" prefHeight="26.0" prefWidth="124.0" />
 
-      <Label layoutX="166.0" layoutY="434.0" text="Data de Saída:">
+      <Label layoutX="547.0" layoutY="218.0" text="Data de Saída:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
 
-      <DatePicker fx:id="dpDataSaida" layoutX="166.0" layoutY="452.0" prefHeight="26.0" prefWidth="124.0" />
+      <DatePicker fx:id="dpDataSaida" layoutX="547.0" layoutY="245.0" prefHeight="26.0" prefWidth="124.0" />
 
       <!--<Label layoutX="25.0" layoutY="569.0" text="Hora de Saída:">
          <font>
@@ -90,13 +90,13 @@
                  prefHeight="26.0"
                  prefWidth="68.0" /> -->
 
-      <Button fx:id="btnConfirmarReserva" layoutX="390.0" layoutY="452.0" mnemonicParsing="false" onAction="#confirmarReserva" text="Confirmar Reserva">
+      <Button fx:id="btnConfirmarReserva" layoutX="457.0" layoutY="470.0" mnemonicParsing="false" onAction="#confirmarReserva" text="Confirmar Reserva">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
 
-      <Button fx:id="btnVoltar" layoutX="339.0" layoutY="549.0" mnemonicParsing="false" onAction="#voltar" text="Voltar">
+      <Button fx:id="btnVoltar" layoutX="355.0" layoutY="549.0" mnemonicParsing="false" onAction="#voltar" text="Voltar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -106,7 +106,23 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPagamento" layoutX="194.0" layoutY="171.0" />
+      <TextField fx:id="txtPagamento" layoutX="194.0" layoutY="171.0" prefHeight="25.0" prefWidth="163.0" />
+      <Button fx:id="btnCalcularValor" layoutX="456.0" layoutY="406.0" mnemonicParsing="false" onAction="#calcularValor" prefHeight="25.0" prefWidth="121.0" text="Calcular Valor">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="135.0" layoutY="406.0" text="Valor Total  Estimado:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblValorEstimado" layoutX="313.0" layoutY="406.0" text="-">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="82.0" layoutY="439.0" prefHeight="20.0" prefWidth="272.0" text="(itens e serviços em horário noturno não inclusos)" />
 
    </children>
 </AnchorPane>
