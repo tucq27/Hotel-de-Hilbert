@@ -10,6 +10,7 @@ import com.smarthotel.models.Recibo;
 
 public interface IContPagamentos {
     Recibo gerarReciboDiaria(Hospedagem hosp);
+    Recibo gerarReciboMulta(Hospedagem hosp);
     Recibo gerarReciboServico(Hospedagem hosp, Funcionario f, String descricao);
     Recibo gerarReciboFrigobar(Item item, Hospedagem hosp);
 

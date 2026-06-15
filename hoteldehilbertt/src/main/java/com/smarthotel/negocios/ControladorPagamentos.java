@@ -42,7 +42,7 @@ public class ControladorPagamentos implements IContPagamentos {
     public Recibo gerarReciboDiaria(Hospedagem hosp) {
 
         LocalDate entrada = hosp.getDataEntrada();
-        LocalDate saida = LocalDate.now();
+        LocalDate saida = hosp.getHorarioSaida().toLocalDate();
         double taxaQuarto = hosp.getQuarto().getMultTaxa();
 
         double valor = calcularValor(entrada, saida, taxaQuarto);
@@ -68,6 +68,15 @@ public class ControladorPagamentos implements IContPagamentos {
         recibo.setId(reciboId);
 
         return recibo;
+    }
+
+    public Recibo gerarReciboMulta(Hospedagem hosp) {
+        Recibo recibo = new Recibo(TipoRecibo.MULTA, 60);
+
+        String reciboId = gerarId(TipoRecibo.MULTA);
+        recibo.setId(reciboId);
+
+        return recibo;        
     }
 
     public Recibo gerarReciboServico(Hospedagem hosp, Funcionario f, String descricao) {

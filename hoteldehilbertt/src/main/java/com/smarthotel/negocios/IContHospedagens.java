@@ -20,7 +20,7 @@ public interface IContHospedagens {
     void checkIn(Hospedagem hospedagem) throws QIException, CIFException, CIJRException;
     void checkOut(Hospedagem hospedagem) throws CINRException, COJRException, DNPException, SPException;
 
-    void cancelarReserva(Hospedagem hospedagem);
+    void cancelarReserva(Hospedagem hospedagem) throws RNCException;
     boolean verificarHospede(Hospedagem hospedagem, String nome, String cpf, LocalDate dataNascimento);
     boolean hospedagmJaExiste(LocalDate dataSaida, Quarto quarto);
 

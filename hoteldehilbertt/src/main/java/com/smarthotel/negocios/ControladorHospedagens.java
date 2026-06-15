@@ -175,14 +175,13 @@ public class ControladorHospedagens implements IContHospedagens {
     }
 
     // cancela a reserva, antes de se hospedar no hotel
-    public void cancelarReserva(Hospedagem hospedagem) {
+    public void cancelarReserva(Hospedagem hospedagem) throws RNCException{
         if (!podeCancelarReserva(hospedagem)) {
-            ///// Cobrar a multa de cancelamento
+            throw new RNCException();
         }
         if (hospedagem.getQuarto() != null) {
             hospedagem.setStatus(StatusHospedagem.CANCELADA);
             
-
             // Limpa os dados da reserva
             hospedagem.setDiariaPaga(true);
             hospedagem.setHorarioReserva(null);

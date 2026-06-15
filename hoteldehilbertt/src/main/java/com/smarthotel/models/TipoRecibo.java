@@ -1,5 +1,5 @@
 package com.smarthotel.models;
 
 public enum TipoRecibo {
-    DIARIA, SERVICO, FRIGOBAR;
+    DIARIA, MULTA, SERVICO, FRIGOBAR;
 }
