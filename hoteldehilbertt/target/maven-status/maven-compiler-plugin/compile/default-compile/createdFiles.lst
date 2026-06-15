@@ -1,4 +1,5 @@
 com\smarthotel\gui\controllers\AlterarEstadia.class
+com\smarthotel\negocios\exceptions\PDFException.class
 com\smarthotel\negocios\GeradorCSV.class
 com\smarthotel\gui\controllers\CadastrarQuarto.class
 com\smarthotel\models\Frigobar.class
