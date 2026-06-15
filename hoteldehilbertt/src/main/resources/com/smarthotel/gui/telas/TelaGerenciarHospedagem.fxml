@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -86,15 +87,27 @@
             </font>
         </Button>
 
+        <Label layoutX="17.0" layoutY="460.0" text="CPF Funcionário:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+
+        <TextField fx:id="txtCpfFuncionario"
+                   layoutX="17.0"
+                   layoutY="477.0"
+                   prefHeight="25.0"
+                   prefWidth="215.0" />
+
         <ComboBox fx:id="cbTipoServico"
                   layoutX="17.0"
-                  layoutY="495.0"
+                  layoutY="510.0"
                   prefHeight="25.0"
                   prefWidth="114.0" />
 
         <Button fx:id="btnPedirServico"
                 layoutX="135.0"
-                layoutY="495.0"
+                layoutY="510.0"
                 mnemonicParsing="false"
                 onAction="#pedirServico"
                 prefHeight="25.0"

@@ -1,6 +1,5 @@
 package com.smarthotel.gui.controllers;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -10,16 +9,18 @@ import com.smarthotel.models.Hospedagem;
 import com.smarthotel.models.Hospede;
 import com.smarthotel.models.Pessoa;
 import com.smarthotel.models.Recibo;
+import com.smarthotel.models.StatusHospedagem;
 import com.smarthotel.negocios.ControladorHospedagens;
 import com.smarthotel.negocios.ControladorPagamentos;
+import com.smarthotel.negocios.ControladorPessoas;
 import com.smarthotel.negocios.GeradorPDF;
 import com.smarthotel.negocios.IContHospedagens;
 import com.smarthotel.negocios.IContPagamentos;
+import com.smarthotel.negocios.IContPessoas;
 import com.smarthotel.negocios.exceptions.CINRException;
 import com.smarthotel.negocios.exceptions.COJRException;
 import com.smarthotel.negocios.exceptions.DNPException;
 import com.smarthotel.negocios.exceptions.SPException;
-import com.smarthotel.models.StatusHospedagem;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 public class GerenciarHospedagem extends Transitavel {
 
@@ -60,6 +62,9 @@ public class GerenciarHospedagem extends Transitavel {
 
     @FXML
     private ComboBox<String> cbTipoServico;
+
+    @FXML
+    private TextField txtCpfFuncionario;
 
     @FXML
     public void initialize() {
@@ -112,7 +117,7 @@ public class GerenciarHospedagem extends Transitavel {
             contHosp.checkOut(hospedagemSelecionada);
 
             GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarFaturaPDF( hospedagemSelecionada, "relatorios/fatura.pdf");
+            gerador.gerarFaturaPDF(hospedagemSelecionada, "relatorios/fatura.pdf");
 
             mostrarAlerta(
                     Alert.AlertType.INFORMATION,
@@ -154,50 +159,68 @@ public class GerenciarHospedagem extends Transitavel {
     @FXML
     private void pedirServico() {
         String servico = cbTipoServico.getValue();
+        String cpfFuncionario = txtCpfFuncionario.getText();
 
         if (servico == null || servico.isEmpty()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Atenção", "Selecione um tipo de serviço.");
             return;
         }
 
-        Pessoa pessoaServico = new Pessoa(
-                "Funcionário Serviço",
-                "00000000000",
-                LocalDate.now(),
-                "00000000000",
-                "servico@hotel.com"
-        );
+        if (cpfFuncionario == null || cpfFuncionario.trim().isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Atenção", "Informe o CPF do funcionário.");
+            return;
+        }
 
-        Funcionario funcionario = new Funcionario(
-                pessoaServico,
-                "Serviço de Quarto"
-        );
+        try {
+            IContPessoas contPessoas = ControladorPessoas.getInstance();
 
-        IContPagamentos contPag = ControladorPagamentos.getInstance();
+            Pessoa pessoa = contPessoas.buscarPessoa(cpfFuncionario.trim());
 
-        Recibo recibo = contPag.gerarReciboServico(
-                hospedagemSelecionada,
-                funcionario,
-                servico
-        );
+            if (!(pessoa instanceof Funcionario)) {
+                mostrarAlerta(Alert.AlertType.ERROR, "Erro", "O CPF informado não pertence a um funcionário.");
+                return;
+            }
 
-        contPag.adicionarRecibo(
-                hospedagemSelecionada.getConta(),
-                recibo
-        );
+            Funcionario funcionario = (Funcionario) pessoa;
 
-        mostrarAlerta(
-                Alert.AlertType.INFORMATION,
-                "Serviço solicitado",
-                "Serviço solicitado com sucesso!\n" +
-                        "Serviço: " + servico + "\n" +
-                        "Valor adicionado: R$ " + String.format("%.2f", recibo.getValor())
-        );
+            if (funcionario.isOcupado()) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Funcionário ocupado", "Este funcionário já está ocupado.");
+                return;
+            }
+
+            IContPagamentos contPag = ControladorPagamentos.getInstance();
+
+            Recibo recibo = contPag.gerarReciboServico(
+                    hospedagemSelecionada,
+                    funcionario,
+                    servico
+            );
+
+            contPag.adicionarRecibo(
+                    hospedagemSelecionada.getConta(),
+                    recibo
+            );
+
+            funcionario.setOcupado(true);
+
+            mostrarAlerta(
+                    Alert.AlertType.INFORMATION,
+                    "Serviço solicitado",
+                    "Serviço solicitado com sucesso!\n" +
+                            "Funcionário: " + funcionario.getNome() + "\n" +
+                            "Serviço: " + servico + "\n" +
+                            "Valor adicionado: R$ " + String.format("%.2f", recibo.getValor())
+            );
+
+            txtCpfFuncionario.clear();
+
+        } catch (ONEException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", e.getMessage());
+        }
     }
 
     @FXML
     private void abrirFrigobarAdm() {
-        System.out.println("Botão clicado");
         abrirTela(
                 "/com/smarthotel/gui/telas/TelaFrigobarAdmin.fxml",
                 "Gerenciar Frigobar"
