@@ -10,6 +10,7 @@ import com.smarthotel.models.*;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 
 public class RealizarReserva extends RealizarHospedagem {
@@ -47,6 +48,25 @@ public class RealizarReserva extends RealizarHospedagem {
 
     @FXML
     private DatePicker dpDataEntrada;
+
+    @FXML
+    private void calcularValor() {
+        String idQuarto = txtIdQuarto.getText();
+        LocalDate dataSaida = dpDataSaida.getValue();
+        LocalDate dataEntrada = dpDataEntrada.getValue();
+
+        IContQuartos controladorQuartos = ControladorQuartos.getInstance();
+        IContPagamentos contP = ControladorPagamentos.getInstance();
+
+        try {
+            Quarto quarto = controladorQuartos.buscarQuarto(idQuarto);
+            double valor = contP.calcularValor(dataEntrada, dataSaida, quarto.getMultTaxa());
+
+            lblValorEstimado.setText("R$ " + String.format("%.2f", valor));
+        } catch (ONEException e) {
+            mostrarAlerta(AlertType.ERROR, idQuarto, "Quarto não encontrado");
+        }
+    }
 
     @FXML
     private void confirmarReserva() {
@@ -146,7 +166,7 @@ public class RealizarReserva extends RealizarHospedagem {
             alert.setContentText(ne.getMessage());
             alert.showAndWait();
 
-        } catch (QIException | CIFException | CIJRException | HPException | QLException | ORException e) {
+        } catch (QJRException | CIFException | CIJRException | HPException | QLException | ORException e) {
             System.out.println(" - - - - Erro ao realizar reserva: " + e.getMessage());
 
             Alert alert = new Alert(Alert.AlertType.ERROR);

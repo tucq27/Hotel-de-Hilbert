@@ -13,6 +13,7 @@ import com.smarthotel.models.Hospedagem;
 import com.smarthotel.models.Item;
 import com.smarthotel.models.Quarto;
 import com.smarthotel.models.Recibo;
+import com.smarthotel.models.StatusHospedagem;
 import com.smarthotel.models.TipoRecibo;
 
 public class ControladorPagamentos implements IContPagamentos {
@@ -41,7 +42,7 @@ public class ControladorPagamentos implements IContPagamentos {
     public Recibo gerarReciboDiaria(Hospedagem hosp) {
 
         LocalDate entrada = hosp.getDataEntrada();
-        LocalDate saida = LocalDate.now();
+        LocalDate saida = hosp.getHorarioSaida().toLocalDate();
         double taxaQuarto = hosp.getQuarto().getMultTaxa();
 
         double valor = calcularValor(entrada, saida, taxaQuarto);
@@ -56,7 +57,7 @@ public class ControladorPagamentos implements IContPagamentos {
 
     // sobrecarrega o metodo anterior, pois serve para gerar diarias extras (saida atrasada)
     public Recibo gerarReciboDiaria(Hospedagem hosp, LocalDate entrada) {
-        LocalDate saida = LocalDate.now();
+        LocalDate saida = hosp.getHorarioSaida().toLocalDate();
         double taxaQuarto = hosp.getQuarto().getMultTaxa();
 
         double valor = calcularValor(entrada, saida, taxaQuarto);
@@ -69,18 +70,26 @@ public class ControladorPagamentos implements IContPagamentos {
         return recibo;
     }
 
+    public Recibo gerarReciboMulta(Hospedagem hosp) {
+        double valor = Quarto.getValorMulta();
+        Recibo recibo = new Recibo(TipoRecibo.MULTA, valor);
+
+        String reciboId = gerarId(TipoRecibo.MULTA);
+        recibo.setId(reciboId);
+
+        return recibo;        
+    }
+
     public Recibo gerarReciboServico(Hospedagem hosp, Funcionario f, String descricao) {
         LocalTime agora = LocalTime.now();
         LocalTime noiteInicio = LocalTime.of(22, 0);
         LocalTime noiteFim = LocalTime.of(5, 0);
-        double taxaNoturna = 0;
-        double valor = Quarto.getValorServico();
+        double valor = 0;
 
         if (agora.isAfter(noiteInicio) || agora.isBefore(noiteFim)) {
-            taxaNoturna = Quarto.getTaxaNoturna();
+            valor = Quarto.getValorServicoNoturno();
         }
 
-        valor = valor + taxaNoturna;
         String mensagem = f.getNome() + " | " + f.getCargo() + " | " + descricao;
 
         Recibo recibo = new Recibo(TipoRecibo.SERVICO, valor, mensagem);
@@ -117,12 +126,12 @@ public class ControladorPagamentos implements IContPagamentos {
         conta.setSaldoPendente(dividaTotal);
     }
 
-    public void alterarValores(double diaria, double servico) {
+    public void alterarValores(double diaria, double multa) {
         if (diaria >= 1) {
             Quarto.setValorDiaria(diaria);
         }
-        if (servico >= 1) {
-            Quarto.setValorServico(servico);
+        if (multa >= 1) {
+            Quarto.setValorMulta(multa);
         }
     }
 
@@ -140,7 +149,7 @@ public class ControladorPagamentos implements IContPagamentos {
             Quarto.setTaxaTemporada(temporada);
         }
         if (servNoturno >= 1) {
-            Quarto.setTaxaNoturna(servNoturno);
+            Quarto.setValorServicoNoturno(servNoturno);
         }
     }
 
@@ -169,20 +178,65 @@ public class ControladorPagamentos implements IContPagamentos {
 
         ContaHospedagem conta = hosp.getConta();
         double divida = conta.getSaldoPendente();
-        
+        conta.setSaldoPago(conta.getSaldoPago() + divida);
         conta.setSaldoPendente(0);
-        conta.setSaldoPago(divida);
         
         hosp.setDiariaPaga(true);
     }
 
-    public void verificarDiariaAtrasada(Hospedagem hosp) {
-        LocalDateTime agora = LocalDateTime.now();
-        LocalDateTime horarioSaida = hosp.getHorarioSaida();
-        LocalDateTime checkout = hosp.getHorarioCheckOut();
+    public void pagarDividaGrupo(Hospedagem hosp) {
+        pagarDivida(hosp);
+        ContaHospedagem conta = hosp.getConta();
+        IContHospedagens hospedagens = ControladorHospedagens.getInstance();
 
-        if (agora.isAfter(horarioSaida) && checkout == null) {
-            hosp.setDiariaPaga(false);
+        for (Hospedagem h : hospedagens.getRepositorioHospedagens().getObjetos()) {
+
+            // se existir outra hospedagem ativa, conectada à mesma conta e que ainda não foi paga:
+            if ((h.getConta().equals(conta)) && (h.getStatus() == StatusHospedagem.ATIVA) && (h.isDiariaPaga() == false)) {
+                ContaHospedagem conta2 = h.getConta();
+
+                double divida = conta2.getSaldoPendente();
+                conta2.setSaldoPago(conta2.getSaldoPago() + divida);
+                conta2.setSaldoPendente(0);
+        
+                h.setDiariaPaga(true);
+            }
+        }
+    }
+
+    public void verificarDiariaAtrasada(Hospedagem hosp) {
+        if (hosp != null) {
+            LocalDateTime agora = LocalDateTime.now();
+            LocalDateTime horarioSaida = hosp.getHorarioSaida();
+            LocalDateTime checkout = hosp.getHorarioCheckOut();
+
+            if (agora.isAfter(horarioSaida) && checkout == null) {
+
+                ContaHospedagem conta = hosp.getConta();
+                for (Recibo r : conta.getRecibos()) {
+                    if (r.getTipo() == TipoRecibo.ATRASO) {
+
+                        LocalDate inicio = hosp.getHorarioSaida().toLocalDate();
+                        double extra = calcularValor(inicio, LocalDate.now(), hosp.getQuarto().getMultTaxa());
+
+                        // adicionando valor ao saldo pendente
+                        double diferenca = extra - r.getValor();
+                        conta.setSaldoPendente( conta.getSaldoPendente() + diferenca);
+
+                        r.setValor(extra);
+                        return;
+                    }
+                }
+
+                LocalDate inicio = hosp.getHorarioSaida().toLocalDate();
+                double extra = calcularValor(inicio, LocalDate.now(), hosp.getQuarto().getMultTaxa());
+                Recibo atraso = new Recibo(TipoRecibo.ATRASO, extra);
+
+                String reciboId = gerarId(TipoRecibo.ATRASO);
+                atraso.setId(reciboId);
+                
+                adicionarRecibo(conta, atraso);
+            }
         }
     }
 

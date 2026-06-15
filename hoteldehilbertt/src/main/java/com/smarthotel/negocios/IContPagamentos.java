@@ -10,6 +10,7 @@ import com.smarthotel.models.Recibo;
 
 public interface IContPagamentos {
     Recibo gerarReciboDiaria(Hospedagem hosp);
+    Recibo gerarReciboMulta(Hospedagem hosp);
     Recibo gerarReciboServico(Hospedagem hosp, Funcionario f, String descricao);
     Recibo gerarReciboFrigobar(Item item, Hospedagem hosp);
 
@@ -19,4 +20,8 @@ public interface IContPagamentos {
     void alterarValores(double diaria, double servico);
     void alterarTaxas(double padrao, double suite, double presidencial, double temporada, double servNoturno);
     double calcularValor(LocalDate entrada, LocalDate saida, double taxaQuarto);
+    void verificarDiariaAtrasada(Hospedagem hosp);
+
+    void pagarDivida(Hospedagem hosp);
+    void pagarDividaGrupo(Hospedagem hosp);
 }
