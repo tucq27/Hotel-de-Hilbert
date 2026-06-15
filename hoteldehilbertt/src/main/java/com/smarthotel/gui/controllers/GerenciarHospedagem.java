@@ -195,12 +195,4 @@ public class GerenciarHospedagem extends Transitavel {
     private void atualizar() {
 
     }
-
-    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
-        alert.showAndWait();
-    }
 }

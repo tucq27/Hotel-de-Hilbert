@@ -84,12 +84,4 @@ public class VerRecibos extends Transitavel {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao gerar a fatura.");
         }
     }
-
-    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
-        alert.showAndWait();
-    }
 }
