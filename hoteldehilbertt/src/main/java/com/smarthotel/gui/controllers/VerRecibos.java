@@ -17,11 +17,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-<<<<<<< HEAD
 import javafx.stage.FileChooser;
-=======
 import javafx.scene.control.Alert.AlertType;
->>>>>>> 6e4b87c64e1698ecc29bbc3d13d639d6e7c2fcd4
 
 public class VerRecibos extends Transitavel {
     
@@ -63,18 +60,11 @@ public class VerRecibos extends Transitavel {
 
     @FXML
     public void initialize() {
-<<<<<<< HEAD
+    Hospedagem hospedagemDaBusca = BuscarHospedagem.getHospedagemSelecionada();
 
-        System.out.println("ENTROU NO INITIALIZE DE VER RECIBOS");
-
-        setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
-=======
-        Hospedagem hospedagemDaBusca = BuscarHospedagem.getHospedagemSelecionada();
-
-        if (hospedagemDaBusca != null) {
-            setHospedagemSelecionada(hospedagemDaBusca);
-        }
->>>>>>> 6e4b87c64e1698ecc29bbc3d13d639d6e7c2fcd4
+    if (hospedagemDaBusca != null) {
+        setHospedagemSelecionada(hospedagemDaBusca);
+    }
 
         double dividaPendente = hospedagemSelecionada.getConta().getSaldoPendente();
         double saldoPago = hospedagemSelecionada.getConta().getSaldoPago();
@@ -206,13 +196,12 @@ public class VerRecibos extends Transitavel {
     @FXML
     private void gerarRecibo() {
 
-<<<<<<< HEAD
-=======
         ContaHospedagem conta = hospedagemSelecionada.getConta();
 
         for (Recibo r : conta.getRecibos()) {
             if (r.getTipo() == TipoRecibo.DIARIA) {
-                mostrarAlerta(AlertType.ERROR,null, "Recibo de diária já foi gerado.");
+                mostrarAlerta(AlertType.ERROR, null,
+                        "Recibo de diária já foi gerado.");
                 return;
             }
         }
@@ -223,7 +212,6 @@ public class VerRecibos extends Transitavel {
         contP.adicionarRecibo(conta, diaria);
 
         initialize();
->>>>>>> 6e4b87c64e1698ecc29bbc3d13d639d6e7c2fcd4
     }
 }
 

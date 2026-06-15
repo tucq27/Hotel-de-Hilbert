@@ -6,16 +6,16 @@ public class ContaHospedagem {
     private String id;
     private Pessoa responsavel;
     private String dadosPagamento;
-    private double saldoPago= 0;
+    private double saldoPago = 0;
     private double saldoPendente;
     private ArrayList<Recibo> recibos;
 
-    public ContaHospedagem(String id, Pessoa responsavel, String dadosPagamento){
-        this.id= id;
-        this.responsavel= responsavel;
+    public ContaHospedagem(String id, Pessoa responsavel, String dadosPagamento) {
+        this.id = id;
+        this.responsavel = responsavel;
         this.dadosPagamento = dadosPagamento;
-        this.saldoPendente= 0;
-        this.recibos= new ArrayList<Recibo>(10);
+        this.saldoPendente = 0;
+        this.recibos = new ArrayList<Recibo>(10);
     }
 
     // Getters e Setters
@@ -58,7 +58,7 @@ public class ContaHospedagem {
     public void setRecibos(ArrayList<Recibo> recibos) {
         this.recibos = recibos;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -67,4 +67,13 @@ public class ContaHospedagem {
         this.id = id;
     }
 
+    // MÉTODOS ADICIONADOS PARA COMPATIBILIDADE
+
+    public double getDividaTotal() {
+        return saldoPendente;
+    }
+
+    public void setDividaTotal(double dividaTotal) {
+        this.saldoPendente = dividaTotal;
+    }
 }
