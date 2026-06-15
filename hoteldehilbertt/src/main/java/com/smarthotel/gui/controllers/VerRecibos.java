@@ -51,7 +51,11 @@ public class VerRecibos extends Transitavel {
 
     @FXML
     public void initialize() {
-        setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
+        Hospedagem hospedagemDaBusca = BuscarHospedagem.getHospedagemSelecionada();
+
+        if (hospedagemDaBusca != null) {
+            setHospedagemSelecionada(hospedagemDaBusca);
+        }
 
         double dividaPendente = hospedagemSelecionada.getConta().getSaldoPendente();
         ArrayList<String> recibos = new ArrayList<>(); 

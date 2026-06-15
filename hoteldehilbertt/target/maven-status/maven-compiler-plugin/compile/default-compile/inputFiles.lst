@@ -17,6 +17,7 @@ C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbert
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\BuscarItem.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\BuscarPessoa.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\BuscarQuarto.java
+C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\BuscarReservaUsuario.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\CadastrarFuncionario.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\CadastrarHospede.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\CadastrarItem.java
@@ -24,11 +25,16 @@ C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbert
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\CadastrarQuarto.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\ConfirmarCheckin.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\FrigobarAdmin.java
+C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\FrigobarUsuario.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\GerenciarFuncionario.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\GerenciarHospedagem.java
+C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\GerenciarHospedagemUsuario.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\GerenciarHospede.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\GerenciarItem.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\GerenciarQuarto.java
+C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\GerenciarReservaUsuario.java
+C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\LoginUsuario.java
+C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\PrincipalUsuario.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\RealizarHospedagem.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\RealizarReserva.java
 C:\Users\Gustavo\Desktop\pasta mais mais nova ip\Hotel-de-Hilbert\hoteldehilbertt\src\main\java\com\smarthotel\gui\controllers\TelaInicial.java

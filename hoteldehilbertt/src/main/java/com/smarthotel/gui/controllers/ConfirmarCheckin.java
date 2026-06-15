@@ -52,8 +52,21 @@ public class ConfirmarCheckin extends Transitavel {
 
     @FXML
     public void initialize() {
-        setHospedagemSelecionada(BuscarHospedagem.getHospedagemSelecionada());
-        
+        Hospedagem hospedagemDaBusca = BuscarHospedagem.getHospedagemSelecionada();
+
+        if (hospedagemDaBusca != null) {
+            setHospedagemSelecionada(hospedagemDaBusca);
+        }
+
+        if (hospedagemSelecionada == null) {
+            mostrarAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro",
+                    "Nenhuma hospedagem foi selecionada."
+            );
+            return;
+        }
+
         lblResponsavel.setText(hospedagemSelecionada.getConta().getResponsavel().getNome());
         lblId.setText(hospedagemSelecionada.getId());
     }
