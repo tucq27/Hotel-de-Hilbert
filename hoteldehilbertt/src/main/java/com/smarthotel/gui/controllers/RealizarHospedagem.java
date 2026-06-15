@@ -53,7 +53,7 @@ public class RealizarHospedagem extends Transitavel {
     }
 
     @FXML
-    protected void calcularValor() {
+    private void calcularValor() {
         String idQuarto = txtIdQuarto.getText();
         LocalDate dataSaida = dpDataSaida.getValue();
 

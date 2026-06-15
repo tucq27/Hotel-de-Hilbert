@@ -15,7 +15,7 @@ public interface IContHospedagens {
         throws QIException, CIFException, CIJRException, HPException, QLException, ORException;
 
     String reservarHospedagem(Quarto quarto, LocalDate dataEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
-        throws QIException, CIFException, CIJRException, HPException, QLException, ORException;
+        throws QJRException, CIFException, CIJRException, HPException, QLException, ORException;
 
     void checkIn(Hospedagem hospedagem) throws QIException, CIFException, CIJRException;
     void checkOut(Hospedagem hospedagem) throws CINRException, COJRException, DNPException, SPException;

@@ -85,11 +85,12 @@ public class ControladorHospedagens implements IContHospedagens {
     }
 
     public String reservarHospedagem(Quarto quarto, LocalDate dataEntrada, LocalDateTime horarioSaida, ContaHospedagem conta, ArrayList<Hospede> hospedes) 
-      throws QIException, CIFException, CIJRException, HPException, QLException, ORException {
+      throws QJRException, CIFException, CIJRException, HPException, QLException, ORException {
         
-        if (!quartoEstaDisponivel(quarto)) {
-            throw new QIException(quarto); // quarto não disponível
+        if (quartoEstaReservado(quarto, dataEntrada, horarioSaida.toLocalDate())) {
+            throw new QJRException(); // quarto não estará disponível
         }
+        
         if (!quartoTemEspaco(quarto, hospedes)) {
             throw new QLException(quarto); // limite de hospedes para o quarto excedido
         }
@@ -131,47 +132,47 @@ public class ControladorHospedagens implements IContHospedagens {
 
     public void checkOut(Hospedagem hospedagem) throws CINRException, COJRException, DNPException, SPException {
     
-    // verifica se a diaria foi paga
-    if (hospedagem.isDiariaPaga() == false) {
-        throw new DNPException();
+        // verifica se a diaria foi paga
+        if (hospedagem.isDiariaPaga() == false) {
+            throw new DNPException();
+        }
+
+        // verifica se a conta responsavel tem saldo pendente
+        double saldoPendente = hospedagem.getConta().getSaldoPendente();
+        if (saldoPendente > 0) {
+            throw new SPException(saldoPendente);
+        }
+
+        // Só permite check-out se houver check-in
+        if (hospedagem.getHorarioCheckIn() == null) {
+            throw new CINRException();
+        }
+
+        // Impede múltiplos check-outs
+        if (hospedagem.getHorarioCheckOut() != null) {
+            throw new COJRException();
+        }
+
+        // Gera o recibo da diária
+        ControladorPagamentos pagamentos =
+                ControladorPagamentos.getInstance();
+
+        Recibo reciboDiaria =
+                pagamentos.gerarReciboDiaria(hospedagem);
+
+        pagamentos.adicionarRecibo(
+                hospedagem.getConta(),
+                reciboDiaria);
+
+        // Registra horário de saída
+        hospedagem.setHorarioCheckOut(LocalDateTime.now());
+        hospedagem.setStatus(StatusHospedagem.ENCERRADA);
+
+        // Libera o quarto, mas ele fica sujo
+        if (hospedagem.getQuarto() != null) {
+            hospedagem.getQuarto().setStatus(StatusQuarto.SUJO);
+        }
     }
-
-    // verifica se a conta responsavel tem saldo pendente
-    double saldoPendente = hospedagem.getConta().getSaldoPendente();
-    if (saldoPendente > 0) {
-        throw new SPException(saldoPendente);
-    }
-
-    // Só permite check-out se houver check-in
-    if (hospedagem.getHorarioCheckIn() == null) {
-        throw new CINRException();
-    }
-
-    // Impede múltiplos check-outs
-    if (hospedagem.getHorarioCheckOut() != null) {
-        throw new COJRException();
-    }
-
-    // Gera o recibo da diária
-    ControladorPagamentos pagamentos =
-            ControladorPagamentos.getInstance();
-
-    Recibo reciboDiaria =
-            pagamentos.gerarReciboDiaria(hospedagem);
-
-    pagamentos.adicionarRecibo(
-            hospedagem.getConta(),
-            reciboDiaria);
-
-    // Registra horário de saída
-    hospedagem.setHorarioCheckOut(LocalDateTime.now());
-    hospedagem.setStatus(StatusHospedagem.ENCERRADA);
-
-    // Libera o quarto, mas ele fica sujo
-    if (hospedagem.getQuarto() != null) {
-        hospedagem.getQuarto().setStatus(StatusQuarto.SUJO);
-    }
-}
 
     // cancela a reserva, antes de se hospedar no hotel
     public void cancelarReserva(Hospedagem hospedagem) {
@@ -191,6 +192,33 @@ public class ControladorHospedagens implements IContHospedagens {
     }
 
     // métodos auxiliares para validação de regras de negócio
+    private boolean quartoEstaReservado(Quarto quarto, LocalDate entrada, LocalDate saida) {
+
+        for (Hospedagem hosp : repositorioHospedagens.getObjetos()) {
+
+            if ( !(hosp.getQuarto().equals(quarto)) ) {
+                continue;
+            }
+
+            // ignorando reservas canceladas
+            if (hosp.getStatus() == StatusHospedagem.CANCELADA) {
+                continue;
+            }
+
+            LocalDate entradaExistente = hosp.getDataEntrada();
+            LocalDate saidaExistente = hosp.getHorarioSaida().toLocalDate();
+
+            boolean haConflito =
+                entrada.isBefore(saidaExistente) && saida.isAfter(entradaExistente);
+
+            if (haConflito) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private boolean quartoEstaDisponivel(Quarto quarto) {
         return ((quarto != null) && (quarto.getStatus() == StatusQuarto.DISPONIVEL));
     }
