@@ -73,14 +73,14 @@ public class ControladorPagamentos implements IContPagamentos {
         LocalTime agora = LocalTime.now();
         LocalTime noiteInicio = LocalTime.of(22, 0);
         LocalTime noiteFim = LocalTime.of(5, 0);
-        double taxaNoturna = 1;
+        double taxaNoturna = 0;
         double valor = Quarto.getValorServico();
 
         if (agora.isAfter(noiteInicio) || agora.isBefore(noiteFim)) {
             taxaNoturna = Quarto.getTaxaNoturna();
         }
 
-        valor = valor * taxaNoturna;
+        valor = valor + taxaNoturna;
         String mensagem = f.getNome() + " | " + f.getCargo() + " | " + descricao;
 
         Recibo recibo = new Recibo(TipoRecibo.SERVICO, valor, mensagem);

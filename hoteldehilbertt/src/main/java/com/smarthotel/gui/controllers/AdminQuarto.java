@@ -7,8 +7,8 @@ import com.smarthotel.negocios.ControladorHospedagens;
 import com.smarthotel.negocios.GeradorCSV;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 
 public class AdminQuarto extends Transitavel {
 

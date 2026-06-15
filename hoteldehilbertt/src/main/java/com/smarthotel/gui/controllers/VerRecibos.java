@@ -35,6 +35,8 @@ public class VerRecibos extends Transitavel {
     private Button btnPagamento;
     @FXML
     private Button btnGerarRecibo;
+    @FXML
+    private Button btnGerarRelatorio;
 
     @FXML
     protected Label lblResponsavel;
@@ -125,12 +127,43 @@ public class VerRecibos extends Transitavel {
     }
 
     @FXML
+    private void gerarRelatorio() {
+
+        try {
+
+            GeradorPDF gerador = new GeradorPDF();
+
+            gerador.gerarRelatorioHospedagemPDF(
+                    hospedagemSelecionada,
+                    "relatorios/relatorio_hospedagem.pdf"
+            );
+
+            mostrarAlerta(
+                    Alert.AlertType.INFORMATION,
+                    "Relatório Gerado",
+                    "Relatório da hospedagem gerado com sucesso."
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            mostrarAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro",
+                    "Erro ao gerar relatório da hospedagem."
+            );
+        }
+    }
+
+    @FXML
+    private void realizarPagamento() {
+
+    }
+
+    @FXML
     private void gerarRecibo() {
 
-        mostrarAlerta(
-                Alert.AlertType.INFORMATION,
-                "Aviso",
-                "Função ainda não implementada."
-        );
     }
 }
+
