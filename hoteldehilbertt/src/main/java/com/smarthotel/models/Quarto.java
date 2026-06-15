@@ -17,8 +17,8 @@ public class Quarto implements IIdentificavel {
     private TipoQuarto tipo;
 
     private static double valorDiaria = 30;
-    private static double valorServico = 10;
-    private static double taxaNoturna = 2;
+    private static double valorServico = 0;
+    private static double taxaNoturna = 9;
     private static double taxaPadrao =1;
     private static double taxaSuite = 2;
     private static double taxaPresidencial = 5;

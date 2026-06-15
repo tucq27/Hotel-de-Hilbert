@@ -89,11 +89,11 @@ public class Main extends Application {
 
             GeradorPDF geradorPDF = new GeradorPDF();
 
-            geradorPDF.gerarFaturaPDF(hospedagem);
+            geradorPDF.gerarFaturaPDF(hospedagem, "relatorios/fatura_teste.pdf");
 
             GeradorPDF gerador = new GeradorPDF();
 
-           gerador.gerarRelatorioHospedagemPDF(hospedagem);
+           gerador.gerarRelatorioHospedagemPDF(hospedagem, "relatorios/relatorio_teste.pdf");
 
            ControladorRelatorios relatorios =
            ControladorRelatorios.getInstance();

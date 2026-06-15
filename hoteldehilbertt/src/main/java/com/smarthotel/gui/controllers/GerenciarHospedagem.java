@@ -112,7 +112,7 @@ public class GerenciarHospedagem extends Transitavel {
             contHosp.checkOut(hospedagemSelecionada);
 
             GeradorPDF gerador = new GeradorPDF();
-            gerador.gerarFaturaPDF(hospedagemSelecionada);
+            gerador.gerarFaturaPDF( hospedagemSelecionada, "relatorios/fatura.pdf");
 
             mostrarAlerta(
                     Alert.AlertType.INFORMATION,
