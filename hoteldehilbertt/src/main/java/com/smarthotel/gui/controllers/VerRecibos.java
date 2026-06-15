@@ -32,6 +32,8 @@ public class VerRecibos extends Transitavel {
     @FXML
     private Button btnPagamento;
     @FXML
+    private Button btnPagarGrupo;
+    @FXML
     private Button btnGerarRecibo;
     @FXML
     private Button btnGerarRelatorio;
@@ -100,6 +102,11 @@ public class VerRecibos extends Transitavel {
             e.printStackTrace();
             mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao gerar relatório da hospedagem.");
         }
+    }
+
+    @FXML
+    private void pagarGrupo() {
+
     }
 
     @FXML

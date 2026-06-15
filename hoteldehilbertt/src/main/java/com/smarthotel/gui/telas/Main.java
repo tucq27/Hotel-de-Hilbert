@@ -76,16 +76,9 @@ public class Main extends Application {
                     LocalDateTime.of(2026, 6, 5, 12, 0),
                     conta1,
                     hospedes);
-            IContPagamentos contPagamentos = ControladorPagamentos.getInstance();
-
+                    
             Hospedagem hospedagem = contHospedagens.buscarHospedagem(h1);
 
-            Recibo reciboDiaria =
-                    contPagamentos.gerarReciboDiaria(hospedagem);
-
-            contPagamentos.adicionarRecibo(
-                    hospedagem.getConta(),
-                    reciboDiaria);
 
             GeradorPDF geradorPDF = new GeradorPDF();
 

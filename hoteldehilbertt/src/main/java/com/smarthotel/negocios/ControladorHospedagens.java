@@ -183,6 +183,7 @@ public class ControladorHospedagens implements IContHospedagens {
             
 
             // Limpa os dados da reserva
+            hospedagem.setDiariaPaga(true);
             hospedagem.setHorarioReserva(null);
             hospedagem.setDataEntrada(null);
             hospedagem.setHorarioSaida(null);

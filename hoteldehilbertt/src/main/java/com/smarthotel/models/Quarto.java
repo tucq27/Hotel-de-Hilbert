@@ -34,6 +34,7 @@ public class Quarto implements IIdentificavel {
         this.numero = numero;
         this.andar = andar;
         this.capacidade = capacidade;
+        this.frigobar = new Frigobar(20);
     }
 
     // construtor com frigobar

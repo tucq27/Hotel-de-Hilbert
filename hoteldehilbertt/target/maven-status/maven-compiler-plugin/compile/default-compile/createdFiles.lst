@@ -63,7 +63,6 @@ com\smarthotel\gui\controllers\AdminItens.class
 com\smarthotel\gui\controllers\BuscarPessoa.class
 com\smarthotel\negocios\exceptions\DNPException.class
 com\smarthotel\gui\controllers\VerAlertas.class
-com\smarthotel\teste\TesteFatura.class
 com\smarthotel\gui\controllers\GerenciarHospedagem.class
 com\smarthotel\negocios\ControladorItens.class
 com\smarthotel\negocios\IContItens.class
