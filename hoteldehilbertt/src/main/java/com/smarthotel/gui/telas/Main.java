@@ -25,7 +25,7 @@ public class Main extends Application {
 
         // abre a tela principal (admin) por hora
         // substituir por outra tela, que vai abrir tela de seleção: (admin) ou (usuario)
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("TelaPrincipalAdministrador.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("TelaInicial.fxml")));
         stage.setScene(scene);
         stage.setTitle("SmartHotel");
         stage.show();
@@ -89,11 +89,11 @@ public class Main extends Application {
 
             GeradorPDF geradorPDF = new GeradorPDF();
 
-            geradorPDF.gerarFaturaPDF(hospedagem);
+            geradorPDF.gerarFaturaPDF(hospedagem, "relatorios/fatura_teste.pdf");
 
             GeradorPDF gerador = new GeradorPDF();
 
-           gerador.gerarRelatorioHospedagemPDF(hospedagem);
+           gerador.gerarRelatorioHospedagemPDF(hospedagem, "relatorios/relatorio_teste.pdf");
 
            ControladorRelatorios relatorios =
            ControladorRelatorios.getInstance();

@@ -12,6 +12,7 @@ import com.smarthotel.models.Pessoa;
 import com.smarthotel.models.Recibo;
 import com.smarthotel.negocios.ControladorHospedagens;
 import com.smarthotel.negocios.ControladorPagamentos;
+import com.smarthotel.negocios.GeradorPDF;
 import com.smarthotel.negocios.IContHospedagens;
 import com.smarthotel.negocios.IContPagamentos;
 import com.smarthotel.negocios.exceptions.CINRException;
@@ -103,6 +104,9 @@ public class GerenciarHospedagem extends Transitavel {
         try {
             IContHospedagens contHosp = ControladorHospedagens.getInstance();
             contHosp.checkOut(hospedagemSelecionada);
+
+            GeradorPDF gerador = new GeradorPDF();
+            gerador.gerarFaturaPDF( hospedagemSelecionada, "relatorios/fatura.pdf");
 
             mostrarAlerta(Alert.AlertType.INFORMATION, "Check-out Realizado",
                     "Check-out realizado com sucesso.\nA fatura em PDF foi gerada na pasta relatórios.");

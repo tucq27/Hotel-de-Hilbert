@@ -4,15 +4,12 @@ com\smarthotel\negocios\GeradorCSV.class
 com\smarthotel\gui\controllers\CadastrarQuarto.class
 com\smarthotel\models\Frigobar.class
 com\smarthotel\negocios\ControladorPagamentos.class
-com\smarthotel\negocios\GeradorPDF.class
 com\smarthotel\negocios\IContRelatorios.class
 com\smarthotel\dados\RepoHospedagens.class
 com\smarthotel\models\TipoQuarto.class
 com\smarthotel\negocios\ControladorQuartos.class
 com\smarthotel\gui\controllers\AdminHospedagens.class
-com\smarthotel\gui\controllers\BuscarHospedagem.class
 com\smarthotel\gui\controllers\AdminPessoas.class
-com\smarthotel\gui\controllers\VerRecibos.class
 com\smarthotel\negocios\ControladorPessoas.class
 com\smarthotel\gui\controllers\GerenciarItem.class
 com\smarthotel\dados\IIdentificavel.class
@@ -30,7 +27,6 @@ com\smarthotel\models\Item.class
 com\smarthotel\models\Hospede.class
 com\smarthotel\gui\controllers\BuscarQuarto.class
 com\smarthotel\models\StatusQuarto.class
-com\smarthotel\negocios\ControladorRelatorios.class
 com\smarthotel\models\Quarto.class
 com\smarthotel\negocios\exceptions\CINRException.class
 com\smarthotel\dados\exceptions\ONEException.class
@@ -41,7 +37,6 @@ com\smarthotel\negocios\exceptions\CIJRException.class
 com\smarthotel\dados\exceptions\ORException.class
 com\smarthotel\gui\controllers\BuscarItem.class
 com\smarthotel\negocios\exceptions\CIFException.class
-com\smarthotel\gui\telas\Main.class
 com\smarthotel\negocios\exceptions\HPException.class
 com\smarthotel\negocios\IContPessoas.class
 com\smarthotel\gui\controllers\CadastrarItem.class
@@ -49,6 +44,7 @@ com\smarthotel\gui\controllers\CadastrarPessoa.class
 com\smarthotel\dados\RepoQuartos.class
 com\smarthotel\gui\controllers\Transitavel.class
 com\smarthotel\negocios\IContQuartos.class
+com\smarthotel\gui\controllers\TelaInicial.class
 com\smarthotel\gui\controllers\GerenciarFuncionario.class
 com\smarthotel\negocios\exceptions\QIException.class
 com\smarthotel\gui\controllers\RealizarReserva.class
@@ -58,13 +54,9 @@ com\smarthotel\gui\controllers\GerenciarQuarto.class
 com\smarthotel\dados\RepoItens.class
 com\smarthotel\gui\controllers\AdminItens.class
 com\smarthotel\gui\controllers\BuscarPessoa.class
-com\smarthotel\gui\controllers\VerAlertas.class
-com\smarthotel\teste\TesteFatura.class
-com\smarthotel\gui\controllers\GerenciarHospedagem.class
 com\smarthotel\negocios\ControladorItens.class
 com\smarthotel\negocios\IContItens.class
 com\smarthotel\models\Recibo.class
-com\smarthotel\gui\controllers\ConfirmarCheckin.class
 com\smarthotel\models\RestricaoHospede.class
 com\smarthotel\gui\controllers\CadastrarFuncionario.class
 com\smarthotel\negocios\exceptions\HNEException.class
