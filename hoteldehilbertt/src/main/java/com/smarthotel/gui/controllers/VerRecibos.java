@@ -60,11 +60,11 @@ public class VerRecibos extends Transitavel {
 
     @FXML
     public void initialize() {
-        Hospedagem hospedagemDaBusca = BuscarHospedagem.getHospedagemSelecionada();
+    Hospedagem hospedagemDaBusca = BuscarHospedagem.getHospedagemSelecionada();
 
-        if (hospedagemDaBusca != null) {
-            setHospedagemSelecionada(hospedagemDaBusca);
-        }
+    if (hospedagemDaBusca != null) {
+        setHospedagemSelecionada(hospedagemDaBusca);
+    }
 
         double dividaPendente = hospedagemSelecionada.getConta().getSaldoPendente();
         double saldoPago = hospedagemSelecionada.getConta().getSaldoPago();
@@ -200,7 +200,8 @@ public class VerRecibos extends Transitavel {
 
         for (Recibo r : conta.getRecibos()) {
             if (r.getTipo() == TipoRecibo.DIARIA) {
-                mostrarAlerta(AlertType.ERROR,null, "Recibo de diária já foi gerado.");
+                mostrarAlerta(AlertType.ERROR, null,
+                        "Recibo de diária já foi gerado.");
                 return;
             }
         }
